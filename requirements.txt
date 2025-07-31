@@ -152,7 +152,6 @@ pandas==2.3.1
 parso==0.8.4
 pathspec==0.12.1
 pdfminer.six==20250506
-pdfplumber==0.11.7
 pillow==11.3.0
 platformdirs==4.3.8
 portalocker==2.10.1
@@ -177,8 +176,6 @@ pymdown-extensions==10.16
 PyMuPDF==1.26.3
 pynndescent==0.5.13
 pyparsing==3.2.3
-pypdf==5.7.0
-PyPDF2==3.0.1
 pypdfium2==4.30.1
 PyPika==0.48.9
 pyproject_hooks==1.2.0
