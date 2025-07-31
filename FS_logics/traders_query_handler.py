@@ -1,18 +1,24 @@
+
+# Step 1: Patch sqlite3 BEFORE any other imports
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+# Now safe to import other packages
 import json
-import sys
 import os
-from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain.schema import Document
-from langchain_core.documents import Document
-from langchain_openai import ChatOpenAI
+import uuid
+
+# Fix: Remove the conflicting Chroma import
+# Use langchain_chroma (recommended) or langchain_community, not both
+from langchain_chroma import Chroma  # ✅ Preferred now
+
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.chains import RetrievalQA
 from FS_logics import customer_query_handler
-import uuid
+
+# Optional: if you need Document (though not used here directly)
+from langchain_core.documents import Document
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 from FS_helper_functions import llm_drugs

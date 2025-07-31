@@ -1,11 +1,17 @@
+# --- DO NOT IMPORT ANYTHING ELSE ABOVE THIS ---
 __import__('pysqlite3')
 import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-import sys,os,json
-import sys
 import os
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# --- End of sqlite3 patch ---
+
+# Now safe to import the rest
+import json
 import pandas as pd
 import re
+import uuid
+import shutil
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
@@ -15,8 +21,6 @@ import ast
 from langchain_cohere import CohereRerank
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
 from crewai_tools import WebsiteSearchTool
-import uuid
-import shutil
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
