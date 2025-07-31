@@ -80,6 +80,7 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = llm_drugs.get_completion_by_messages(messages)
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
+    print(normalized_chemical_names_response_str)
     return normalized_chemical_names_response_str
 
 #use a sentence transformer to compare the normalized names and the effective grouping table
@@ -152,7 +153,7 @@ vector_store =  Chroma.from_documents(
 ''' RAG'''
 # Using CrewAI's tool : WebsiteSearchTool to search from Poisons Act 1938's website
 def search_poison_act_1938(normalized_name):
-    
+    print(f"Line 156 -> {normalized_name}")
     found=False
 
     tool_websearch = WebsiteSearchTool("https://sso.agc.gov.sg/Act/PA1938?ProvIds=Sc-#Sc-")
@@ -222,7 +223,7 @@ def search_poison_act_1938(normalized_name):
     # Loop through each possible matches and do one more search -> compare  CAS number.
     # What is CAS number? -> CAS (Chemical Abstracts Service (CAS)) number is unique for each compound.
     # Compare CAS number ensures the right compound is queried.
-
+    print(f"Line 156 -> {list_of_cleaned_in_matches}")
     for words in list_of_cleaned_in_matches:
         context = words
 
