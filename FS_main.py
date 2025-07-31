@@ -9,7 +9,6 @@ import base64
 import pathlib
 import pandas as pd
 import openai
-from dotenv import load_dotenv
 from langchain.prompts import PromptTemplate
 
 sys.path.append(os.path.dirname((__file__)))
@@ -18,11 +17,7 @@ from utility import check_password
 # Set up and run this Streamlit App
 import streamlit as st
 
-load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
-
-
 
 # Encode images into base 64 for streamlit's visuals
 def image_base64(file):
