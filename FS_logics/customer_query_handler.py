@@ -11,7 +11,7 @@ import pandas as pd
 import re
 import uuid
 import shutil
-
+import streamlit as st
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
@@ -188,7 +188,8 @@ def search_poison_act_1938(normalized_name):
     vector_store.add_documents(documents = splitted_documents,ids = give_id)
 
     # Settings of Cohere to get the top 3 possible matches -> Re-Ranking of Retrieved chunks/context using cross-encoder model
-    COHERE_client = os.getenv('COHERE_API_KEY')
+    cohere_api_key = st.secrets["COHERE_API_KEY"]
+    COHERE_client = os.getenv(cohere_api_key)
     compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
 
     compression_retriever = ContextualCompressionRetriever(
