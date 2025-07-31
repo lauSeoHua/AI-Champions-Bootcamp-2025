@@ -1,6 +1,12 @@
 import os
 from openai import OpenAI
 import tiktoken
+from crewai.tools import BaseTool
+from pydantic import BaseModel
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+from dotenv import load_dotenv
+load_dotenv()
 
 #Pass the OpenAI API key to the OpenAI client
 
