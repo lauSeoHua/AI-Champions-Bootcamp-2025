@@ -181,7 +181,7 @@ PyPika==0.48.9
 pyproject_hooks==1.2.0
 pyreadline3==3.5.4
 pyright==1.1.403
-pysqlite3
+pysqlite3-binary
 pysbd==0.3.4
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
