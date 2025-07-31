@@ -1,0 +1,51 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.env/
+ENV/
+env/
+.venv/
+virtualenv/
+
+# Streamlit config and history
+.streamlit/config.toml
+.streamlit/credentials.toml
+.streamlit/secrets.toml
+
+# Jupyter Notebook checkpoints (if any)
+.ipynb_checkpoints
+
+# Mac OS files
+.DS_Store
+
+# VS Code settings (if you use VS Code)
+.vscode/
+
+# Environment variable files
+.env
+
+# Log files
+*.log
+
+# Misc
+*.sqlite3
+*.db
+
+# PyCharm IDE
+.idea/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+
+# mypy
+.mypy_cache/
+
+# Pytest
+.pytest_cache/

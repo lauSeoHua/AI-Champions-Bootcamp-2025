@@ -1,0 +1,100 @@
+{
+
+    "I want to import/sell/trade health supplements (HS),vitamins,minerals, traditional medicines (TM), medicated oils, balms (MOB) and medicated plasters":{
+    "answer": "Great! How can I assist you? Are you checking the regulatory limits required? "
+    },
+
+    "I want to bring in something in Singapore. How?":{
+    "answer": "This chatbot is only for health supplements/TCM. For food-related enquiries, please refer to https://www.sfa.gov.sg/food-import-export/commercial-imports/what-you-need-to-know-for-import-of-food. If you do not know if your product can be classfied as Complementary Health Products, please go to : https://www.hsa.gov.sg/chp-classification-tool to do a check."},
+    
+    "What are the procedures of selling and importing vitamins/minerals/health supplements/traditional medicines (TM), medicated oils, balms (MOB) and medicated plasters and TCM in Singapore?": {
+    "answer": "Quoted From : https://www.hsa.gov.sg/health-supplements/overview: \n Health supplements are not subject to approvals and licensing by Singapore for their importation, manufacture and sales. However, it prohibits the addition of medicinal ingredients such as steroids in health supplements. It also sets strict limits on toxic heavy metals in these products. Dealers (importers, manufacturers, wholesale dealers and sellers)of health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) and medicated plasters have the obligation to ensure that their products are not harmful or unsafe, and that they conform with the following guidelines before supplying health supplements into Singapore. If you are a locally registered company, you can make a voluntary notification with the regulatory authorities of the health supplements supplied. This is known as voluntary notification and you can refer to http://hsa.gov.sg/health-supplements/vns to submit a voluntary notification. "
+    },
+
+    "May I know which tests are necessary in order for my product(s) to be licensed for sale and import in Singapore?": {
+    "answer": "This chatbot is only related to complementary health products- related enquiries. To check if your product is a complementary health product, please refer to https://www.hsa.gov.sg/chp-classification-tool to do a check. Once you are confirmed that your product is a complementary health product, as quoted from : https://www.hsa.gov.sg/health-supplements/overview:  \n As a dealer of health supplements, you must ensure your products conform with Singapore's safety and quality standards.  Each product(s) has their own test requirements. You can contact a specialist who will then perform an evaluation on your product(s) and provide you subsequent feedback on testing requirements. We can provide a series of guidelines for reference here."
+    },
+
+    "Limits in the complementary health products (CHP) or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters":{
+    "answer":"Chemicals present in the Poisons Act 1938 and Misuse of Drugs MUST NOT be found in the complementary health product."
+    },
+
+    "Guidelines of tests to be conducted":{
+    "answer":"Chemicals present in the Poisons Act 1938 and Misuse of Drugs MUST NOT be found in the complementary health product."
+    },
+
+    "I know what tests I need to in order for my product(s) to be imported/sold in Singapore. However, I need a quotation to be generated.": {
+    "answer": "In order to generate a quotation, our sales team needs you to provide us your details. Please fill up a form via google docs."
+    },
+
+    "I have an account with your sales team. Based on my transaction history, could you allow auto-deduction of the required testing fees from my account after I had sent in my product?": {
+    "answer": "Sure! To facilitate our clients' convenience, we do allow auto-deduction of the testing fees. Please send in the product."
+    },
+
+    "I had completed the transaction required for the testing of the product. How do I request a receipt?": {
+    "answer": "We will provide the receipt once the testing had completed. In the event that you required an immediate retrieval of the receipt even before testing completed, please email your company's name and the quotation reference number. Our finance staff will send a receipt to you asap. "
+    },
+
+    "i sent my samples for testing but till now, no invoice is received. Why?": {
+    "answer": "We will provide the receipt once the testing had completed. In the event that you required an immediate retrieval of the receipt even before testing completed, please email your company's name and the quotation reference number. A receipt will be sent to you asap. "
+    },
+
+    "I want to withdraw from the transaction. Am I allowed to do so and how?": {
+    "answer": "To protect our company's interests, we only allow a cancellation of the transaction within 3 days from the commencement of the transaction. Please send an email."
+    },
+
+    "Hi":{"answer": "How can I help?"},
+
+    "I know what tests I need. However, I do not know where I can get testing at. Can you refer me some testing laboratories?":{
+    "answer":"Our laboratories provide testing services with a fee. However, we would need a month for testing to be completed. \n You may want to seek other commercial testing laboratories. Please refer to https://www.sac-accreditation.gov.sg/services/accreditation-services/laboratories/ for the laboratories. \n  All testings should preferably be performed by accredited laboratories or by Manufacturer’s in-house laboratory. \n Accredited laboratories refer to laboratories that have been accredited by the respective national accreditation body in the country of origin to conduct testing services in conformance to required standards.\n Manufacturer’s in-house testing laboratory, if used, should meet the following conditions : \n 1. Test methods are validated or referenced to a recognised pharmacopoeia method. Recognized pharmacopoeia methods are : British Pharmacopeia (BP), Chinese Pharmacopeia (ChP),European Pharmacopeia (EP),Japanese Pharmacopeia (JP),United States Pharmacopeia (USP).\n 2.  Audited as part of an independent GMP plant audit. \n For a guidance, please refer to the urls : https://www.hsa.gov.sg/chinese-proprietary-medicines/listing/apply/requirements-of-test-reports."
+    },
+
+    "Thank you":{"answer":"Welcome, I am glad I am of help. "},
+
+    "What about PHYSICAL TEST? Are there any limits or regulations?":{
+    "answer":"To ensure that the finished products consistently meet the required quality standards, it is important to test the physical quality attributes of the different dosage forms. Please refer to the Guidelines on Physical Test Parameters (URL: https://www.hsa.gov.sg/docs/default-source/hprg-tmhs/chpb-tmhs/tmhs_parameters_guidelines.pdf?sfvrsn=643b415d_8 ) for Dosage Forms of Health Supplements and Traditional Medicines for more information on the physical quality attributes."
+    },
+
+    "Can I get testing at overseas commercial labs?":{
+    
+    "answer":"Sure but only if they are accredited by the respective national accreditation body in the country of origin. \n Many national accreditation bodies are members of international organisations for accreditation bodies such as ILAC (https://ilac.org). \n For the detailed description of the overseas laboratories scope of accreditation, please visit the respective national accreditation body website listed in ILAC"
+    },
+
+    "What are the requirements of test report?":{
+    "answer": "Heavy metals, microbiological testing, poisons, and adulterants testing should be conducted on finished products. DEG and EG testing should be conducted on the starting material or finished product, as feasible. \n The test report should minimally contain the following information: \n a) Date of report \n b) Brand name (if applicable) and product name \n c) Batch number \n d) Name of substance(s) tested \n e) Test result(s), including limit(s) of detection* \n f) Name and signature of analyst or person responsible \n *Test result should be reported quantitatively (e.g., Arsenic 0.05ppm). For test result that is reported as not detected or ND, the limit of detection must be stated on the test report. \n A template is available from https://www.hsa.gov.sg/chinese-proprietary-medicines/listing/apply/requirements-of-test-reports"
+    },
+
+    "Androgenic Steroids. But how do I know my ingredients fall under these categories?":{
+    "answer": "They are known as effective groupings. Each drug may be categorized accordingly to effective groupings. \n If you give us the compound's name, we can help you check the effective groupings and if it is present in the Poisons Act 1938. \n  Please head over to the 'Check for Effective Groupings and in Poison Act 1938' tab and key in your ingredients/chemical compounds."
+    },
+
+    "Erectogenic Agents. But how do I know my ingredients fall under these categories?":{
+    "answer": "They are known as effective groupings. Each drug may be categorized accordingly to effective groupings. \n If you give us the compound's name, we can help you check the effective groupings and if it is present in the Poisons Act 1938. \n  Please head over to the 'Check for Effective Groupings and in Poison Act 1938' tab and key in your ingredients/chemical compounds."
+    },
+
+    "Pain Relief*/- Analgesics/- Anti-inflammatory Agents. But how do I know my ingredients fall under these categories?":{
+    "answer": "They are known as effective groupings. Each drug may be categorized accordingly to effective groupings. \n If you give us the compound's name, we can help you check the effective groupings and if it is present in the Poisons Act 1938. \n  Please head over to the 'Check for Effective Groupings and in Poison Act 1938' tab and key in your ingredients/chemical compounds."
+    },
+
+    "CNS Stimulants & Anorectics/Diuretics/Laxatives & Purgatives (including Sennosides)/Lipid Absorption Inhibitors. But how do I know my ingredients fall under these categories?":{
+    "answer": "They are known as effective groupings. Each drug may be categorized accordingly to effective groupings. \n If you give us the compound's name, we can help you check the effective groupings and if it is present in the Poisons Act 1938. \n  Please head over to the 'Check for Effective Groupings and in Poison Act 1938' tab and key in your ingredients/chemical compounds."
+    },
+
+    "Thyroid Agents/Thyroid Extracts. But how do I know my ingredients fall under these categories?":{
+    "answer": "They are known as effective groupings. Each drug may be categorized accordingly to effective groupings. \n If you give us the compound's name, we can help you check the effective groupings and if it is present in the Poisons Act 1938. \n  Please head over to the 'Check for Effective Groupings and in Poison Act 1938' tab and key in your ingredients/chemical compounds."
+    },
+
+    "What are effective groupings?":{
+    "answer":"Effective Groupings are used by the regulatory authorities to group drugs based on their efficacy. Please head over to the CHEMIST tab to do a search by keying in the compound you are interested in"
+    
+    },
+
+    "Is it mandatory to make a voluntary notification (VNS)?":{
+    "answer": "It is not mandatory but it aims to establish a local database of reliable, good quality and safe products that consumers can refer to when they are making their purchases. Please refer to the QnA in URL : https://www.hsa.gov.sg/docs/default-source/hprg-tmhs/chpb-tmhs/vns_qna.pdf to read up on VNS. "
+    },
+
+    "I apologize for the confusion. Could you please rephrase the sentence?":{
+    "answer": "I apologize for the confusion. Could you please rephrase the sentence?"
+    }
+
+}
