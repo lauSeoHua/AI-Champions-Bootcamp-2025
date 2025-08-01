@@ -291,7 +291,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                 try:
                     refind_normalized_name = search_poison_act_1938(normalized_names)
                 except Exception as e:
-                    refind_normalized_name=="Absent"
+                    refind_normalized_name="Absent"
                 
                 # Found in Poisons Act 1938
                 if refind_normalized_name!="Absent":
