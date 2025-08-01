@@ -28,6 +28,7 @@ from utility import check_password
 
 # Set up and run this Streamlit App
 import streamlit as st
+import sqlite3
 from dotenv import load_dotenv
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
