@@ -172,6 +172,8 @@ def search_poison_act_1938(normalized_name):
     print(search_result)
     splitted_documents=[]
     list_of_contexts = []
+    # Initialize a list for the IDs -> each document in the splitted document will be given an ID in the vector store -> for ease of deletion/refresh after each query
+    give_id = []
 
     print("=== STARTING TEXT SPLIT LOOP ===", flush=True)
     print("Search result length:", len(search_result), flush=True)
@@ -193,18 +195,11 @@ def search_poison_act_1938(normalized_name):
         else:
             try:
                 splitted_documents.append(Document(page_content=chunk, metadata={"source": "websearch"}))
+                give_id.append(f"chunk {len(splitted_documents)}")
                 print(splitted_documents[-1])
                 print(f"Appended chunk {len(splitted_documents)}", flush=True)
             except Exception as e:
                 print(f"Error appending chunk: {e}", flush=True)
-    print(len(splitted_documents))
-    # Initialize a list for the IDs -> each document in the splitted document will be given an ID in the vector store -> for ease of deletion/refresh after each query
-    give_id = []
-
-    index = 0
-    for doc in splitted_documents:
-        give_id.append(f"id {index}")
-        index+=1
     
     # Add the documents into the vector store with their list of IDs.
     vector_store.add_documents(documents = splitted_documents,ids = give_id)
