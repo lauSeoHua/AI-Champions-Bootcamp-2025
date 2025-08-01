@@ -258,7 +258,8 @@ def search_poison_act_1938(normalized_name):
     # Reset the vector database to prepare for next query : 
     shutil.rmtree("./chroma_langchain_db", ignore_errors=True)
     vector_store.delete(give_id)
-
+    print("Line 261")
+    print(possible_cpds)
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
