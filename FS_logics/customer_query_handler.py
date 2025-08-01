@@ -173,6 +173,9 @@ def search_poison_act_1938(normalized_name):
     splitted_documents=[]
     list_of_contexts = []
 
+    print("=== STARTING TEXT SPLIT LOOP ===", flush=True)
+    print("Search result length:", len(search_result), flush=True)
+    
     # Splitting the text into chunks
     for chunk in (text_splitter_.split_text(search_result)):
         print(chunk)
