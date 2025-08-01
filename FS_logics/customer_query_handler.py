@@ -175,7 +175,7 @@ def search_poison_act_1938(normalized_name):
 
     # Splitting the text into chunks
     for chunk in (text_splitter_.split_text(search_result)):
-
+        print(chunk)
         # Poisons Act 1938's drugs names are usually start with capital letter
 
         # If found the exact name , e.g. found exactly Sildenafil ->  found=True
