@@ -201,7 +201,7 @@ def search_poison_act_1938(normalized_name):
     cohere_api_key = st.secrets["COHERE_API_KEY"]
     COHERE_client = os.getenv(cohere_api_key)
     compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
-
+    print(compressor)
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=compressor,
         base_retriever=vector_store.as_retriever(),
