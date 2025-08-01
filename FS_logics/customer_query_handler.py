@@ -158,6 +158,14 @@ def search_poison_act_1938(normalized_name):
 
     tool_websearch = WebsiteSearchTool("https://sso.agc.gov.sg/Act/PA1938?ProvIds=Sc-#Sc-")
 
+    try:
+        search_result = tool_websearch.run(normalized_name)
+        print("Line 161")
+        print(search_result)
+    except Exception as e:
+        print("Error at Line 163:", e)
+
+   
     # Lookup the normalized name from the Poisons Act 1938.
     search_result = tool_websearch.run(normalized_name)
     print("Line 163")
