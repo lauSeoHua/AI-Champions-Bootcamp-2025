@@ -207,6 +207,17 @@ def search_poison_act_1938(normalized_name):
         base_retriever=vector_store.as_retriever(),
     )   
 
+    try:
+        print("Line 214", flush=True)
+        retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
+        print("Retriever response:", retriever_documents, flush=True)
+
+        for doc in retriever_documents:
+            list_of_contexts.append(doc.page_content)
+    except Exception as e:
+        print("Error at fallback query:", e, flush=True)
+
+
     # No exact match found in Poisons Act 1938
     if found!=True and normalized_name:
         # Query Cohere
