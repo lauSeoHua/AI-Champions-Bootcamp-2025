@@ -193,6 +193,7 @@ def search_poison_act_1938(normalized_name):
         else:
             try:
                 splitted_documents.append(Document(page_content=chunk, metadata={"source": "websearch"}))
+                print(splitted_documents[-1])
                 print(f"Appended chunk {len(splitted_documents)}", flush=True)
             except Exception as e:
                 print(f"Error appending chunk: {e}", flush=True)
