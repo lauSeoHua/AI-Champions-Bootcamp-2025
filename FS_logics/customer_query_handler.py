@@ -192,7 +192,7 @@ def search_poison_act_1938(normalized_name):
         # Else, need to save the chunks into the list : splitted_documents
         else:
             splitted_documents.append(Document(page_content=chunk, metadata={"source": "websearch"}))
-
+    print(len(splitted_documents))
     # Initialize a list for the IDs -> each document in the splitted document will be given an ID in the vector store -> for ease of deletion/refresh after each query
     give_id = []
 
