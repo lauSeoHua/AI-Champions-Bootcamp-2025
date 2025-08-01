@@ -160,7 +160,8 @@ def search_poison_act_1938(normalized_name):
 
     # Lookup the normalized name from the Poisons Act 1938.
     search_result = tool_websearch.run(normalized_name)
-
+    print("Line 163")
+    print(search_result)
     splitted_documents=[]
     list_of_contexts = []
 
