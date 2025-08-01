@@ -21,7 +21,7 @@ import ast
 from langchain_cohere import CohereRerank
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
 from crewai_tools import WebsiteSearchTool
-
+import logging
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
 from FS_helper_functions import llm_drugs
@@ -201,6 +201,20 @@ def search_poison_act_1938(normalized_name):
             except Exception as e:
                 print(f"Error appending chunk: {e}", flush=True)
     
+    logging.basicConfig(level=logging.INFO)
+    logger=logging.getLogger(__name__)
+    st.write("Starting document injgestion...")
+    try:
+        logger.info("About to add %d documents",len(splitted_documents))
+        print(f"Adding {len(splitted_documents)} documents...",flush=True)
+        vector_store.add_documents(documents = splitted_documents, ids = give_id)
+        print("Successfully",flush = True)
+        logger.info("Documents added successfully")
+        st.success("Documents ingested")
+    except Exception as e:
+        logger.exception("Failed to add documents")
+        st.error(f"Error:{e}")
+
     # Add the documents into the vector store with their list of IDs.
     print("line 205", flush=True)
     sys.stdout.flush()
