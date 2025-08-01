@@ -211,7 +211,8 @@ def search_poison_act_1938(normalized_name):
     if found!=True and normalized_name:
         # Query Cohere
         retriever_documents =   compression_retriever.invoke(f"Tell me about {normalized_name}")
-    
+        print("Line 214")
+        print(retriever_documents)
         for doc in retriever_documents:
             list_of_contexts.append(doc.page_content)
 
