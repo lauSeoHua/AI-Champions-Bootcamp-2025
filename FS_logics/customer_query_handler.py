@@ -203,7 +203,8 @@ def search_poison_act_1938(normalized_name):
     
     # Add the documents into the vector store with their list of IDs.
     vector_store.add_documents(documents = splitted_documents,ids = give_id)
-
+    print("line 206")
+    print(vector_store)
     # Settings of Cohere to get the top 3 possible matches -> Re-Ranking of Retrieved chunks/context using cross-encoder model
     cohere_api_key = st.secrets["COHERE_API_KEY"]
     COHERE_client = os.getenv(cohere_api_key)
