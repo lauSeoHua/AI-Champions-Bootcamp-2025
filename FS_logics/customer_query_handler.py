@@ -175,9 +175,11 @@ def search_poison_act_1938(normalized_name):
 
     print("=== STARTING TEXT SPLIT LOOP ===", flush=True)
     print("Search result length:", len(search_result), flush=True)
-    
+    chunks = text_splitter_.split_text(search_result)
+    print(f"DEBUG: Number of chunks: {len(chunks)}", flush=True)
     # Splitting the text into chunks
     for chunk in (text_splitter_.split_text(search_result)):
+        
         print(chunk)
         # Poisons Act 1938's drugs names are usually start with capital letter
 
