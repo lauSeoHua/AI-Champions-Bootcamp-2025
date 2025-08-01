@@ -177,6 +177,8 @@ def search_poison_act_1938(normalized_name):
     print("Search result length:", len(search_result), flush=True)
     chunks = text_splitter_.split_text(search_result)
     print(f"DEBUG: Number of chunks: {len(chunks)}", flush=True)
+    for chunk in chunks:
+        print(chunk)
     # Splitting the text into chunks
     for chunk in (text_splitter_.split_text(search_result)):
         
