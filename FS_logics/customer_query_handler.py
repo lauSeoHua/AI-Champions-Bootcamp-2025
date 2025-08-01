@@ -261,6 +261,8 @@ def search_poison_act_1938(normalized_name):
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
+        print("Line 264")
+        print(possible_cpds)
         return possible_cpds
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
