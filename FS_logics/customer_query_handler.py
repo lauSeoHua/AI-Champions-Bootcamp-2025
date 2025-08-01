@@ -204,7 +204,10 @@ def search_poison_act_1938(normalized_name):
     # Add the documents into the vector store with their list of IDs.
     print("line 205", flush=True)
     sys.stdout.flush()
-    vector_store.add_documents(documents = splitted_documents,ids = give_id)
+    for i,doc in enumerate(splitted_documents):
+        vector_store.add_documents(documents = [doc], ids = give_id)
+        print(f"chunk {i}")
+    #vector_store.add_documents(documents = splitted_documents,ids = give_id)
     print("line 208", flush=True)
     sys.stdout.flush()
     print(vector_store)
