@@ -155,40 +155,29 @@ vector_store =  Chroma.from_documents(
 ''' RAG'''
 # Using CrewAI's tool : WebsiteSearchTool to search from Poisons Act 1938's website
 def search_poison_act_1938(normalized_name):
-    print(f"Line 156 -> {normalized_name}")
+  
     found=False
 
     tool_websearch = WebsiteSearchTool("https://sso.agc.gov.sg/Act/PA1938?ProvIds=Sc-#Sc-")
 
     try:
         search_result = tool_websearch.run(normalized_name)
-        print("Line 161")
-        print(search_result)
+
     except Exception as e:
         print("Error at Line 163:", e)
 
    
     # Lookup the normalized name from the Poisons Act 1938.
     search_result = tool_websearch.run(normalized_name)
-    print("Line 163")
-    print(search_result)
+
     splitted_documents=[]
     list_of_contexts = []
     # Initialize a list for the IDs -> each document in the splitted document will be given an ID in the vector store -> for ease of deletion/refresh after each query
     give_id = []
 
-    print("=== STARTING TEXT SPLIT LOOP ===", flush=True)
-    print("Search result length:", len(search_result), flush=True)
-    chunks = text_splitter_.split_text(search_result)
-    print(f"DEBUG: Number of chunks: {len(chunks)}", flush=True)
-    for chunk in chunks:
-        print(chunk)
-    # Splitting the text into chunks
     for chunk in (text_splitter_.split_text(search_result)):
-        
-        print(chunk)
-        # Poisons Act 1938's drugs names are usually start with capital letter
 
+        # Poisons Act 1938's drugs names are usually start with capital letter
         # If found the exact name , e.g. found exactly Sildenafil ->  found=True
         if normalized_name.capitalize() in chunk:
             found=True
@@ -199,253 +188,45 @@ def search_poison_act_1938(normalized_name):
             try:
                 splitted_documents.append(Document(page_content=chunk, metadata={"source": "websearch"}))
                 give_id.append(f"chunk {len(splitted_documents)}")
-                print(splitted_documents[-1])
-                print(f"Appended chunk {len(splitted_documents)}", flush=True)
             except Exception as e:
                 print(f"Error appending chunk: {e}", flush=True)
 
-    # persistent_dir = os.path.join("/tmp","chroma_db")
-    # os.markedirs(persistent_dir,exist_ok=True)
+    if found!=True:
+        from langchain.schema import Document
+        COHERE_client = st.secrets["COHERE_API_KEY"]
 
-    # @st.cache_resource
-    # def get_chroma_CLIENT():
-    #     return chromadb.PersistentClient(path=persistent_dir)
+        # Convert the sentences in the splitted documents to embeddings using OpenAI Embedding Model
+        # FAISS to save them in the vector database.
+        try:
+            with st.spinner("Looking at databases..."):
+                # Use /tmp on Streamlit Cloud
+                persist_dir = "/tmp/faiss_index"
+                os.makedirs(persist_dir, exist_ok=True)
 
-    # client=get_chroma_CLIENT()
+                vectordb = FAISS.from_documents(splitted_documents, embeddings_model)
+                vectordb.save_local(persist_dir)
 
-    # collection = client.get_or_create_collection("my_docs")
+            retriever = vectordb.as_retriever()
 
-    # collection.add( ids=give_id,documents=splitted_documents,metadatas={"source": "websearch"} )
-    
-    # results = collection.query(query_texts=[])
+        except Exception as e:
+            st.error(f"❌ FAISS.from_documents failed: {type(e).__name__}")
+            st.exception(e)
 
+        compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
 
-    # logging.basicConfig(level=logging.INFO)
-    # logger=logging.getLogger(__name__)
-    # st.write("Starting document injgestion...")
-    # try:
-    #     logger.info("About to add %d documents",len(splitted_documents))
-    #     print(f"Adding {len(splitted_documents)} documents...",flush=True)
-    #     vector_store.add_documents(documents = splitted_documents, ids = give_id)
-    #     print("Successfully",flush = True)
-    #     logger.info("Documents added successfully")
-    #     st.success("Documents ingested")
-    # except Exception as e:
-    #     logger.exception("Failed to add documents")
-    #     st.error(f"Error:{e}")
+        compression_retriever = ContextualCompressionRetriever(
+            base_compressor=compressor,
+            base_retriever=retriever
+        )   
 
-    # # Add the documents into the vector store with their list of IDs.
-    # print("line 205", flush=True)
-    # sys.stdout.flush()
-    # for i,doc in enumerate(splitted_documents):
-    #     vector_store.add_documents(documents = [doc], ids = give_id)
-    #     print(f"chunk {i}")
-    # #vector_store.add_documents(documents = splitted_documents,ids = give_id)
-    # print("line 208", flush=True)
-    # sys.stdout.flush()
-    # print(vector_store)
-    # Settings of Cohere to get the top 3 possible matches -> Re-Ranking of Retrieved chunks/context using cross-encoder model
-    
-    import streamlit as st
-    import os
+        try:
+            retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
+        
+            for doc in retriever_documents:
+                list_of_contexts.append(doc.page_content)
+        except Exception as e:
+            print("Error at fallback query:", e, flush=True)
 
-    st.title("🔧 FAISS & NumPy Diagnostic")
-
-    # 1. Python version
-    import sys
-    st.write(f"🐍 Python: {sys.version}")
-
-    # 2. Try to import numpy first
-    try:
-        import numpy as np
-        st.success(f"✅ NumPy imported: v{np.__version__}")
-        st.write(f"🔹 Numpy path: {np.__file__}")
-    except Exception as e:
-        st.error(f"❌ NumPy import failed: {e}")
-        st.stop()
-
-    # 3. Try to import faiss
-    try:
-        import faiss
-        st.success(f"✅ FAISS imported: v{faiss.__version__ if hasattr(faiss, '__version__') else 'unknown'}")
-        st.write(f"🔹 FAISS path: {faiss.__file__}")
-    except Exception as e:
-        st.error(f"❌ FAISS import failed: {type(e).__name__}")
-        st.code(str(e))
-        st.stop()
-
-    # 4. Test FAISS core
-    try:
-        st.info("🧠 Testing FAISS IndexFlatL2...")
-        d = 4  # dimension
-        index = faiss.IndexFlatL2(d)
-        st.write("✅ Index created")
-
-        # Add a tiny vector
-        xb = np.array([[0.1, 0.2, 0.3, 0.4]], dtype='float32')
-        st.write(f"🔢 Vector shape: {xb.shape}, dtype: {xb.dtype}")
-
-        index.add(xb)
-        st.success(f"✅ FAISS is WORKING! Index has {index.ntotal} vector(s)")
-    except Exception as e:
-        st.error(f"❌ FAISS.add() failed: {type(e).__name__}")
-        st.code(str(e))
-        import traceback
-        st.text(traceback.format_exc())
-
-    import streamlit as st
-    from langchain.schema import Document
-    from langchain_community.embeddings import HuggingFaceEmbeddings
-    from langchain_community.vectorstores import FAISS
-    import os
-
-    st.title("🚀 Building FAISS from Documents")
-
-    # --- Step 1: Minimal Docs ---
-    docs = [
-        Document(page_content="Apple is a fruit."),
-        Document(page_content="Python is a programming language."),
-    ]
-    st.write(f"📄 {len(docs)} documents ready")
-
-    # --- Step 2: Embeddings ---
-    try:
-        cohere_api_key = st.secrets["COHERE_API_KEY"]
-        COHERE_client = cohere_api_key
-    #     with st.spinner("🔽 Loading embedding model..."):
-    #         embeddings = HuggingFaceEmbeddings(
-    #             model_name="sentence-transformers/all-MiniLM-L6-v2"
-    #         )
-    #         cohere_embeddings = CohereEmbeddings(
-    #     model='rerank-english-v3.0',cohere_api_key=COHERE_client, user_agent="my-app"
-    # )
-    #     st.success("✅ Embeddings loaded")
-    except Exception as e:
-        st.error(f"❌ Failed to load embeddings: {e}")
-        st.stop()
-
-    # --- Step 3: FAISS.from_documents() ---
-    try:
-        with st.spinner("🧠 Creating FAISS index..."):
-            # Use /tmp on Streamlit Cloud
-            persist_dir = "/tmp/faiss_index"
-            os.makedirs(persist_dir, exist_ok=True)
-
-            vectordb = FAISS.from_documents(splitted_documents, embeddings_model)
-            vectordb.save_local(persist_dir)
-
-        st.success("✅ FAISS index created and saved!")
-
-        # --- Step 4: Test Retrieval ---
-        retriever = vectordb.as_retriever()
-        results = retriever.invoke("What is Python?")
-        st.write("🔍 Top result:", results[0].page_content)
-
-    except Exception as e:
-        st.error(f"❌ FAISS.from_documents failed: {type(e).__name__}")
-        st.exception(e)
-
-
-
-    cohere_api_key = st.secrets["COHERE_API_KEY"]
-    COHERE_client = os.getenv(cohere_api_key)
-    compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
-    print(compressor)
-    compression_retriever = ContextualCompressionRetriever(
-        base_compressor=compressor,
-        #base_retriever=vector_store.as_retriever(),
-        base_retriever=retriever
-    )   
-
-    try:
-        print("Line 214", flush=True)
-        retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
-        print("Retriever response:", retriever_documents, flush=True)
-
-        for doc in retriever_documents:
-            list_of_contexts.append(doc.page_content)
-    except Exception as e:
-        print("Error at fallback query:", e, flush=True)
-
-
-    # # Configure logging
-    # logging.basicConfig(level=logging.INFO)
-    # logger = logging.getLogger(__name__)
-
-    # # Now use logger + st.write
-    # logger.info("Starting FAISS creation...")
-    # st.write("🧠 Starting vector database creation...")
-    #     #Initialize cohere embeddings
-    # cohere_embeddings = CohereEmbeddings(
-    #     model='rerank-english-v3.0',cohere_api_key=COHERE_client
-    # )
-    # splitted_documents = splitted_documents[:2]
-    # import streamlit as st
-    # import numpy as np
-    # import faiss
-    # import os
-
-    # st.write("🔧 Testing FAISS core...")
-
-    # # Create dummy 384-dim vectors (matches all-MiniLM-L6-v2)
-    # d = 384
-    # nb = 2
-    # np.random.seed(42)
-    # xb = np.random.random((nb, d)).astype('float32')
-
-    # # Build index
-    # index = faiss.IndexFlatL2(d)
-    # index.add(xb)
-
-    # st.success("✅ FAISS core works! Added 2 random vectors.")
-    # st.write(f"Index size: {index.ntotal}")
-    # docs = [Document(page_content="Apple is a fruit"), Document(page_content="Python is a programming language."),]
-    # try:
-    #     logger.info(f"Number of documents: {len(splitted_documents)}")
-    #     vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
-    #     logger.info("FAISS index created successfully")
-    #     st.success("✅ Success!")
-    # except Exception as e:
-    #     logger.error("FAISS creation failed", exc_info=True)
-    #     st.error(f"💥 Error: {e}")
-
-    # vectordb = FAISS.from_documents(documents=splitted_documents, embedding=cohere_embeddings)
-    # print("Line 253")
-    # #vectordb = Chroma.from_documents(documents=splitted_documents,embedding=cohere_embeddings,persist_directory = "./chroma_cohere_db")
-    # print("Line 254")
-    # retriever = vectordb.as_retriever(search_kwargs={"k":3})
-    # print("Line 255")
-    # cohere_api_key = st.secrets["COHERE_API_KEY"]
-    # COHERE_client = os.getenv(cohere_api_key)
-    # compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
-    # print(compressor)
-    # compression_retriever = ContextualCompressionRetriever(
-    #     base_compressor=compressor,
-    #     #base_retriever=vector_store.as_retriever(),
-    #     base_retriever=retriever
-    # )   
-
-    # try:
-    #     print("Line 214", flush=True)
-    #     retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
-    #     print("Retriever response:", retriever_documents, flush=True)
-
-    #     for doc in retriever_documents:
-    #         list_of_contexts.append(doc.page_content)
-    # except Exception as e:
-    #     print("Error at fallback query:", e, flush=True)
-
-
-
-
-    # # No exact match found in Poisons Act 1938
-    # if found!=True and normalized_name:
-    #     # Query Cohere
-    #     retriever_documents =   compression_retriever.invoke(f"Tell me about {normalized_name}")
-    #     print("Line 214")
-    #     print(retriever_documents)
-    #     for doc in retriever_documents:
-    #         list_of_contexts.append(doc.page_content)
 
     # Split by ; or whitespace, also add spacing for capitalized words stuck together
     list_of_cleaned_in_matches = []
@@ -466,7 +247,7 @@ def search_poison_act_1938(normalized_name):
     # Loop through each possible matches and do one more search -> compare  CAS number.
     # What is CAS number? -> CAS (Chemical Abstracts Service (CAS)) number is unique for each compound.
     # Compare CAS number ensures the right compound is queried.
-    print(f"Line 156 -> {list_of_cleaned_in_matches}")
+   
     for words in list_of_cleaned_in_matches:
         context = words
 
@@ -497,17 +278,11 @@ def search_poison_act_1938(normalized_name):
             print("None")
             conclusion = "None"
     
-    # # Reset the vector database to prepare for next query : 
-    # shutil.rmtree("./chroma_langchain_db", ignore_errors=True)
-    # vector_store.delete(give_id)
-    # print("Line 261")
-    # print(possible_cpds)
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
-        st.write("Line 264")
-        print(possible_cpds)
         return possible_cpds
+    
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
         return "Absent"
