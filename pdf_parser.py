@@ -2,7 +2,7 @@ import pymupdf
 import re
 import os
 import streamlit as st
-
+import fitz
 class read_library_search:
     def __init__(self,file):
         self.file = file
@@ -10,7 +10,7 @@ class read_library_search:
     def read_library_search(self):
         list_of_pg_w_uv = []
         chosen_library_search = self.file
-        doc = pymupdf.open(chosen_library_search)
+        doc = fitz.open(chosen_library_search)
         text=""
         for page in doc:
             text += page.get_text()
@@ -60,7 +60,7 @@ class read_library_search:
         file_path="Pseudo Control Form.pdf"
         
         header = ['Effect Grouping', 'All adulterants: Not Detected', 'All other adulterants: Not Detected', 'Detected Adulterants']        
-        doc = pymupdf.open(file_path)
+        doc = fitz.open(file_path)
         
         dict_for_agent = {}
         for page_num, page in enumerate(doc):
