@@ -198,7 +198,7 @@ def search_poison_act_1938(normalized_name):
         # Convert the sentences in the splitted documents to embeddings using OpenAI Embedding Model
         # FAISS to save them in the vector database.
         try:
-            with st.spinner("Looking at databases..."):
+            with st.spinner("🔦Looking at databases🔦..."):
                 # Use /tmp on Streamlit Cloud
                 persist_dir = "/tmp/faiss_index"
                 os.makedirs(persist_dir, exist_ok=True)
@@ -212,70 +212,72 @@ def search_poison_act_1938(normalized_name):
             st.error(f"❌ FAISS.from_documents failed: {type(e).__name__}")
             st.exception(e)
 
-        compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
+        with st.spinner("📁Reranking the documents📁..."):
+            compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
 
-        compression_retriever = ContextualCompressionRetriever(
-            base_compressor=compressor,
-            base_retriever=retriever
-        )   
+            compression_retriever = ContextualCompressionRetriever(
+                base_compressor=compressor,
+                base_retriever=retriever
+            )   
 
-        try:
-            retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
+            try:
+                retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
+            
+                for doc in retriever_documents:
+                    list_of_contexts.append(doc.page_content)
+            except Exception as e:
+                print("Error at fallback query:", e, flush=True)
+
+    with st.spinner("Cleaning 🧹🧹🧹 the matches... "):
+        # Split by ; or whitespace, also add spacing for capitalized words stuck together
+        list_of_cleaned_in_matches = []
         
-            for doc in retriever_documents:
-                list_of_contexts.append(doc.page_content)
-        except Exception as e:
-            print("Error at fallback query:", e, flush=True)
 
-
-    # Split by ; or whitespace, also add spacing for capitalized words stuck together
-    list_of_cleaned_in_matches = []
+        # If Cohere found some match:
+        for contexts in list_of_contexts:
+            
+            #clean the contexts
+            cleaned = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', contexts) 
+            cleaned_2 = re.split(r';|\s+', cleaned)
+            cleaned_3 = [words.strip() for words in cleaned_2 if words.strip()]
+            list_of_cleaned_in_matches.append(cleaned_3)
     
+        possible_cpds = []
 
-    # If Cohere found some match:
-    for contexts in list_of_contexts:
-        
-        #clean the contexts
-        cleaned = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', contexts) 
-        cleaned_2 = re.split(r';|\s+', cleaned)
-        cleaned_3 = [words.strip() for words in cleaned_2 if words.strip()]
-        list_of_cleaned_in_matches.append(cleaned_3)
-   
-    possible_cpds = []
-
-    # Loop through each possible matches and do one more search -> compare  CAS number.
-    # What is CAS number? -> CAS (Chemical Abstracts Service (CAS)) number is unique for each compound.
-    # Compare CAS number ensures the right compound is queried.
-   
-    for words in list_of_cleaned_in_matches:
-        context = words
-
-        prompt = f"""
-        Context:
-        {context}
-
-        Question:
-        The context contains a list of chemical compounds. For each compound, identify its Chemical Abstracts Service (CAS) Number. Then, return them in a json format where the key is the compound and the value is the cas number.
-        Retrieve the CAS number of the {normalized_name} and add to the json with key "Target" and value the CAS Number. Do not return anything else and do not add any comments.
-        Answer:
-        """
-        
-        response = llm_drugs.get_completion(prompt)
-       
-        match= re.search("\{.*\}",response, re.DOTALL)
-
-        conclusion=""
-
-        if match:
-            # Found a match -> pretty print using a function "return_between_curly_braces" -> return as variable "conclusion" 
-            conclusion = return_between_curly_braces(response)
-            # If pretty print returns a "" -> empty string means might be "None"
-            if conclusion!="" and conclusion not in possible_cpds:
-                possible_cpds.append(conclusion)
-        else:
-            print("None")
-            conclusion = "None"
+        # Loop through each possible matches and do one more search -> compare  CAS number.
+        # What is CAS number? -> CAS (Chemical Abstracts Service (CAS)) number is unique for each compound.
+        # Compare CAS number ensures the right compound is queried.
     
+    with st.spinner("🔍Checking with the LLM🔎..."):
+        for words in list_of_cleaned_in_matches:
+            context = words
+
+            prompt = f"""
+            Context:
+            {context}
+
+            Question:
+            The context contains a list of chemical compounds. For each compound, identify its Chemical Abstracts Service (CAS) Number. Then, return them in a json format where the key is the compound and the value is the cas number.
+            Retrieve the CAS number of the {normalized_name} and add to the json with key "Target" and value the CAS Number. Do not return anything else and do not add any comments.
+            Answer:
+            """
+            
+            response = llm_drugs.get_completion(prompt)
+        
+            match= re.search("\{.*\}",response, re.DOTALL)
+
+            conclusion=""
+
+            if match:
+                # Found a match -> pretty print using a function "return_between_curly_braces" -> return as variable "conclusion" 
+                conclusion = return_between_curly_braces(response)
+                # If pretty print returns a "" -> empty string means might be "None"
+                if conclusion!="" and conclusion not in possible_cpds:
+                    possible_cpds.append(conclusion)
+            else:
+                print("None")
+                conclusion = "None"
+
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
