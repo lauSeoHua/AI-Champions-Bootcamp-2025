@@ -245,7 +245,52 @@ def search_poison_act_1938(normalized_name):
     # print(vector_store)
     # Settings of Cohere to get the top 3 possible matches -> Re-Ranking of Retrieved chunks/context using cross-encoder model
     
+    import streamlit as st
+    import os
 
+    st.title("🔧 FAISS & NumPy Diagnostic")
+
+    # 1. Python version
+    import sys
+    st.write(f"🐍 Python: {sys.version}")
+
+    # 2. Try to import numpy first
+    try:
+        import numpy as np
+        st.success(f"✅ NumPy imported: v{np.__version__}")
+        st.write(f"🔹 Numpy path: {np.__file__}")
+    except Exception as e:
+        st.error(f"❌ NumPy import failed: {e}")
+        st.stop()
+
+    # 3. Try to import faiss
+    try:
+        import faiss
+        st.success(f"✅ FAISS imported: v{faiss.__version__ if hasattr(faiss, '__version__') else 'unknown'}")
+        st.write(f"🔹 FAISS path: {faiss.__file__}")
+    except Exception as e:
+        st.error(f"❌ FAISS import failed: {type(e).__name__}")
+        st.code(str(e))
+        st.stop()
+
+    # 4. Test FAISS core
+    try:
+        st.info("🧠 Testing FAISS IndexFlatL2...")
+        d = 4  # dimension
+        index = faiss.IndexFlatL2(d)
+        st.write("✅ Index created")
+
+        # Add a tiny vector
+        xb = np.array([[0.1, 0.2, 0.3, 0.4]], dtype='float32')
+        st.write(f"🔢 Vector shape: {xb.shape}, dtype: {xb.dtype}")
+
+        index.add(xb)
+        st.success(f"✅ FAISS is WORKING! Index has {index.ntotal} vector(s)")
+    except Exception as e:
+        st.error(f"❌ FAISS.add() failed: {type(e).__name__}")
+        st.code(str(e))
+        import traceback
+        st.text(traceback.format_exc())
 
     # Configure logging
     logging.basicConfig(level=logging.INFO)
