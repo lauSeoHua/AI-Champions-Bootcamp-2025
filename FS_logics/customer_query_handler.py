@@ -292,6 +292,53 @@ def search_poison_act_1938(normalized_name):
         import traceback
         st.text(traceback.format_exc())
 
+    import streamlit as st
+    from langchain.schema import Document
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_community.vectorstores import FAISS
+    import os
+
+    st.title("🚀 Building FAISS from Documents")
+
+    # --- Step 1: Minimal Docs ---
+    docs = [
+        Document(page_content="Apple is a fruit."),
+        Document(page_content="Python is a programming language."),
+    ]
+    st.write(f"📄 {len(docs)} documents ready")
+
+    # --- Step 2: Embeddings ---
+    try:
+        with st.spinner("🔽 Loading embedding model..."):
+            embeddings = HuggingFaceEmbeddings(
+                model_name="sentence-transformers/all-MiniLM-L6-v2"
+            )
+        st.success("✅ Embeddings loaded")
+    except Exception as e:
+        st.error(f"❌ Failed to load embeddings: {e}")
+        st.stop()
+
+    # --- Step 3: FAISS.from_documents() ---
+    try:
+        with st.spinner("🧠 Creating FAISS index..."):
+            # Use /tmp on Streamlit Cloud
+            persist_dir = "/tmp/faiss_index"
+            os.makedirs(persist_dir, exist_ok=True)
+
+            vectordb = FAISS.from_documents(docs, embeddings)
+            vectordb.save_local(persist_dir)
+
+        st.success("✅ FAISS index created and saved!")
+
+        # --- Step 4: Test Retrieval ---
+        retriever = vectordb.as_retriever()
+        results = retriever.invoke("What is Python?")
+        st.write("🔍 Top result:", results[0].page_content)
+
+    except Exception as e:
+        st.error(f"❌ FAISS.from_documents failed: {type(e).__name__}")
+        st.exception(e)
+
     # Configure logging
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
