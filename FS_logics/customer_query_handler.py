@@ -314,6 +314,9 @@ def search_poison_act_1938(normalized_name):
             embeddings = HuggingFaceEmbeddings(
                 model_name="sentence-transformers/all-MiniLM-L6-v2"
             )
+            cohere_embeddings = CohereEmbeddings(
+        model='rerank-english-v3.0',cohere_api_key=COHERE_client
+    )
         st.success("✅ Embeddings loaded")
     except Exception as e:
         st.error(f"❌ Failed to load embeddings: {e}")
@@ -326,7 +329,7 @@ def search_poison_act_1938(normalized_name):
             persist_dir = "/tmp/faiss_index"
             os.makedirs(persist_dir, exist_ok=True)
 
-            vectordb = FAISS.from_documents(splitted_documents, embeddings)
+            vectordb = FAISS.from_documents(splitted_documents, cohere_embeddings)
             vectordb.save_local(persist_dir)
 
         st.success("✅ FAISS index created and saved!")
