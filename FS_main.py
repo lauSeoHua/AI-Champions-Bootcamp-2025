@@ -308,12 +308,20 @@ Always consult with qualified professionals for accurate and personalized advice
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
                         dict1[cpd_name] = effective_grp
                     
+                    # df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
+                    # group_counts = df["Group"].value_counts().sort_values(ascending=False)
+                    # group_counts.columns = ["Group", "Count"]
+                    # chart_data = pd.DataFrame(group_counts)
+                    # chart_data.columns = ["Number of Compounds"]
+                    # st.bar_chart(chart_data)
+
+                    # Create DataFrame from dictionary
                     df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
-                    group_counts = df["Group"].value_counts().sort_values(ascending=False)
-                    group_counts.columns = ["Group", "Count"]
-                    chart_data = pd.DataFrame(group_counts)
-                    chart_data.columns = ["Number of Compounds"]
-                    st.bar_chart(chart_data)
+
+                    # Count number of compounds per group and convert to DataFrame
+                    group_counts = df["Group"].value_counts().sort_values(ascending=False).reset_index()
+                    group_counts.columns = ["Group", "Number of Compounds"]
+
 
                     scale = alt.Scale(
                     domain=["Analgesics","Androgenic Steroids","Anti-arrhythmics","Anti-asthmatics","Anti-biotics (Acne)","Anti-biotics (Internal Use)","Anti-biotics (Topical Use)","Anti-clotting Agents","Anti-comedone Agents ","Anti-depressants ","Anti-diabetics ","Anti-diarrhoeals","Anti-emetics","Anti-epileptics ","Anti-fungals (Internal Use)","Anti-fungals (Topical Use) ","Anti-gout Agents ","Anthelminties ","Anti-histamines ","Anti-hypertensives ","Anti-inflammatory Agents","Anti-muscarinics ","Anti-protozoals/Anti-malarials ","Anti-psychotics","Anti-pyretics ","Anti-spasmodics ","Anti-thyroid Agents","Anti-ulcer Agents ","Anti-virals ","Appetite Stimulants ","Blood Flow Enhancers","Cardiac Inotropics ","CNS Simulants & Anorectics ","Corticosteroids","Cough Suppressants","Diuretics","DMARDS","Erectogenic Agents","Estrogenic Steroids","Expectorants","Growth Hormones","Hair Growth Promoters","Hormonal Agents","Hypnotics/Sedatives/Anxiolytics","Laxatives & Purgatives","Lipid Absorption Inhibitors","Lipid Regulating Agents","Metabolism Enhancers","Micturating Agents","Mucolytics","Myometrial Relaxants","Nasal Decongestants","Nootropics","Progestogenic Steroids","Skeletal Muscle Relaxants","Thyroid Agents","Tricyclic Anti-depressants","Uterine Agents"],
