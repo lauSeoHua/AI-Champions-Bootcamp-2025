@@ -22,6 +22,7 @@ import pathlib
 import pandas as pd
 import openai
 from langchain.prompts import PromptTemplate
+import altair as alt
 
 sys.path.append(os.path.dirname((__file__)))
 from utility import check_password
@@ -313,7 +314,21 @@ Always consult with qualified professionals for accurate and personalized advice
                     chart_data.columns = ["Number of Compounds"]
                     st.bar_chart(chart_data)
 
-                    # Display the table
+
+                    # Altair chart with horizontal legend
+                    chart = alt.Chart(df).mark_bar().encode(
+                        x='Group',
+                        y='Count',
+                        color=alt.Color('Group', legend=alt.Legend(orient='bottom'))
+                    ).properties(
+                        width=600,
+                        height=400,
+                        title="Number of Compounds per Group"
+                    )
+
+                    st.altair_chart(chart, use_container_width=True)
+
+                    # Display as a table
                     st.dataframe(df, use_container_width=True)
 
                 #st.text('\n'.join(output_response))
