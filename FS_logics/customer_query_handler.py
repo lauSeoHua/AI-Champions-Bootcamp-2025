@@ -331,7 +331,7 @@ def search_poison_act_1938(normalized_name):
             persist_dir = "/tmp/faiss_index"
             os.makedirs(persist_dir, exist_ok=True)
 
-            vectordb = FAISS.from_documents(splitted_documents, cohere_embeddings)
+            vectordb = FAISS.from_documents(splitted_documents, OpenAIEmbeddings)
             vectordb.save_local(persist_dir)
 
         st.success("✅ FAISS index created and saved!")
