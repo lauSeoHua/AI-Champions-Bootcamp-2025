@@ -312,14 +312,14 @@ def search_poison_act_1938(normalized_name):
     try:
         cohere_api_key = st.secrets["COHERE_API_KEY"]
         COHERE_client = cohere_api_key
-        with st.spinner("🔽 Loading embedding model..."):
-            embeddings = HuggingFaceEmbeddings(
-                model_name="sentence-transformers/all-MiniLM-L6-v2"
-            )
-            cohere_embeddings = CohereEmbeddings(
-        model='rerank-english-v3.0',cohere_api_key=COHERE_client, user_agent="my-app"
-    )
-        st.success("✅ Embeddings loaded")
+    #     with st.spinner("🔽 Loading embedding model..."):
+    #         embeddings = HuggingFaceEmbeddings(
+    #             model_name="sentence-transformers/all-MiniLM-L6-v2"
+    #         )
+    #         cohere_embeddings = CohereEmbeddings(
+    #     model='rerank-english-v3.0',cohere_api_key=COHERE_client, user_agent="my-app"
+    # )
+    #     st.success("✅ Embeddings loaded")
     except Exception as e:
         st.error(f"❌ Failed to load embeddings: {e}")
         st.stop()
