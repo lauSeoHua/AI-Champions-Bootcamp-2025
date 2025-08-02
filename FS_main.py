@@ -314,31 +314,24 @@ Always consult with qualified professionals for accurate and personalized advice
                     chart_data.columns = ["Number of Compounds"]
                     st.bar_chart(chart_data)
 
-#                     brush = alt.selection_interval(encodings=["x"])
-#                     click = alt.selection_multi(encodings=["color"])
-#                     scale = alt.Scale(
-#                     domain=["sun", "fog", "drizzle", "rain", "snow"],
-#                     range=["#e7ba52", "#a7a7a7", "#aec7e8", "#1f77b4", "#9467bd"],
-# )
-#                     color = alt.Color("weather:N", scale=scale)
-#                     # Bottom panel is a bar chart of weather type
-#                     bars = (
-#                         alt.Chart()
-#                         .mark_bar()
-#                         .encode(
-#                             x="count()",
-#                             y="weather:N",
-#                             color=alt.condition(click, color, alt.value("lightgray")),
-#                         )
-#                         .transform_filter(brush)
-#                         .properties(
-#                             width=550,
-#                         )
-#                         .add_selection(click)
-#                     )
+                    scale = alt.Scale(
+                    domain=["Analgesics","Androgenic Steroids","Anti-arrhythmics","Anti-asthmatics","Anti-biotics (Acne)","Anti-biotics (Internal Use)","Anti-biotics (Topical Use)","Anti-clotting Agents","Anti-comedone Agents ","Anti-depressants ","Anti-diabetics ","Anti-diarrhoeals","Anti-emetics","Anti-epileptics ","Anti-fungals (Internal Use)","Anti-fungals (Topical Use) ","Anti-gout Agents ","Anthelminties ","Anti-histamines ","Anti-hypertensives ","Anti-inflammatory Agents","Anti-muscarinics ","Anti-protozoals/Anti-malarials ","Anti-psychotics","Anti-pyretics ","Anti-spasmodics ","Anti-thyroid Agents","Anti-ulcer Agents ","Anti-virals ","Appetite Stimulants ","Blood Flow Enhancers","Cardiac Inotropics ","CNS Simulants & Anorectics ","Corticosteroids","Cough Suppressants","Diuretics","DMARDS","Erectogenic Agents","Estrogenic Steroids","Expectorants","Growth Hormones","Hair Growth Promoters","Hormonal Agents","Hypnotics/Sedatives/Anxiolytics","Laxatives & Purgatives","Lipid Absorption Inhibitors","Lipid Regulating Agents","Metabolism Enhancers","Micturating Agents","Mucolytics","Myometrial Relaxants","Nasal Decongestants","Nootropics","Progestogenic Steroids","Skeletal Muscle Relaxants","Thyroid Agents","Tricyclic Anti-depressants","Uterine Agents"],
+                    range=["#B048B5","#B666D2","#D291BC","#A17188","#915F6D","#7E587E","#614051","#F2D4D7","#FFDFDD","#FBCFCD","#FEA3AA","#E7A1B0","#E38AAE","#F778A1","#E5788F","#E56E94","#DC381F","#C83F49","#C24641","#FE632A","#F87217","#B8860B","#C58917","#CD853F","#CD7F32","#806517","#665D1E","#8E7618","#8B8000","#827839","#8A865D","#66CDAA","#93E9BE","#AAF0D1","#93FFE8","#00CED1","#43BFC7","#20B2AA","#007C80","#045F5F","#566D7E","#737CA1","#728FCE","#4863A0","#2F539B","#E45E9D","#E759AC","#E3319D","#DA1884","#E4287C","#FA2A55","#E30B5D","#FCDFFF","#EBDDE2","#E1D9D1","#C3FDB8","#C2E5D3","#DBF9DB"]
+                    )
+                    # Create bar chart
+                    chart = alt.Chart(df).mark_bar().encode(
+                        x='Effective Grouping',
+                        y='Count',
+                        color=alt.Color('domain', scale=scale)  # Apply color based on the category
+                    ).properties(
+                        width=400,
+                        height=300,
+                        title='Found in Poisons Act 1938'
+                    )
 
-#                     chart = alt.vconcat(points, bars, data=source, title="Seattle Weather: 2012-2015")
+                    st.altair_chart(chart, use_container_width=True)
 
+                    
 #                     # Altair chart with horizontal legend
 #                     chart = alt.Chart(df).mark_bar().encode(
 #                         x='Group',
