@@ -250,8 +250,11 @@ def search_poison_act_1938(normalized_name):
         model='rerank-english-v3.0',cohere_api_key=COHERE_client
     )
     vectordb = FAISS.from_documents(documents=splitted_documents, embedding=cohere_embeddings)
+    print("Line 253")
     #vectordb = Chroma.from_documents(documents=splitted_documents,embedding=cohere_embeddings,persist_directory = "./chroma_cohere_db")
+    print("Line 254")
     retriever = vectordb.as_retriever(search_kwargs={"k":3})
+    print("Line 255")
     cohere_api_key = st.secrets["COHERE_API_KEY"]
     COHERE_client = os.getenv(cohere_api_key)
     compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
