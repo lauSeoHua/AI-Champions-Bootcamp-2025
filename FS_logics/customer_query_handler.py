@@ -497,15 +497,15 @@ def search_poison_act_1938(normalized_name):
             print("None")
             conclusion = "None"
     
-    # Reset the vector database to prepare for next query : 
-    shutil.rmtree("./chroma_langchain_db", ignore_errors=True)
-    vector_store.delete(give_id)
-    print("Line 261")
-    print(possible_cpds)
+    # # Reset the vector database to prepare for next query : 
+    # shutil.rmtree("./chroma_langchain_db", ignore_errors=True)
+    # vector_store.delete(give_id)
+    # print("Line 261")
+    # print(possible_cpds)
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
-        print("Line 264")
+        st.write("Line 264")
         print(possible_cpds)
         return possible_cpds
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
