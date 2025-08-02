@@ -314,19 +314,43 @@ Always consult with qualified professionals for accurate and personalized advice
                     chart_data.columns = ["Number of Compounds"]
                     st.bar_chart(chart_data)
 
+#                     brush = alt.selection_interval(encodings=["x"])
+#                     click = alt.selection_multi(encodings=["color"])
+#                     scale = alt.Scale(
+#                     domain=["sun", "fog", "drizzle", "rain", "snow"],
+#                     range=["#e7ba52", "#a7a7a7", "#aec7e8", "#1f77b4", "#9467bd"],
+# )
+#                     color = alt.Color("weather:N", scale=scale)
+#                     # Bottom panel is a bar chart of weather type
+#                     bars = (
+#                         alt.Chart()
+#                         .mark_bar()
+#                         .encode(
+#                             x="count()",
+#                             y="weather:N",
+#                             color=alt.condition(click, color, alt.value("lightgray")),
+#                         )
+#                         .transform_filter(brush)
+#                         .properties(
+#                             width=550,
+#                         )
+#                         .add_selection(click)
+#                     )
 
-                    # Altair chart with horizontal legend
-                    chart = alt.Chart(df).mark_bar().encode(
-                        x='Group',
-                        y='Count',
-                        color=alt.Color('Group', legend=alt.Legend(orient='bottom'))
-                    ).properties(
-                        width=600,
-                        height=400,
-                        title="Number of Compounds per Group"
-                    )
+#                     chart = alt.vconcat(points, bars, data=source, title="Seattle Weather: 2012-2015")
 
-                    st.altair_chart(chart, use_container_width=True)
+#                     # Altair chart with horizontal legend
+#                     chart = alt.Chart(df).mark_bar().encode(
+#                         x='Group',
+#                         y='Count',
+#                         color=alt.Color('Group', legend=alt.Legend(orient='bottom'))
+#                     ).properties(
+#                         width=600,
+#                         height=400,
+#                         title="Number of Compounds per Group"
+#                     )
+
+#                     st.altair_chart(chart, use_container_width=True)
 
                     # Display as a table
                     st.dataframe(df, use_container_width=True)
