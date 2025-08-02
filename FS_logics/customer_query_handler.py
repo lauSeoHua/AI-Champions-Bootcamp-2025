@@ -304,7 +304,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                     response = llm_drugs.get_completion(normalized_names)
                     # The "sentence" that will be presented to the user will be appended to a list.
                     # The database chemicals are all found in poisons act.
-                    compiled_list.append(f"\n{normalized_names.capitalize()} belongs to {effective_grouping_match} and found in poisons' act 1938. \n")
+                    compiled_list.append(f"\n{normalized_names.capitalize()} belongs to {effective_grouping_match} and is found in the poisons act 1938.\n")
             else:
                 #did not find a good match (no effective groupings) hence must search posion act 1938
                 try:
