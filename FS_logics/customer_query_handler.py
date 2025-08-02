@@ -30,7 +30,7 @@ from FS_helper_functions import llm_drugs
 
 # Define type of embeddings_models used
 
-embeddings_model = OpenAIEmbeddings(model='text-embedding-3-small') 
+embeddings_model = OpenAIEmbeddings(model='text-embedding-3-small', openai_api_key=st.secrets["OPENAI_API_KEY"]) 
 
 # Define text splitter to split text for chunking/vector embeddings
 
@@ -331,7 +331,7 @@ def search_poison_act_1938(normalized_name):
             persist_dir = "/tmp/faiss_index"
             os.makedirs(persist_dir, exist_ok=True)
 
-            vectordb = FAISS.from_documents(splitted_documents, OpenAIEmbeddings)
+            vectordb = FAISS.from_documents(splitted_documents, embeddings_model)
             vectordb.save_local(persist_dir)
 
         st.success("✅ FAISS index created and saved!")
