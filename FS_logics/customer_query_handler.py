@@ -368,9 +368,6 @@ def search_poison_act_1938(normalized_name):
         print("Error at fallback query:", e, flush=True)
 
 
-
-
-
     # # Configure logging
     # logging.basicConfig(level=logging.INFO)
     # logger = logging.getLogger(__name__)
@@ -452,10 +449,11 @@ def search_poison_act_1938(normalized_name):
 
     # Split by ; or whitespace, also add spacing for capitalized words stuck together
     list_of_cleaned_in_matches = []
+    
 
     # If Cohere found some match:
     for contexts in list_of_contexts:
-
+        st.write(contexts)
         #clean the contexts
         cleaned = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', contexts) 
         cleaned_2 = re.split(r';|\s+', cleaned)
