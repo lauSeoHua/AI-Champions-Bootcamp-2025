@@ -318,40 +318,40 @@ Always consult with qualified professionals for accurate and personalized advice
                     # Create DataFrame from dictionary
                     df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
 
-                    # Count number of compounds per group and convert to DataFrame
-                    group_counts = df["Group"].value_counts().sort_values(ascending=False).reset_index()
-                    group_counts.columns = ["Group", "Count"]
+#                     # Count number of compounds per group and convert to DataFrame
+#                     group_counts = df["Group"].value_counts().sort_values(ascending=False).reset_index()
+#                     group_counts.columns = ["Group", "Count"]
 
-                    st.dataframe(group_counts, use_container_width=True)
-                    scale = alt.Scale(
-                    domain=["Analgesics","Androgenic Steroids","Anti-arrhythmics","Anti-asthmatics","Anti-biotics (Acne)","Anti-biotics (Internal Use)","Anti-biotics (Topical Use)","Anti-clotting Agents","Anti-comedone Agents ","Anti-depressants ","Anti-diabetics ","Anti-diarrhoeals","Anti-emetics","Anti-epileptics ","Anti-fungals (Internal Use)","Anti-fungals (Topical Use) ","Anti-gout Agents ","Anthelminties ","Anti-histamines ","Anti-hypertensives ","Anti-inflammatory Agents","Anti-muscarinics ","Anti-protozoals/Anti-malarials ","Anti-psychotics","Anti-pyretics ","Anti-spasmodics ","Anti-thyroid Agents","Anti-ulcer Agents ","Anti-virals ","Appetite Stimulants ","Blood Flow Enhancers","Cardiac Inotropics ","CNS Simulants & Anorectics ","Corticosteroids","Cough Suppressants","Diuretics","DMARDS","Erectogenic Agents","Estrogenic Steroids","Expectorants","Growth Hormones","Hair Growth Promoters","Hormonal Agents","Hypnotics/Sedatives/Anxiolytics","Laxatives & Purgatives","Lipid Absorption Inhibitors","Lipid Regulating Agents","Metabolism Enhancers","Micturating Agents","Mucolytics","Myometrial Relaxants","Nasal Decongestants","Nootropics","Progestogenic Steroids","Skeletal Muscle Relaxants","Thyroid Agents","Tricyclic Anti-depressants","Uterine Agents"],
-                    range=["#B048B5","#B666D2","#D291BC","#A17188","#915F6D","#7E587E","#614051","#F2D4D7","#FFDFDD","#FBCFCD","#FEA3AA","#E7A1B0","#E38AAE","#F778A1","#E5788F","#E56E94","#DC381F","#C83F49","#C24641","#FE632A","#F87217","#B8860B","#C58917","#CD853F","#CD7F32","#806517","#665D1E","#8E7618","#8B8000","#827839","#8A865D","#66CDAA","#93E9BE","#AAF0D1","#93FFE8","#00CED1","#43BFC7","#20B2AA","#007C80","#045F5F","#566D7E","#737CA1","#728FCE","#4863A0","#2F539B","#E45E9D","#E759AC","#E3319D","#DA1884","#E4287C","#FA2A55","#E30B5D","#FCDFFF","#EBDDE2","#E1D9D1","#C3FDB8","#C2E5D3","#DBF9DB"]
-                    )# Build Altair chart
-                    chart = alt.Chart(group_counts).mark_bar().encode(
-                        x=alt.X('Group:N', sort='-y', title='Group'),
-                        y=alt.Y('Count:Q', title='Count'),
-                        color=alt.Color('Group:N', scale=scale, legend=None)
-                    ).properties(
-                        width=800,
-                        height=400,
-                        title='Number of Compounds by Group (Poisons Act 1938)'
-                    )
-
-                    st.altair_chart(chart, use_container_width=True)
-
-                    
-#                     # Altair chart with horizontal legend
-#                     chart = alt.Chart(df).mark_bar().encode(
-#                         x='Group',
-#                         y='Count',
-#                         color=alt.Color('Group', legend=alt.Legend(orient='bottom'))
+#                     st.dataframe(group_counts, use_container_width=True)
+#                     scale = alt.Scale(
+#                     domain=["Analgesics","Androgenic Steroids","Anti-arrhythmics","Anti-asthmatics","Anti-biotics (Acne)","Anti-biotics (Internal Use)","Anti-biotics (Topical Use)","Anti-clotting Agents","Anti-comedone Agents ","Anti-depressants ","Anti-diabetics ","Anti-diarrhoeals","Anti-emetics","Anti-epileptics ","Anti-fungals (Internal Use)","Anti-fungals (Topical Use) ","Anti-gout Agents ","Anthelminties ","Anti-histamines ","Anti-hypertensives ","Anti-inflammatory Agents","Anti-muscarinics ","Anti-protozoals/Anti-malarials ","Anti-psychotics","Anti-pyretics ","Anti-spasmodics ","Anti-thyroid Agents","Anti-ulcer Agents ","Anti-virals ","Appetite Stimulants ","Blood Flow Enhancers","Cardiac Inotropics ","CNS Simulants & Anorectics ","Corticosteroids","Cough Suppressants","Diuretics","DMARDS","Erectogenic Agents","Estrogenic Steroids","Expectorants","Growth Hormones","Hair Growth Promoters","Hormonal Agents","Hypnotics/Sedatives/Anxiolytics","Laxatives & Purgatives","Lipid Absorption Inhibitors","Lipid Regulating Agents","Metabolism Enhancers","Micturating Agents","Mucolytics","Myometrial Relaxants","Nasal Decongestants","Nootropics","Progestogenic Steroids","Skeletal Muscle Relaxants","Thyroid Agents","Tricyclic Anti-depressants","Uterine Agents"],
+#                     range=["#B048B5","#B666D2","#D291BC","#A17188","#915F6D","#7E587E","#614051","#F2D4D7","#FFDFDD","#FBCFCD","#FEA3AA","#E7A1B0","#E38AAE","#F778A1","#E5788F","#E56E94","#DC381F","#C83F49","#C24641","#FE632A","#F87217","#B8860B","#C58917","#CD853F","#CD7F32","#806517","#665D1E","#8E7618","#8B8000","#827839","#8A865D","#66CDAA","#93E9BE","#AAF0D1","#93FFE8","#00CED1","#43BFC7","#20B2AA","#007C80","#045F5F","#566D7E","#737CA1","#728FCE","#4863A0","#2F539B","#E45E9D","#E759AC","#E3319D","#DA1884","#E4287C","#FA2A55","#E30B5D","#FCDFFF","#EBDDE2","#E1D9D1","#C3FDB8","#C2E5D3","#DBF9DB"]
+#                     )# Build Altair chart
+#                     chart = alt.Chart(group_counts).mark_bar().encode(
+#                         x=alt.X('Group:N', sort='-y', title='Group'),
+#                         y=alt.Y('Count:Q', title='Count'),
+#                         color=alt.Color('Group:N', scale=scale, legend=None)
 #                     ).properties(
-#                         width=600,
+#                         width=800,
 #                         height=400,
-#                         title="Number of Compounds per Group"
+#                         title='Number of Compounds by Group (Poisons Act 1938)'
 #                     )
 
 #                     st.altair_chart(chart, use_container_width=True)
+
+                    
+# #                     # Altair chart with horizontal legend
+# #                     chart = alt.Chart(df).mark_bar().encode(
+# #                         x='Group',
+# #                         y='Count',
+# #                         color=alt.Color('Group', legend=alt.Legend(orient='bottom'))
+# #                     ).properties(
+# #                         width=600,
+# #                         height=400,
+# #                         title="Number of Compounds per Group"
+# #                     )
+
+# #                     st.altair_chart(chart, use_container_width=True)
 
                     # Display as a table
                     st.dataframe(df, use_container_width=True)
