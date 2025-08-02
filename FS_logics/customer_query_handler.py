@@ -371,84 +371,84 @@ def search_poison_act_1938(normalized_name):
 
 
 
-    # Configure logging
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
+    # # Configure logging
+    # logging.basicConfig(level=logging.INFO)
+    # logger = logging.getLogger(__name__)
 
-    # Now use logger + st.write
-    logger.info("Starting FAISS creation...")
-    st.write("🧠 Starting vector database creation...")
-        #Initialize cohere embeddings
-    cohere_embeddings = CohereEmbeddings(
-        model='rerank-english-v3.0',cohere_api_key=COHERE_client
-    )
-    splitted_documents = splitted_documents[:2]
-    import streamlit as st
-    import numpy as np
-    import faiss
-    import os
+    # # Now use logger + st.write
+    # logger.info("Starting FAISS creation...")
+    # st.write("🧠 Starting vector database creation...")
+    #     #Initialize cohere embeddings
+    # cohere_embeddings = CohereEmbeddings(
+    #     model='rerank-english-v3.0',cohere_api_key=COHERE_client
+    # )
+    # splitted_documents = splitted_documents[:2]
+    # import streamlit as st
+    # import numpy as np
+    # import faiss
+    # import os
 
-    st.write("🔧 Testing FAISS core...")
+    # st.write("🔧 Testing FAISS core...")
 
-    # Create dummy 384-dim vectors (matches all-MiniLM-L6-v2)
-    d = 384
-    nb = 2
-    np.random.seed(42)
-    xb = np.random.random((nb, d)).astype('float32')
+    # # Create dummy 384-dim vectors (matches all-MiniLM-L6-v2)
+    # d = 384
+    # nb = 2
+    # np.random.seed(42)
+    # xb = np.random.random((nb, d)).astype('float32')
 
-    # Build index
-    index = faiss.IndexFlatL2(d)
-    index.add(xb)
+    # # Build index
+    # index = faiss.IndexFlatL2(d)
+    # index.add(xb)
 
-    st.success("✅ FAISS core works! Added 2 random vectors.")
-    st.write(f"Index size: {index.ntotal}")
-    docs = [Document(page_content="Apple is a fruit"), Document(page_content="Python is a programming language."),]
-    try:
-        logger.info(f"Number of documents: {len(splitted_documents)}")
-        vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
-        logger.info("FAISS index created successfully")
-        st.success("✅ Success!")
-    except Exception as e:
-        logger.error("FAISS creation failed", exc_info=True)
-        st.error(f"💥 Error: {e}")
+    # st.success("✅ FAISS core works! Added 2 random vectors.")
+    # st.write(f"Index size: {index.ntotal}")
+    # docs = [Document(page_content="Apple is a fruit"), Document(page_content="Python is a programming language."),]
+    # try:
+    #     logger.info(f"Number of documents: {len(splitted_documents)}")
+    #     vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
+    #     logger.info("FAISS index created successfully")
+    #     st.success("✅ Success!")
+    # except Exception as e:
+    #     logger.error("FAISS creation failed", exc_info=True)
+    #     st.error(f"💥 Error: {e}")
 
-    vectordb = FAISS.from_documents(documents=splitted_documents, embedding=cohere_embeddings)
-    print("Line 253")
-    #vectordb = Chroma.from_documents(documents=splitted_documents,embedding=cohere_embeddings,persist_directory = "./chroma_cohere_db")
-    print("Line 254")
-    retriever = vectordb.as_retriever(search_kwargs={"k":3})
-    print("Line 255")
-    cohere_api_key = st.secrets["COHERE_API_KEY"]
-    COHERE_client = os.getenv(cohere_api_key)
-    compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
-    print(compressor)
-    compression_retriever = ContextualCompressionRetriever(
-        base_compressor=compressor,
-        #base_retriever=vector_store.as_retriever(),
-        base_retriever=retriever
-    )   
+    # vectordb = FAISS.from_documents(documents=splitted_documents, embedding=cohere_embeddings)
+    # print("Line 253")
+    # #vectordb = Chroma.from_documents(documents=splitted_documents,embedding=cohere_embeddings,persist_directory = "./chroma_cohere_db")
+    # print("Line 254")
+    # retriever = vectordb.as_retriever(search_kwargs={"k":3})
+    # print("Line 255")
+    # cohere_api_key = st.secrets["COHERE_API_KEY"]
+    # COHERE_client = os.getenv(cohere_api_key)
+    # compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
+    # print(compressor)
+    # compression_retriever = ContextualCompressionRetriever(
+    #     base_compressor=compressor,
+    #     #base_retriever=vector_store.as_retriever(),
+    #     base_retriever=retriever
+    # )   
 
-    try:
-        print("Line 214", flush=True)
-        retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
-        print("Retriever response:", retriever_documents, flush=True)
+    # try:
+    #     print("Line 214", flush=True)
+    #     retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
+    #     print("Retriever response:", retriever_documents, flush=True)
 
-        for doc in retriever_documents:
-            list_of_contexts.append(doc.page_content)
-    except Exception as e:
-        print("Error at fallback query:", e, flush=True)
-
-
+    #     for doc in retriever_documents:
+    #         list_of_contexts.append(doc.page_content)
+    # except Exception as e:
+    #     print("Error at fallback query:", e, flush=True)
 
 
-    # No exact match found in Poisons Act 1938
-    if found!=True and normalized_name:
-        # Query Cohere
-        retriever_documents =   compression_retriever.invoke(f"Tell me about {normalized_name}")
-        print("Line 214")
-        print(retriever_documents)
-        for doc in retriever_documents:
-            list_of_contexts.append(doc.page_content)
+
+
+    # # No exact match found in Poisons Act 1938
+    # if found!=True and normalized_name:
+    #     # Query Cohere
+    #     retriever_documents =   compression_retriever.invoke(f"Tell me about {normalized_name}")
+    #     print("Line 214")
+    #     print(retriever_documents)
+    #     for doc in retriever_documents:
+    #         list_of_contexts.append(doc.page_content)
 
     # Split by ; or whitespace, also add spacing for capitalized words stuck together
     list_of_cleaned_in_matches = []
