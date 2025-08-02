@@ -61,8 +61,8 @@ class read_library_search:
         
         header = ['Effect Grouping', 'All adulterants: Not Detected', 'All other adulterants: Not Detected', 'Detected Adulterants']        
         doc = fitz.open(file_path)
+        list_of_fields = []
         
-        dict_for_agent = {}
         for page_num, page in enumerate(doc):
             widgets = page.widgets()  # List of form fields (widgets) on the page
             list_of_widgets= []
@@ -82,8 +82,8 @@ class read_library_search:
                     else:
                         row[i] = row[i].replace("\n"," ")
                 dict_for_parsing_form_fields = {}
-                dict_for_parsing_form_fields[f"{row[0]} which is a category of {header[0]}"] = [f"Textfield {row[i]} is a field in the pdf that represents {header[i]}" for i in range(1,len(row))]
-
+                dict_for_parsing_form_fields[row[0]] = [row[i] for i in range(1,len(row))]
+                list_of_fields.append(dict_for_parsing_form_fields)
         doc.close()
 
-        return dict_for_parsing_form_fields
+        return list_of_fields

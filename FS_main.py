@@ -267,6 +267,10 @@ Always consult with qualified professionals for accurate and personalized advice
             output_response = ""
 
             uploaded_file = st.file_uploader("Upload a Library Search -  Get compounds within 1 min retention time and match factor within 950.")
+            
+            not_found_in_poisons_but_effective_grp = []
+            found_in_poisons_but_effective_grp = []     
+            
             if form.form_submit_button("Submit"):
                 if uploaded_file is not None:
                     if uploaded_file.type == "application/pdf":
@@ -278,9 +282,6 @@ Always consult with qualified professionals for accurate and personalized advice
                     else:
                         st.error("Uploaded file is not pdf ❌❌❌. Uploaded file MUST be PDF.")
                 else:
-                    not_found_in_poisons_but_effective_grp = []
-                    found_in_poisons_but_effective_grp = []
-
                     
                     st.toast(f"User input submitted_{user_prompt}")
                     output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt))
@@ -322,8 +323,6 @@ Always consult with qualified professionals for accurate and personalized advice
                         cpd_name = cpds.split("belongs to")[0]
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
                         dict1[cpd_name] = effective_grp
-                    
-                
                     st.dataframe(df, use_container_width=True)
 
             #st.text('\n'.join(output_response))
