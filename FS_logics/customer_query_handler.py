@@ -249,6 +249,24 @@ def search_poison_act_1938(normalized_name):
     cohere_embeddings = CohereEmbeddings(
         model='rerank-english-v3.0',cohere_api_key=COHERE_client
     )
+
+    # Configure logging
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
+    # Now use logger + st.write
+    logger.info("Starting FAISS creation...")
+    st.write("🧠 Starting vector database creation...")
+
+    try:
+        logger.info(f"Number of documents: {len(splitted_documents)}")
+        vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
+        logger.info("FAISS index created successfully")
+        st.success("✅ Success!")
+    except Exception as e:
+        logger.error("FAISS creation failed", exc_info=True)
+        st.error(f"💥 Error: {e}")
+
     vectordb = FAISS.from_documents(documents=splitted_documents, embedding=cohere_embeddings)
     print("Line 253")
     #vectordb = Chroma.from_documents(documents=splitted_documents,embedding=cohere_embeddings,persist_directory = "./chroma_cohere_db")
