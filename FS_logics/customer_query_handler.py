@@ -259,6 +259,25 @@ def search_poison_act_1938(normalized_name):
         model='rerank-english-v3.0',cohere_api_key=COHERE_client
     )
     splitted_documents = splitted_documents[:2]
+    import streamlit as st
+    import numpy as np
+    import faiss
+    import os
+
+    st.write("🔧 Testing FAISS core...")
+
+    # Create dummy 384-dim vectors (matches all-MiniLM-L6-v2)
+    d = 384
+    nb = 2
+    np.random.seed(42)
+    xb = np.random.random((nb, d)).astype('float32')
+
+    # Build index
+    index = faiss.IndexFlatL2(d)
+    index.add(xb)
+
+    st.success("✅ FAISS core works! Added 2 random vectors.")
+    st.write(f"Index size: {index.ntotal}")
     docs = [Document(page_content="Apple is a fruit"), Document(page_content="Python is a programming language."),]
     try:
         logger.info(f"Number of documents: {len(docs)}")
