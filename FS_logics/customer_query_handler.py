@@ -258,7 +258,7 @@ def search_poison_act_1938(normalized_name):
     cohere_embeddings = CohereEmbeddings(
         model='rerank-english-v3.0',cohere_api_key=COHERE_client
     )
-    splitted_documents[:2]
+    splitted_documents = splitted_documents[:2]
     try:
         logger.info(f"Number of documents: {len(splitted_documents)}")
         vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
