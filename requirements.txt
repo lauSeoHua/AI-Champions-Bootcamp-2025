@@ -43,7 +43,7 @@ durationpy==0.10
 embedchain==0.1.128
 et_xmlfile==2.0.0
 executing==2.2.0
-faiss-cpu==1.11.0.post1
+faiss-cpu
 fastapi==0.116.0
 fastavro==1.11.1
 filelock==3.18.0
