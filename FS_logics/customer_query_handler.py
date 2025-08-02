@@ -310,6 +310,8 @@ def search_poison_act_1938(normalized_name):
 
     # --- Step 2: Embeddings ---
     try:
+        cohere_api_key = st.secrets["COHERE_API_KEY"]
+        COHERE_client = os.getenv(cohere_api_key)
         with st.spinner("🔽 Loading embedding model..."):
             embeddings = HuggingFaceEmbeddings(
                 model_name="sentence-transformers/all-MiniLM-L6-v2"
