@@ -203,20 +203,20 @@ def search_poison_act_1938(normalized_name):
             except Exception as e:
                 print(f"Error appending chunk: {e}", flush=True)
 
-    persistent_dir = os.path.join("/tmp","chroma_db")
-    os.markedirs(persistent_dir,exist_ok=True)
+    # persistent_dir = os.path.join("/tmp","chroma_db")
+    # os.markedirs(persistent_dir,exist_ok=True)
 
-    @st.cache_resource
-    def get_chroma_CLIENT():
-        return chromadb.PersistentClient(path=persistent_dir)
+    # @st.cache_resource
+    # def get_chroma_CLIENT():
+    #     return chromadb.PersistentClient(path=persistent_dir)
 
-    client=get_chroma_CLIENT()
+    # client=get_chroma_CLIENT()
 
-    collection = client.get_or_create_collection("my_docs")
+    # collection = client.get_or_create_collection("my_docs")
 
-    collection.add( ids=give_id,documents=splitted_documents,metadatas={"source": "websearch"} )
+    # collection.add( ids=give_id,documents=splitted_documents,metadatas={"source": "websearch"} )
     
-    results = collection.query(query_texts=[])
+    # results = collection.query(query_texts=[])
 
 
     # logging.basicConfig(level=logging.INFO)
