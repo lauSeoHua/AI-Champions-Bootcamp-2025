@@ -239,7 +239,6 @@ def search_poison_act_1938(normalized_name):
         cleaned = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', contexts) 
         cleaned_2 = re.split(r';|\s+', cleaned)
         cleaned_3 = [words.strip() for words in cleaned_2 if words.strip()]
-        st.write(cleaned_3)
         list_of_cleaned_in_matches.append(cleaned_3)
    
     possible_cpds = []
@@ -273,7 +272,6 @@ def search_poison_act_1938(normalized_name):
             # If pretty print returns a "" -> empty string means might be "None"
             if conclusion!="" and conclusion not in possible_cpds:
                 possible_cpds.append(conclusion)
-                st.write(conclusion)
         else:
             print("None")
             conclusion = "None"
