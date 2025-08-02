@@ -245,10 +245,7 @@ def search_poison_act_1938(normalized_name):
     # print(vector_store)
     # Settings of Cohere to get the top 3 possible matches -> Re-Ranking of Retrieved chunks/context using cross-encoder model
     
-    #Initialize cohere embeddings
-    cohere_embeddings = CohereEmbeddings(
-        model='rerank-english-v3.0',cohere_api_key=COHERE_client
-    )
+
 
     # Configure logging
     logging.basicConfig(level=logging.INFO)
@@ -257,7 +254,10 @@ def search_poison_act_1938(normalized_name):
     # Now use logger + st.write
     logger.info("Starting FAISS creation...")
     st.write("🧠 Starting vector database creation...")
-
+        #Initialize cohere embeddings
+    cohere_embeddings = CohereEmbeddings(
+        model='rerank-english-v3.0',cohere_api_key=COHERE_client
+    )
     try:
         logger.info(f"Number of documents: {len(splitted_documents)}")
         vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
