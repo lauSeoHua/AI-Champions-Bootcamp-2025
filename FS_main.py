@@ -269,12 +269,14 @@ Always consult with qualified professionals for accurate and personalized advice
             uploaded_file = st.file_uploader("Upload a Library Search -  Get compounds within 1 min retention time and match factor within 950.")
             if form.form_submit_button("Submit"):
                 if uploaded_file is not None:
-
-                    compiled_list = read_library_search(uploaded_file).read_library_search()
-                    compiled_str = "\n".join(compiled_list)
-                    output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))
-                    form_fields = read_library_search(uploaded_file).fill_in_form()
-                    st.write(form_fields)
+                    if uploaded_file.type == "application/pdf":
+                        compiled_list = read_library_search(uploaded_file).read_library_search()
+                        compiled_str = "\n".join(compiled_list)
+                        output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))
+                        form_fields = read_library_search(uploaded_file).fill_in_form()
+                        st.write(form_fields)
+                    else:
+                        st.error("Uploaded file is not pdf ❌❌❌. Uploaded file MUST be PDF.")
                 else:
                     not_found_in_poisons_but_effective_grp = []
                     found_in_poisons_but_effective_grp = []

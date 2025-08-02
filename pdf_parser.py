@@ -10,7 +10,7 @@ class read_library_search:
     def read_library_search(self):
         list_of_pg_w_uv = []
         chosen_library_search = self.file
-        doc = fitz.open(chosen_library_search)
+        doc = fitz.open(stream=chosen_library_search.read(), filetype="pdf")
         text=""
         for page in doc:
             text += page.get_text()
