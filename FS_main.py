@@ -273,7 +273,8 @@ Always consult with qualified professionals for accurate and personalized advice
                     compiled_list = read_library_search(uploaded_file).read_library_search()
                     compiled_str = "\n".join(compiled_list)
                     output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))
-                
+                    form_fields = read_library_search(uploaded_file).fill_in_form()
+                    st.write(form_fields)
                 else:
                     not_found_in_poisons_but_effective_grp = []
                     found_in_poisons_but_effective_grp = []

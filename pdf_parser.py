@@ -9,7 +9,7 @@ class read_library_search:
     
     def read_library_search(self):
         list_of_pg_w_uv = []
-        chosen_library_search = os.open(self.file)
+        chosen_library_search = self.file
         doc = pymupdf.open(chosen_library_search)
         text=""
         for page in doc:
@@ -55,3 +55,35 @@ class read_library_search:
         #         if doc[page_no] 
 
         return (combined_compiled_list)
+    
+    def fill_in_form(self):
+        file_path="Pseudo Control Form.pdf"
+        
+        header = ['Effect Grouping', 'All adulterants: Not Detected', 'All other adulterants: Not Detected', 'Detected Adulterants']        
+        doc = pymupdf.open(file_path)
+        
+        dict_for_agent = {}
+        for page_num, page in enumerate(doc):
+            widgets = page.widgets()  # List of form fields (widgets) on the page
+            list_of_widgets= []
+            if widgets:
+                for widget in widgets:
+                    field_name = widget.field_name
+                    list_of_widgets.append(field_name)
+            tabs = page.find_tables()
+            if tabs.tables:
+                table_print = tabs[0].extract()
+            count = 0
+            for row in table_print:
+                for i in range(len(row)):
+                    if row[i] == "":
+                        row[i] = list_of_widgets[count]
+                        count+=1
+                    else:
+                        row[i] = row[i].replace("\n"," ")
+                dict_for_parsing_form_fields = {}
+                dict_for_parsing_form_fields[f"{row[0]} which is a category of {header[0]}"] = [f"Textfield {row[i]} is a field in the pdf that represents {header[i]}" for i in range(1,len(row))]
+
+        doc.close()
+
+        return dict_for_parsing_form_fields
