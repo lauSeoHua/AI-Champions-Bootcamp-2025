@@ -319,8 +319,8 @@ Always consult with qualified professionals for accurate and personalized advice
                     df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
 
                     # Count number of compounds per group and convert to DataFrame
-                    group_counts = df["Group"].value_counts().sort_values(ascending=False).reset_index()
-                    group_counts.columns = ["Group", "Number of Compounds"]
+                    group_counts = df["Group"].value_counts()
+                    group_counts.columns = ["Group", "Count"]
 
 
                     scale = alt.Scale(
@@ -329,7 +329,7 @@ Always consult with qualified professionals for accurate and personalized advice
                     )# Build Altair chart
                     chart = alt.Chart(group_counts).mark_bar().encode(
                         x=alt.X('Group:N', sort='-y', title='Group'),
-                        y=alt.Y('Count:Q', title='Number of Compounds'),
+                        y=alt.Y('Count:Q', title='Count'),
                         color=alt.Color('Group:N', scale=scale, legend=None)
                     ).properties(
                         width=800,
