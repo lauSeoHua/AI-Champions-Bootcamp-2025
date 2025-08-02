@@ -195,6 +195,7 @@ def search_poison_act_1938(normalized_name):
             list_of_contexts.append(chunk)
         # Else, need to save the chunks into the list : splitted_documents
         else:
+            from langchain.schema import Document
             try:
                 splitted_documents.append(Document(page_content=chunk, metadata={"source": "websearch"}))
                 give_id.append(f"chunk {len(splitted_documents)}")
