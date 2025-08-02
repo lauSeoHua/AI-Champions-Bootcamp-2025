@@ -325,7 +325,7 @@ def search_poison_act_1938(normalized_name):
             persist_dir = "/tmp/faiss_index"
             os.makedirs(persist_dir, exist_ok=True)
 
-            vectordb = FAISS.from_documents(docs, embeddings)
+            vectordb = FAISS.from_documents(splitted_documents, embeddings)
             vectordb.save_local(persist_dir)
 
         st.success("✅ FAISS index created and saved!")
@@ -343,7 +343,7 @@ def search_poison_act_1938(normalized_name):
 
     cohere_api_key = st.secrets["COHERE_API_KEY"]
     COHERE_client = os.getenv(cohere_api_key)
-    compressor = CohereRerank(top_n=1, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
+    compressor = CohereRerank(top_n=3, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
     print(compressor)
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=compressor,
@@ -398,8 +398,8 @@ def search_poison_act_1938(normalized_name):
     st.write(f"Index size: {index.ntotal}")
     docs = [Document(page_content="Apple is a fruit"), Document(page_content="Python is a programming language."),]
     try:
-        logger.info(f"Number of documents: {len(docs)}")
-        vectordb = FAISS.from_documents(docs, embedding = cohere_embeddings)
+        logger.info(f"Number of documents: {len(splitted_documents)}")
+        vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
         logger.info("FAISS index created successfully")
         st.success("✅ Success!")
     except Exception as e:
