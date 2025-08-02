@@ -259,9 +259,10 @@ def search_poison_act_1938(normalized_name):
         model='rerank-english-v3.0',cohere_api_key=COHERE_client
     )
     splitted_documents = splitted_documents[:2]
+    docs = [Document(page_content="Apple is a fruit"), Document(page_content="Python is a programming language."),]
     try:
-        logger.info(f"Number of documents: {len(splitted_documents)}")
-        vectordb = FAISS.from_documents(splitted_documents, embedding = cohere_embeddings)
+        logger.info(f"Number of documents: {len(docs)}")
+        vectordb = FAISS.from_documents(docs, embedding = cohere_embeddings)
         logger.info("FAISS index created successfully")
         st.success("✅ Success!")
     except Exception as e:
