@@ -14,7 +14,7 @@ import shutil
 import streamlit as st
 import chromadb
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma, FAISS
 from langchain_community.embeddings import CohereEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from sentence_transformers import SentenceTransformer, util
@@ -249,7 +249,8 @@ def search_poison_act_1938(normalized_name):
     cohere_embeddings = CohereEmbeddings(
         model='rerank-english-v3.0',cohere_api_key=COHERE_client
     )
-    vectordb = Chroma.from_documents(documents=splitted_documents,embedding=cohere_embeddings,persist_directory = "./chroma_cohere_db")
+    vectordb = FAISS.from_documents(documents=splitted_documents, embedding=cohere_embeddings)
+    #vectordb = Chroma.from_documents(documents=splitted_documents,embedding=cohere_embeddings,persist_directory = "./chroma_cohere_db")
     retriever = vectordb.as_retriever(search_kwargs={"k":3})
     cohere_api_key = st.secrets["COHERE_API_KEY"]
     COHERE_client = os.getenv(cohere_api_key)
