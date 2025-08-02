@@ -264,61 +264,64 @@ Always consult with qualified professionals for accurate and personalized advice
 
             user_prompt = form.text_area("Ask me about Drugs' Classification in Singapore", height=200)
 
+            output_response = ""
+
             uploaded_file = st.file_uploader("Upload a Library Search -  Get compounds within 1 min retention time and match factor within 950.")
-            if uploaded_file is not None:
+            if form.form_submit_button("Submit"):
+                if uploaded_file is not None:
 
-                compiled_list = read_library_search(uploaded_file).read_library_search()
-                compiled_str = "\n".join(compiled_list)
-                output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))
-            
-            else:
-                not_found_in_poisons_but_effective_grp = []
-                found_in_poisons_but_effective_grp = []
+                    compiled_list = read_library_search(uploaded_file).read_library_search()
+                    compiled_str = "\n".join(compiled_list)
+                    output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))
+                
+                else:
+                    not_found_in_poisons_but_effective_grp = []
+                    found_in_poisons_but_effective_grp = []
 
-                if form.form_submit_button("Submit"):
+                    
                     st.toast(f"User input submitted_{user_prompt}")
                     output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt))
                 
-            for results in output_response:
-                if results == "Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.":
-                    st.write(results)
-                elif "does not belong to any effective groupings" in results:
-                    st.write(results)
-                else:
-                    if "not found in poisons act 1938" in results:
-                        not_found_in_poisons_but_effective_grp.append(results)
+                for results in output_response:
+                    if results == "Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.":
+                        st.write(results)
+                    elif "does not belong to any effective groupings" in results:
+                        st.write(results)
                     else:
-                        found_in_poisons_but_effective_grp.append(results)
-            
-            # Tidy up the response into a dataframe:
-            if len(not_found_in_poisons_but_effective_grp)!=0:
-                st.write("Not found in poisons act 1938:\n")
-                dict1 = {}
-                for cpds in not_found_in_poisons_but_effective_grp:
-                    cpd_name = cpds.split("belongs to")[0]
-                    effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
-                    dict1[cpd_name] = effective_grp
-
-                df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
-                group_counts = df["Group"].value_counts().sort_values(ascending=False)
-                chart_data = pd.DataFrame(group_counts)
-                chart_data.columns = ["Number of Compounds"]
-                st.bar_chart(chart_data)
-
-                # Display the table
-                st.dataframe(df, use_container_width=True)
-
-            # Tidy up the response into a dataframe:
-            if len(found_in_poisons_but_effective_grp)!=0:
-                st.write("🔍🔍🔍 Found in poisons act 1938:\n")
-                dict1 = {}
-                for cpds in found_in_poisons_but_effective_grp:
-                    cpd_name = cpds.split("belongs to")[0]
-                    effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
-                    dict1[cpd_name] = effective_grp
+                        if "not found in poisons act 1938" in results:
+                            not_found_in_poisons_but_effective_grp.append(results)
+                        else:
+                            found_in_poisons_but_effective_grp.append(results)
                 
-            
-                st.dataframe(df, use_container_width=True)
+                # Tidy up the response into a dataframe:
+                if len(not_found_in_poisons_but_effective_grp)!=0:
+                    st.write("Not found in poisons act 1938:\n")
+                    dict1 = {}
+                    for cpds in not_found_in_poisons_but_effective_grp:
+                        cpd_name = cpds.split("belongs to")[0]
+                        effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
+                        dict1[cpd_name] = effective_grp
+
+                    df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
+                    group_counts = df["Group"].value_counts().sort_values(ascending=False)
+                    chart_data = pd.DataFrame(group_counts)
+                    chart_data.columns = ["Number of Compounds"]
+                    st.bar_chart(chart_data)
+
+                    # Display the table
+                    st.dataframe(df, use_container_width=True)
+
+                # Tidy up the response into a dataframe:
+                if len(found_in_poisons_but_effective_grp)!=0:
+                    st.write("🔍🔍🔍 Found in poisons act 1938:\n")
+                    dict1 = {}
+                    for cpds in found_in_poisons_but_effective_grp:
+                        cpd_name = cpds.split("belongs to")[0]
+                        effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
+                        dict1[cpd_name] = effective_grp
+                    
+                
+                    st.dataframe(df, use_container_width=True)
 
             #st.text('\n'.join(output_response))
 
