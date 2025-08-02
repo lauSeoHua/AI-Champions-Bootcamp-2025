@@ -339,6 +339,32 @@ def search_poison_act_1938(normalized_name):
         st.error(f"❌ FAISS.from_documents failed: {type(e).__name__}")
         st.exception(e)
 
+
+
+    cohere_api_key = st.secrets["COHERE_API_KEY"]
+    COHERE_client = os.getenv(cohere_api_key)
+    compressor = CohereRerank(top_n=1, model='rerank-english-v3.0',cohere_api_key=COHERE_client)
+    print(compressor)
+    compression_retriever = ContextualCompressionRetriever(
+        base_compressor=compressor,
+        #base_retriever=vector_store.as_retriever(),
+        base_retriever=retriever
+    )   
+
+    try:
+        print("Line 214", flush=True)
+        retriever_documents = compression_retriever.invoke(f"Tell me about {normalized_name}")
+        print("Retriever response:", retriever_documents, flush=True)
+
+        for doc in retriever_documents:
+            list_of_contexts.append(doc.page_content)
+    except Exception as e:
+        print("Error at fallback query:", e, flush=True)
+
+
+
+
+
     # Configure logging
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
