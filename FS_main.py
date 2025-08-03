@@ -276,15 +276,17 @@ Always consult with qualified professionals for accurate and personalized advice
                     if uploaded_file.type == "application/pdf":
                         compiled_list = read_library_search(uploaded_file).read_library_search()
                         compiled_str = "\n".join(compiled_list)
-                        output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))
+                        output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
                         form_fields = read_library_search(uploaded_file).fill_in_form()
+                        for_writing_form = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[1]
+                        st.write(for_writing_form)
                         st.write(form_fields)
                     else:
                         st.error("Uploaded file is not pdf ❌❌❌. Uploaded file MUST be PDF.")
                 else:
                     
                     st.toast(f"User input submitted_{user_prompt}")
-                    output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt))
+                    output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt))[0]
                 
                 for results in output_response:
                     if results == "Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.":

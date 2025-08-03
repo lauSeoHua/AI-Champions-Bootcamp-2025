@@ -296,6 +296,8 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
     print(list_of_normalized_names)
     compiled_list = []
 
+    tidied_list = []
+
     # check that the list of normalized names is not empty
     if len(list_of_normalized_names) != 0:
         for normalized_names in list_of_normalized_names:
@@ -308,6 +310,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                     response = llm_drugs.get_completion(normalized_names)
                     # The "sentence" that will be presented to the user will be appended to a list.
                     # The database chemicals are all found in poisons act.
+                    tidied_list.append(f"{normalized_names.capitalize()}${effective_grouping_match}")
                     compiled_list.append(f"\n{normalized_names.capitalize()} belongs to {effective_grouping_match} and is found in the poisons act 1938.\n")
             else:
                 #did not find a good match (no effective groupings) hence must search posion act 1938
@@ -326,6 +329,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                         if f"{normalized_names}/{refind_normalized_name} belongs to {effective_grouping_match}." not in compiled_list:
                             response = llm_drugs.get_completion(normalized_names)
                             # The "sentence" that will be presented to the user will be appended to a list.
+                            tidied_list.append(f"{normalized_names.capitalize()}${effective_grouping_match}")
                             compiled_list.append(f"\n{normalized_names.capitalize()}/{refind_normalized_name} belongs to {effective_grouping_match} and is found in the poisons act 1938.\n ")
                     else:
                         #Not found in effective groupings but found in poisons act -> use LLM to reply general
@@ -340,4 +344,4 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
     # All other random queries
     else:
         compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
-    return compiled_list
+    return (compiled_list,tidied_list)
