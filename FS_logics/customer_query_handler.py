@@ -52,6 +52,18 @@ text_splitter_ = RecursiveCharacterTextSplitter(
 
 def normalize_chemical_names(user_message):
 
+    query = 'site:go.drugbank.com "1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tol"'
+
+    # assuming crewai_websearch is the interface for the tool
+    results = WebsiteSearchTool(query)
+
+    for res in results:
+        st.write("Title:", res['title'])
+        st.write("URL:", res['link'])
+        st.write("Snippet:", res['snippet'])
+        st.write("-----")
+
+
     system_message = f"""
 
     You will be provided with drug-related queries.\
