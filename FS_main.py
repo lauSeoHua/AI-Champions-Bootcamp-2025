@@ -323,6 +323,14 @@ Always consult with qualified professionals for accurate and personalized advice
                         cpd_name = cpds.split("belongs to")[0]
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
                         dict1[cpd_name] = effective_grp
+
+                    df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
+                    group_counts = df["Group"].value_counts().sort_values(ascending=False)
+                    chart_data = pd.DataFrame(group_counts)
+                    chart_data.columns = ["Number of Compounds"]
+                    st.bar_chart(chart_data)
+
+                    # Display the table
                     st.dataframe(df, use_container_width=True)
 
             #st.text('\n'.join(output_response))
