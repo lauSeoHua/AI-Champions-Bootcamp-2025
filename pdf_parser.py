@@ -105,35 +105,34 @@ class read_library_search:
                         grps = cpds.split("$")[1]
                         if "," in grps:
                             each_grp = grps.split(",")
-                            groups.append(each_grp)
+                            
                             for grp in each_grp:
+                                groups.append(grp)
                                 for fields in list_of_fields:
-                                    for key,value in fields.items():
-                                        if key == grp:
-                                            if (field_type == value[2]):
-                                                field_input = f"{cpd_name},{field_value}" 
-                                                widget.field_value = field_input
-                                                widget.update()
-                                            elif (field_type == value[1]):
-                                                field_input = "Yes"
-                                                widget.field_value == field_input
-                                                widget.update()
+                                    text_fields = fields.get(grp)
+                                    if (field_type == text_fields[2]):
+                                        field_input = widget.field_value
+                                        field_input += cpd_name
+                                        widget.field_value = field_input 
+                                        widget.update()
+                                    elif (field_type == text_fields[1]):
+                                        field_input = "Yes"
+                                        widget.field_value = field_input
+                                        widget.update()
                         else:
                             each_grp = grps
                             groups.append(each_grp)
                             for fields in list_of_fields:
-                                for key,value in fields.items():
-                                    if key == each_grp:
-                                        if (field_type == value[2]):
-                                            field_input = f"{cpd_name},{field_value}" 
-                                            widget.field_value = field_input
-                                            widget.update()
-                                        elif (field_type == value[1]):
-                                            field_input = "Yes"
-                                            widget.field_value == field_input
-                                            widget.update()
-                    
-
+                                text_fields = fields.get(each_grp)
+                                if (field_type == text_fields[2]):
+                                    field_input = widget.field_value
+                                    field_input += cpd_name
+                                    widget.field_value = field_input 
+                                    widget.update()
+                                elif (field_type == text_fields[1]):
+                                    field_input = "Yes"
+                                    widget.field_value = field_input
+                                    widget.update()
             # Save to a BytesIO object
             pdf_bytes = BytesIO()
             doc.save(pdf_bytes)
