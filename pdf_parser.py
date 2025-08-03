@@ -108,7 +108,7 @@ class read_library_search:
                             groups.append(each_grp)
                             for grp in each_grp:
                                 for fields in list_of_fields:
-                                    for key,value in fields:
+                                    for key,value in fields.items():
                                         if key == grp.trim():
                                             if (field_type == value[2]):
                                                 field_input = cpd_name
@@ -122,7 +122,7 @@ class read_library_search:
                             each_grp = grps
                             groups.append(each_grp)
                             for fields in list_of_fields:
-                                for key,value in fields:
+                                for key,value in fields.items():
                                     if key == each_grp.trim():
                                         if (field_type == value[2]):
                                             field_input = cpd_name
