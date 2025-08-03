@@ -3,6 +3,8 @@ import re
 import os
 import streamlit as st
 import fitz
+from io import BytesIO
+
 class read_library_search:
     def __init__(self,file):
         self.file = file
@@ -57,7 +59,7 @@ class read_library_search:
 
         return (combined_compiled_list)
     
-    def fill_in_form(self):
+    def fill_in_form(self,list_of_cpds):
         with st.spinner("📄🔍 Getting PDF control forms fields📄🔍..."):
             file_path="Pseudo Control Form.pdf"
             
@@ -86,6 +88,63 @@ class read_library_search:
                     dict_for_parsing_form_fields = {}
                     dict_for_parsing_form_fields[row[0]] = [row[i] for i in range(1,len(row))]
                     list_of_fields.append(dict_for_parsing_form_fields)
+
+            # Fill in start now
+
+            #list_to_add : ["Doxycycline$Anti-biotics (Acne),Anti-biotics (Internal Use)","Oseltamivir$Anti-virals "]
+            for page_num, page in enumerate(doc):
+                page = doc[page_num]
+                widgets = page.widgets()
+                for widget in widgets:
+                    field_name = widget.field_name
+                    field_value = widget.field_value
+                    field_type = widget.field_type_string
+                    groups=[]
+                    for cpds in list_of_cpds:
+                        cpd_name = cpds.split("$")[0]
+                        grps = cpds.split("$")[1]
+                        if "," in grps:
+                            each_grp = grps.split(",")
+                            groups.append(each_grp)
+                            for grp in each_grp:
+                                for key,value in list_of_fields:
+                                    if key == grp.trim():
+                                        if (field_type == value[2]):
+                                            field_input = cpd_name
+                                            widget.field_value == field_input
+                                            widget.update()
+                                        elif (field_type == value[1]):
+                                            field_input = "Yes"
+                                            widget.field_value == field_input
+                                            widget.update()
+                        else:
+                            each_grp = grps
+                            groups.append(each_grp)
+                            if key == each_grp.trim():
+                                if (field_type == value[2]):
+                                    field_input = cpd_name
+                                    widget.field_value == field_input
+                                    widget.update()
+                                elif (field_type == value[1]):
+                                    field_input = "Yes"
+                                    widget.field_value == field_input
+                                    widget.update()
+                    
+
+            # Save to a BytesIO object
+            pdf_bytes = BytesIO()
+            doc.save(pdf_bytes)
             doc.close()
 
+            # Move pointer to the start
+            pdf_bytes.seek(0)
+            st.download_button(
+            label="📥 Download Filled PDF",
+            data=pdf_bytes,
+            file_name="filled_form.pdf",
+            mime="application/pdf"
+        )
+
         return list_of_fields
+    
+    

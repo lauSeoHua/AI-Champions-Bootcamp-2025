@@ -277,10 +277,11 @@ Always consult with qualified professionals for accurate and personalized advice
                         compiled_list = read_library_search(uploaded_file).read_library_search()
                         compiled_str = "\n".join(compiled_list)
                         output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
-                        form_fields = read_library_search(uploaded_file).fill_in_form()
+                        
                         for_writing_form = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[1]
-                        st.write(for_writing_form)
-                        st.write(form_fields)
+                        form_fields = read_library_search(uploaded_file).fill_in_form(list_of_cpds=for_writing_form)
+                        #st.write(for_writing_form)
+                        #st.write(form_fields)
                     else:
                         st.error("Uploaded file is not pdf ❌❌❌. Uploaded file MUST be PDF.")
                 else:
@@ -308,11 +309,11 @@ Always consult with qualified professionals for accurate and personalized advice
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
                         dict1[cpd_name] = effective_grp
 
-                    df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
-                    group_counts = df["Group"].value_counts().sort_values(ascending=False)
-                    chart_data = pd.DataFrame(group_counts)
-                    chart_data.columns = ["Number of Compounds"]
-                    st.bar_chart(chart_data)
+                    # df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
+                    # group_counts = df["Group"].value_counts().sort_values(ascending=False)
+                    # chart_data = pd.DataFrame(group_counts)
+                    # chart_data.columns = ["Number of Compounds"]
+                    # st.bar_chart(chart_data)
 
                     # Display the table
                     st.dataframe(df, use_container_width=True)
