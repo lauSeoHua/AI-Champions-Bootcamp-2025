@@ -109,7 +109,7 @@ class read_library_search:
                             for grp in each_grp:
                                 for fields in list_of_fields:
                                     for key,value in fields.items():
-                                        if key == grp.strip():
+                                        if key == grp:
                                             if (field_type == value[2]):
                                                 field_input = cpd_name
                                                 widget.field_value == field_input += field_value
@@ -123,7 +123,7 @@ class read_library_search:
                             groups.append(each_grp)
                             for fields in list_of_fields:
                                 for key,value in fields.items():
-                                    if key == each_grp.strip():
+                                    if key == each_grp:
                                         if (field_type == value[2]):
                                             field_input = cpd_name
                                             widget.field_value == field_input += field_value
