@@ -109,10 +109,10 @@ class read_library_search:
                             for grp in each_grp:
                                 for fields in list_of_fields:
                                     for key,value in fields.items():
-                                        if key == grp.trim():
+                                        if key == grp.strip():
                                             if (field_type == value[2]):
                                                 field_input = cpd_name
-                                                widget.field_value == field_input
+                                                widget.field_value == field_input += field_value
                                                 widget.update()
                                             elif (field_type == value[1]):
                                                 field_input = "Yes"
@@ -123,10 +123,10 @@ class read_library_search:
                             groups.append(each_grp)
                             for fields in list_of_fields:
                                 for key,value in fields.items():
-                                    if key == each_grp.trim():
+                                    if key == each_grp.strip():
                                         if (field_type == value[2]):
                                             field_input = cpd_name
-                                            widget.field_value == field_input
+                                            widget.field_value == field_input += field_value
                                             widget.update()
                                         elif (field_type == value[1]):
                                             field_input = "Yes"
