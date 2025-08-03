@@ -52,11 +52,14 @@ text_splitter_ = RecursiveCharacterTextSplitter(
 
 def normalize_chemical_names(user_message):
 
-    query = 'site:go.drugbank.com "1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tol"'
+    from crewai_tools import SerperDevTool
 
-    # assuming crewai_websearch is the interface for the tool
-    results = WebsiteSearchTool(query)
+    # Initialize the search tool
+    search_tool = SerperDevTool()
 
+    # Perform the search on DrugBank site
+    query = 'site:go.drugbank.com "1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tolylurea"'
+    results = search_tool.run(query)
     for res in results:
         st.write("Title:", res['title'])
         st.write("URL:", res['link'])
