@@ -107,8 +107,23 @@ class read_library_search:
                             each_grp = grps.split(",")
                             groups.append(each_grp)
                             for grp in each_grp:
-                                for key,value in list_of_fields:
-                                    if key == grp.trim():
+                                for fields in list_of_fields:
+                                    for key,value in fields:
+                                        if key == grp.trim():
+                                            if (field_type == value[2]):
+                                                field_input = cpd_name
+                                                widget.field_value == field_input
+                                                widget.update()
+                                            elif (field_type == value[1]):
+                                                field_input = "Yes"
+                                                widget.field_value == field_input
+                                                widget.update()
+                        else:
+                            each_grp = grps
+                            groups.append(each_grp)
+                            for fields in list_of_fields:
+                                for key,value in fields:
+                                    if key == each_grp.trim():
                                         if (field_type == value[2]):
                                             field_input = cpd_name
                                             widget.field_value == field_input
@@ -117,18 +132,6 @@ class read_library_search:
                                             field_input = "Yes"
                                             widget.field_value == field_input
                                             widget.update()
-                        else:
-                            each_grp = grps
-                            groups.append(each_grp)
-                            if key == each_grp.trim():
-                                if (field_type == value[2]):
-                                    field_input = cpd_name
-                                    widget.field_value == field_input
-                                    widget.update()
-                                elif (field_type == value[1]):
-                                    field_input = "Yes"
-                                    widget.field_value == field_input
-                                    widget.update()
                     
 
             # Save to a BytesIO object
