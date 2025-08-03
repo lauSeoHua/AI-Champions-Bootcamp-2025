@@ -57,7 +57,7 @@ def normalize_chemical_names(user_message):
     scrape_tool = ScrapeWebsiteTool()
 
     # If search gives you a URL like "https://go.drugbank.com/drugs/DB12345"
-    scraped_content = scrape_tool.run(website_url="https://www.google.com/search?q=1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tol")
+    scraped_content = scrape_tool.run(website_url="https://go.drugbank.com/unearth/q?searcher=drugs&query=1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tol")
     
     st.write("-----")
     st.write(scraped_content)
