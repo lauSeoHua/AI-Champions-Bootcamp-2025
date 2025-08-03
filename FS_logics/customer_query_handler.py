@@ -57,15 +57,15 @@ def normalize_chemical_names(user_message):
     You will be provided with drug-related queries.\
     The drug-related queries will be enclosed in the triple backticks.
 
-    Decide if the query is relevant to drug names or arsenic. There can be more than 1 drug names in the query.
+    Decide if the query is relevant to drug names/chemical compounds/chemical formula/Chemical Abstract Number (CAS) or arsenic. There can be more than 1 in the query.
 
-    If there are any drug names/arsenic found, use the following rules to identify the compound mentioned.
+    If there are any drug names/chemical compounds/chemical formula/IUPAC Name/Chemical Abstract Number (CAS)//arsenic found, use the following rules to identify the compound mentioned.
     1) If it is an analogue, metabolite, or salt or HCl or Na or sulfate of another compound, return the simplest base compound.
     2) However, if it is in a ester, amide, carboxylic acid, acid chloride, anhydride, or amine form — including specific stereoisomers or positional variants — return the compound name exactly as given, without simplification.
     3) If the compound includes prefixes such as "nor-","homo-", "des-", or other demethylated forms, return the corresponding parent compound by removing the prefix. 
     4) If the compound has a "pseudo", retain it in the compound.
     5) However, if the compound has a functional modification (e.g., hydroxy-, ester, amide), keep it as-is.
-    6) There can be synonyms of the drug names. E.g. paracetamol is acetaminophen and vice versa. If an  IUPAC-like systematic name is provided, convert to the drug name.
+    6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name.
     Output the identified compounds as a list. 
 
     If no drug names are found, output an empty list.
