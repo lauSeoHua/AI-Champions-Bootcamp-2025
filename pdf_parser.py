@@ -110,6 +110,7 @@ class read_library_search:
                                 groups.append(grp)
                                 for fields in list_of_fields:
                                     text_fields = fields.get(grp)
+                                    st.write(text_fields)
                                     if (field_type == text_fields[2]):
                                         field_input = widget.field_value
                                         field_input += cpd_name
@@ -123,7 +124,9 @@ class read_library_search:
                             each_grp = grps
                             groups.append(each_grp)
                             for fields in list_of_fields:
+                                
                                 text_fields = fields.get(each_grp)
+                                st.write(text_fields)
                                 if (field_type == text_fields[2]):
                                     field_input = widget.field_value
                                     field_input += cpd_name
