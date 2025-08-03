@@ -52,17 +52,6 @@ text_splitter_ = RecursiveCharacterTextSplitter(
 
 def normalize_chemical_names(user_message):
 
-    from crewai_tools import ScrapeWebsiteTool
-
-    scrape_tool = ScrapeWebsiteTool()
-
-    # If search gives you a URL like "https://go.drugbank.com/drugs/DB12345"
-    scraped_content = scrape_tool.run(website_url="https://go.drugbank.com/unearth/q?searcher=drugs&query=1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tol")
-    
-    st.write("-----")
-    st.write(scraped_content)
-
-
     system_message = f"""
 
     You will be provided with drug-related queries.\
@@ -95,9 +84,7 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = llm_drugs.get_completion_by_messages(messages)
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
-    print(normalized_chemical_names_response_str)
-    st.write("Just something...")
-    st.write(llm_drugs.get_completion_by_messages([{"role": "user", "content": "1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tol"}]))
+    #print(normalized_chemical_names_response_str)
     return normalized_chemical_names_response_str
 
 #use a sentence transformer to compare the normalized names and the effective grouping table
