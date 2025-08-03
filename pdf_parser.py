@@ -111,8 +111,8 @@ class read_library_search:
                                     for key,value in fields.items():
                                         if key == grp:
                                             if (field_type == value[2]):
-                                                field_input = cpd_name
-                                                widget.field_value == field_input += field_value
+                                                field_input = f"{cpd_name},{field_value}" 
+                                                widget.field_value = field_input
                                                 widget.update()
                                             elif (field_type == value[1]):
                                                 field_input = "Yes"
@@ -125,8 +125,8 @@ class read_library_search:
                                 for key,value in fields.items():
                                     if key == each_grp:
                                         if (field_type == value[2]):
-                                            field_input = cpd_name
-                                            widget.field_value == field_input += field_value
+                                            field_input = f"{cpd_name},{field_value}" 
+                                            widget.field_value = field_input
                                             widget.update()
                                         elif (field_type == value[1]):
                                             field_input = "Yes"
