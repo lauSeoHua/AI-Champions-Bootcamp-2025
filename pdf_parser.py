@@ -101,7 +101,7 @@ class read_library_search:
                     field_type = widget.field_type_string
                     groups=[]
                     for cpds in list_of_cpds:
-        #                 st.write(cpds)
+                        st.write(cpds)
         #                 cpd_name = cpds.split("$")[0]
         #                 grps = cpds.split("$")[1]
         #                 if "," in grps:
