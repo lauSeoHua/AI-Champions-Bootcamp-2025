@@ -110,7 +110,8 @@ class read_library_search:
                                 elif widget.field_name == dict_for_parsing_form_fields.get(grp)[1]:
                                     widget.field_value = "Yes"
                                     widget.update()
-                            undetected_field.remove(dict_for_parsing_form_fields.get(grp)[0])
+                            if dict_for_parsing_form_fields.get(grp)[0] in undetected_field:
+                                undetected_field.remove(dict_for_parsing_form_fields.get(grp)[0])
                     else:
                         for widget in widgets:
                             if widget.field_name == dict_for_parsing_form_fields.get(grps)[2]:
@@ -119,7 +120,8 @@ class read_library_search:
                             elif widget.field_name == dict_for_parsing_form_fields.get(grps)[1]:
                                 widget.field_value = "Yes"
                                 widget.update()
-                        undetected_field.remove(dict_for_parsing_form_fields.get(grps)[0])
+                            if dict_for_parsing_form_fields.get(grps)[0] in undetected_field:
+                                undetected_field.remove(dict_for_parsing_form_fields.get(grps)[0])
                 for widget in widgets:
                     for undetected_fields in undetected_field:
                         if widget.field_names == undetected_fields:
