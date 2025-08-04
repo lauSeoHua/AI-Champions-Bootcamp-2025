@@ -32,6 +32,10 @@ from FS_helper_functions import llm_drugs
 
 embeddings_model = OpenAIEmbeddings(model='text-embedding-3-small', openai_api_key=st.secrets["OPENAI_API_KEY"]) 
 
+# Load sentence transformer model
+model = SentenceTransformer('all-MiniLM-L6-v2',cache_folder="./models")
+
+
 # Define text splitter to split text for chunking/vector embeddings
 
 text_splitter_ = RecursiveCharacterTextSplitter(
@@ -94,9 +98,9 @@ def sentence_transformer_find_best_match(normalized_name):
     df = pd.read_csv("Effective groupings_reformatted.csv")
     df=df.dropna()
 
-    # Load sentence transformer model
-    model = SentenceTransformer('all-MiniLM-L6-v2')
-
+    # # Load sentence transformer model
+    # model = SentenceTransformer('all-MiniLM-L6-v2',cache_folder="./models")
+    model = SentenceTransformer("./models/all-MiniLM-L6-v2")
     # Embed all drug names within the effective groupings csv to tensor once
     drug_embeddings = model.encode(df['Compounds'].tolist(), convert_to_tensor=True)
 

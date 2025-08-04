@@ -117,15 +117,14 @@ class read_library_search:
 
                         for widget in widgets:
                             if widget.field_name == field_to_update:
-                                curr_word = widget.field_value or ""
-                                new_value = curr_word + "," + cpd if curr_word else cpd
-                                #widget.field_value = new_value
-                                widget.set_value(new_value)
+                                # curr_word = widget.field_value or ""
+                                # new_value = curr_word + "," + cpd if curr_word else cpd
+                                new_value = "hello"
+                                widget.field_value = new_value
                                 widget.update()
 
                             elif widget.field_name == yes_field:
-                                #widget.field_value = "Yes"
-                                widget.set_value("Yes")
+                                widget.field_value = "Yes"
                                 widget.update()
 
                         if undetected in undetected_field:
@@ -134,8 +133,7 @@ class read_library_search:
                 for widget in widgets:
                     for undetected in undetected_field:
                         if widget.field_name == undetected:
-                            #widget.field_value = "Yes"
-                            widget.set_value("Yes")
+                            widget.field_value = "Yes"
                             widget.update()
 
             # ✅ Final save
