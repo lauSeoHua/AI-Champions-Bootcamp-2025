@@ -94,56 +94,102 @@ class read_library_search:
                 undetected_field.append(value[0])
             #list_to_add : ["Doxycycline$Anti-biotics (Acne),Anti-biotics (Internal Use)","Oseltamivir$Anti-virals "]
             for page_num, page in enumerate(doc):
-                page = doc[page_num]
                 widgets = page.widgets()
-            
+
                 for cpds in list_of_cpds:
                     cpd = cpds.split("$")[0]
                     grps = cpds.split("$")[1]
+
                     if "," in grps:
-                        st.write("Line 104")
                         grp_list = grps.split(",")
-                        for grp in grp_list:
-                            st.write(grp)
-                            st.write(dict_for_parsing_form_fields.get(grp.strip())[2])
-                            for widget in widgets:
-                                if widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[2]:
-                                    curr_word =  widget.field_value or ""  
-                                    new_value = curr_word + "," + cpd
-                                    widget.field_value = new_value
-                                    widget.update()
-                                elif widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[1]:
-                                    widget.field_value = "Yes"
-                                    widget.update()
-                            if dict_for_parsing_form_fields.get(grp.strip())[0] in undetected_field:
-                                undetected_field.remove(dict_for_parsing_form_fields.get(grp.strip())[0])
                     else:
-                        st.write("Line 119")
-                        st.write(grps)
-                        st.write(dict_for_parsing_form_fields.get(grps.strip())[2])
+                        grp_list = [grps]
+
+                    for grp in grp_list:
+                        grp = grp.strip()
+                        field_names = dict_for_parsing_form_fields.get(grp)
+                        if not field_names:
+                            continue
+
+                        field_to_update = field_names[2]
+                        yes_field = field_names[1]
+                        undetected = field_names[0]
+
                         for widget in widgets:
-                            if widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[2]:
-                                curr_word =  widget.field_value or "" 
-                                new_value = curr_word + "," + cpd
+                            if widget.field_name == field_to_update:
+                                curr_word = widget.field_value or ""
+                                new_value = curr_word + "," + cpd if curr_word else cpd
                                 widget.field_value = new_value
                                 widget.update()
-                            elif widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[1]:
+
+                            elif widget.field_name == yes_field:
                                 widget.field_value = "Yes"
                                 widget.update()
-                            if dict_for_parsing_form_fields.get(grps)[0].strip() in undetected_field:
-                                undetected_field.remove(dict_for_parsing_form_fields.get(grps.strip())[0])
+
+                        if undetected in undetected_field:
+                            undetected_field.remove(undetected)
+
                 for widget in widgets:
-                    for undetected_fields in undetected_field:
-                        if widget.field_name == undetected_fields:
+                    for undetected in undetected_field:
+                        if widget.field_name == undetected:
                             widget.field_value = "Yes"
                             widget.update()
-                #     field_name = widget.field_name
-                #     field_value = widget.field_value
-                #     field_type = widget.field_type_string
-                #     groups=[]
-                #     for cpds in list_of_cpds:
-                #         st.write(cpds)
-        #                 cpd_name = cpds.split("$")[0]
+
+            # ✅ Final save
+            doc.save("updated_form.pdf")
+            doc.close()
+
+        #     for page_num, page in enumerate(doc):
+        #         page = doc[page_num]
+        #         widgets = page.widgets()
+            
+        #         for cpds in list_of_cpds:
+        #             cpd = cpds.split("$")[0]
+        #             grps = cpds.split("$")[1]
+        #             if "," in grps:
+        #                 st.write("Line 104")
+        #                 grp_list = grps.split(",")
+        #                 for grp in grp_list:
+        #                     st.write(grp)
+        #                     st.write(dict_for_parsing_form_fields.get(grp.strip())[2])
+        #                     for widget in widgets:
+        #                         if widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[2]:
+        #                             curr_word =  widget.field_value or ""  
+        #                             new_value = curr_word + "," + cpd
+        #                             widget.field_value = new_value
+        #                             widget.update()
+        #                         elif widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[1]:
+        #                             widget.field_value = "Yes"
+        #                             widget.update()
+        #                     if dict_for_parsing_form_fields.get(grp.strip())[0] in undetected_field:
+        #                         undetected_field.remove(dict_for_parsing_form_fields.get(grp.strip())[0])
+        #             else:
+        #                 st.write("Line 119")
+        #                 st.write(grps)
+        #                 st.write(dict_for_parsing_form_fields.get(grps.strip())[2])
+        #                 for widget in widgets:
+        #                     if widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[2]:
+        #                         curr_word =  widget.field_value or "" 
+        #                         new_value = curr_word + "," + cpd
+        #                         widget.field_value = new_value
+        #                         widget.update()
+        #                     elif widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[1]:
+        #                         widget.field_value = "Yes"
+        #                         widget.update()
+        #                     if dict_for_parsing_form_fields.get(grps.strip())[0] in undetected_field:
+        #                         undetected_field.remove(dict_for_parsing_form_fields.get(grps.strip())[0])
+        #         for widget in widgets:
+        #             for undetected_fields in undetected_field:
+        #                 if widget.field_name == undetected_fields:
+        #                     widget.field_value = "Yes"
+        #                     widget.update()
+        #         #     field_name = widget.field_name
+        #         #     field_value = widget.field_value
+        #         #     field_type = widget.field_type_string
+        #         #     groups=[]
+        #         #     for cpds in list_of_cpds:
+        #         #         st.write(cpds)
+        # #                 cpd_name = cpds.split("$")[0]
         #                 grps = cpds.split("$")[1]
         #                 if "," in grps:
         #                     each_grp = grps.split(",")
