@@ -101,8 +101,11 @@ class read_library_search:
                     cpd = cpds.split("$")[0]
                     grps = cpds.split("$")[1]
                     if "," in grps:
+                        st.write("Line 104")
                         grp_list = grps.split(",")
                         for grp in grp_list:
+                            st.write(grp)
+                            st.write(dict_for_parsing_form_fields.get(grp)[2])
                             for widget in widgets:
                                 if widget.field_name == dict_for_parsing_form_fields.get(grp)[2]:
                                     widget.field_value += ","+cpd
@@ -113,6 +116,9 @@ class read_library_search:
                             if dict_for_parsing_form_fields.get(grp)[0] in undetected_field:
                                 undetected_field.remove(dict_for_parsing_form_fields.get(grp)[0])
                     else:
+                        st.write("Line 119")
+                        st.write(grps)
+                        st.write(dict_for_parsing_form_fields.get(grp)[2])
                         for widget in widgets:
                             if widget.field_name == dict_for_parsing_form_fields.get(grps)[2]:
                                 widget.field_value += ","+cpd
