@@ -89,14 +89,14 @@ class read_library_search:
                     dict_for_parsing_form_fields[row[0]] = [row[i] for i in range(1,len(row))]
                     
             # Fill in start now
-
+            undetected_field = []
+            for key,value in dict_for_parsing_form_fields.items():
+                undetected_field.append(value[0])
             #list_to_add : ["Doxycycline$Anti-biotics (Acne),Anti-biotics (Internal Use)","Oseltamivir$Anti-virals "]
             for page_num, page in enumerate(doc):
                 page = doc[page_num]
                 widgets = page.widgets()
-                undetected_field = []
-                for key,value in dict_for_parsing_form_fields.items():
-                    undetected_field.append(value[0])
+            
                 for cpds in list_of_cpds:
                     cpd = cpds.split("$")[0]
                     grps = cpds.split("$")[1]
@@ -108,7 +108,7 @@ class read_library_search:
                             st.write(dict_for_parsing_form_fields.get(grp.strip())[2])
                             for widget in widgets:
                                 if widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[2]:
-                                    curr_word = widget.field_value 
+                                    curr_word =  widget.field_value or ""  
                                     new_value = curr_word + "," + cpd
                                     widget.field_value = new_value
                                     widget.update()
@@ -123,7 +123,7 @@ class read_library_search:
                         st.write(dict_for_parsing_form_fields.get(grps.strip())[2])
                         for widget in widgets:
                             if widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[2]:
-                                curr_word = widget.field_value 
+                                curr_word =  widget.field_value or "" 
                                 new_value = curr_word + "," + cpd
                                 widget.field_value = new_value
                                 widget.update()
