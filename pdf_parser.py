@@ -108,7 +108,9 @@ class read_library_search:
                             st.write(dict_for_parsing_form_fields.get(grp)[2])
                             for widget in widgets:
                                 if widget.field_name == dict_for_parsing_form_fields.get(grp)[2]:
-                                    widget.field_value += ","+cpd
+                                    curr_word = widget.field_value 
+                                    curr_word = f"{curr_word},{cpd}"
+                                    widget.field_value = curr_word
                                     widget.update()
                                 elif widget.field_name == dict_for_parsing_form_fields.get(grp)[1]:
                                     widget.field_value = "Yes"
@@ -118,10 +120,12 @@ class read_library_search:
                     else:
                         st.write("Line 119")
                         st.write(grps)
-                        st.write(dict_for_parsing_form_fields.get(grp)[2])
+                        st.write(dict_for_parsing_form_fields.get(grps)[2])
                         for widget in widgets:
                             if widget.field_name == dict_for_parsing_form_fields.get(grps)[2]:
-                                widget.field_value += ","+cpd
+                                curr_word = widget.field_value 
+                                curr_word = f"{curr_word},{cpd}"
+                                widget.field_value = curr_word
                                 widget.update()
                             elif widget.field_name == dict_for_parsing_form_fields.get(grps)[1]:
                                 widget.field_value = "Yes"
@@ -130,7 +134,7 @@ class read_library_search:
                                 undetected_field.remove(dict_for_parsing_form_fields.get(grps)[0])
                 for widget in widgets:
                     for undetected_fields in undetected_field:
-                        if widget.field_names == undetected_fields:
+                        if widget.field_name == undetected_fields:
                             widget.field_value = "Yes"
                             widget.update()
                 #     field_name = widget.field_name
