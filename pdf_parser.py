@@ -101,55 +101,57 @@ class read_library_search:
                     field_type = widget.field_type_string
                     groups=[]
                     for cpds in list_of_cpds:
-                        cpd_name = cpds.split("$")[0]
-                        grps = cpds.split("$")[1]
-                        if "," in grps:
-                            each_grp = grps.split(",")
+        #                 st.write(cpds)
+        #                 cpd_name = cpds.split("$")[0]
+        #                 grps = cpds.split("$")[1]
+        #                 if "," in grps:
+        #                     each_grp = grps.split(",")
                             
-                            for grp in each_grp:
-                                groups.append(grp)
-                                for fields in list_of_fields:
-                                    text_fields = fields.get(grp)
-                                    st.write(text_fields)
-                                    if (field_type == text_fields[2]):
-                                        field_input = widget.field_value
-                                        field_input += cpd_name
-                                        widget.field_value = field_input 
-                                        widget.update()
-                                    elif (field_type == text_fields[1]):
-                                        field_input = "Yes"
-                                        widget.field_value = field_input
-                                        widget.update()
-                        else:
-                            each_grp = grps
-                            groups.append(each_grp)
-                            for fields in list_of_fields:
+        #                     for grp in each_grp:
+        #                         groups.append(grp)
+        #                         st.write(grp)
+        #                         for fields in list_of_fields:
+        #                             text_fields = fields.get(grp)
+        #                             st.write(text_fields)
+        #                             if (field_type == text_fields[2]):
+        #                                 field_input = widget.field_value
+        #                                 field_input += cpd_name
+        #                                 widget.field_value = field_input 
+        #                                 widget.update()
+        #                             elif (field_type == text_fields[1]):
+        #                                 field_input = "Yes"
+        #                                 widget.field_value = field_input
+        #                                 widget.update()
+        #                 else:
+        #                     each_grp = grps
+        #                     groups.append(each_grp)
+        #                     for fields in list_of_fields:
                                 
-                                text_fields = fields.get(each_grp)
-                                st.write(text_fields)
-                                if (field_type == text_fields[2]):
-                                    field_input = widget.field_value
-                                    field_input += cpd_name
-                                    widget.field_value = field_input 
-                                    widget.update()
-                                elif (field_type == text_fields[1]):
-                                    field_input = "Yes"
-                                    widget.field_value = field_input
-                                    widget.update()
-            # Save to a BytesIO object
-            pdf_bytes = BytesIO()
-            doc.save(pdf_bytes)
-            doc.close()
+        #                         text_fields = fields.get(each_grp)
+        #                         st.write(text_fields)
+        #                         if (field_type == text_fields[2]):
+        #                             field_input = widget.field_value
+        #                             field_input += cpd_name
+        #                             widget.field_value = field_input 
+        #                             widget.update()
+        #                         elif (field_type == text_fields[1]):
+        #                             field_input = "Yes"
+        #                             widget.field_value = field_input
+        #                             widget.update()
+        #     # Save to a BytesIO object
+        #     pdf_bytes = BytesIO()
+        #     doc.save(pdf_bytes)
+        #     doc.close()
 
-            # Move pointer to the start
-            pdf_bytes.seek(0)
-            st.download_button(
-            label="📥 Download Filled PDF",
-            data=pdf_bytes,
-            file_name="filled_form.pdf",
-            mime="application/pdf"
-        )
+        #     # Move pointer to the start
+        #     pdf_bytes.seek(0)
+        #     st.download_button(
+        #     label="📥 Download Filled PDF",
+        #     data=pdf_bytes,
+        #     file_name="filled_form.pdf",
+        #     mime="application/pdf"
+        # )
 
-        return list_of_fields
+        # return list_of_fields
     
     
