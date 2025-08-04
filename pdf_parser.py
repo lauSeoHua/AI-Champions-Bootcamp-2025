@@ -105,33 +105,33 @@ class read_library_search:
                         grp_list = grps.split(",")
                         for grp in grp_list:
                             st.write(grp)
-                            st.write(dict_for_parsing_form_fields.get(grp)[2])
+                            st.write(dict_for_parsing_form_fields.get(grp.strip())[2])
                             for widget in widgets:
-                                if widget.field_name == dict_for_parsing_form_fields.get(grp)[2].strip():
+                                if widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[2]:
                                     curr_word = widget.field_value 
                                     curr_word = f"{curr_word},{cpd}"
                                     widget.field_value = curr_word
                                     widget.update()
-                                elif widget.field_name == dict_for_parsing_form_fields.get(grp)[1].strip():
+                                elif widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[1]:
                                     widget.field_value = "Yes"
                                     widget.update()
-                            if dict_for_parsing_form_fields.get(grp)[0].strip() in undetected_field:
-                                undetected_field.remove(dict_for_parsing_form_fields.get(grp)[0].strip())
+                            if dict_for_parsing_form_fields.get(grp.strip())[0] in undetected_field:
+                                undetected_field.remove(dict_for_parsing_form_fields.get(grp.strip())[0])
                     else:
                         st.write("Line 119")
                         st.write(grps)
-                        st.write(dict_for_parsing_form_fields.get(grps)[2].strip())
+                        st.write(dict_for_parsing_form_fields.get(grps.strip())[2])
                         for widget in widgets:
-                            if widget.field_name == dict_for_parsing_form_fields.get(grps)[2].strip():
+                            if widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[2]:
                                 curr_word = widget.field_value 
                                 curr_word = f"{curr_word},{cpd}"
                                 widget.field_value = curr_word
                                 widget.update()
-                            elif widget.field_name == dict_for_parsing_form_fields.get(grps)[1].strip():
+                            elif widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[1]:
                                 widget.field_value = "Yes"
                                 widget.update()
                             if dict_for_parsing_form_fields.get(grps)[0].strip() in undetected_field:
-                                undetected_field.remove(dict_for_parsing_form_fields.get(grps)[0].strip())
+                                undetected_field.remove(dict_for_parsing_form_fields.get(grps.strip())[0])
                 for widget in widgets:
                     for undetected_fields in undetected_field:
                         if widget.field_name == undetected_fields:
