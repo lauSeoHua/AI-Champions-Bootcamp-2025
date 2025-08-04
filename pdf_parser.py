@@ -65,7 +65,7 @@ class read_library_search:
             
             header = ['Effect Grouping', 'All adulterants: Not Detected', 'All other adulterants: Not Detected', 'Detected Adulterants']        
             doc = fitz.open(file_path)
-            list_of_fields = []
+            dict_for_parsing_form_fields = {}
             
             for page_num, page in enumerate(doc):
                 widgets = page.widgets()  # List of form fields (widgets) on the page
@@ -85,23 +85,37 @@ class read_library_search:
                             count+=1
                         else:
                             row[i] = row[i].replace("\n"," ")
-                    dict_for_parsing_form_fields = {}
+                    
                     dict_for_parsing_form_fields[row[0]] = [row[i] for i in range(1,len(row))]
-                    list_of_fields.append(dict_for_parsing_form_fields)
-
+                    
             # Fill in start now
 
             #list_to_add : ["Doxycycline$Anti-biotics (Acne),Anti-biotics (Internal Use)","Oseltamivir$Anti-virals "]
             for page_num, page in enumerate(doc):
                 page = doc[page_num]
                 widgets = page.widgets()
-                for widget in widgets:
-                    field_name = widget.field_name
-                    field_value = widget.field_value
-                    field_type = widget.field_type_string
-                    groups=[]
-                    for cpds in list_of_cpds:
-                        st.write(cpds)
+                for cpds in list_of_cpds:
+                    cpd = cpds.split("$")[0]
+                    grps = cpds.split("$")[1]
+                    if "," in grps:
+                        grp_list = grps.split(",")
+                        for grp in grp_list:
+                            for widget in widgets:
+                                if widget.field_name == dict_for_parsing_form_fields.get(grp):
+                                    widget.field_value += ","+cpd
+                                    widget.update()
+                    else:
+                        for widget in widgets:
+                            if widget.field_name == dict_for_parsing_form_fields.get(grps):
+                                widget.field_value += ","+cpd
+                                widget.update()
+                # for widget in widgets:
+                #     field_name = widget.field_name
+                #     field_value = widget.field_value
+                #     field_type = widget.field_type_string
+                #     groups=[]
+                #     for cpds in list_of_cpds:
+                #         st.write(cpds)
         #                 cpd_name = cpds.split("$")[0]
         #                 grps = cpds.split("$")[1]
         #                 if "," in grps:
@@ -138,19 +152,19 @@ class read_library_search:
         #                             field_input = "Yes"
         #                             widget.field_value = field_input
         #                             widget.update()
-        #     # Save to a BytesIO object
-        #     pdf_bytes = BytesIO()
-        #     doc.save(pdf_bytes)
-        #     doc.close()
+            # Save to a BytesIO object
+            pdf_bytes = BytesIO()
+            doc.save(pdf_bytes)
+            doc.close()
 
-        #     # Move pointer to the start
-        #     pdf_bytes.seek(0)
-        #     st.download_button(
-        #     label="📥 Download Filled PDF",
-        #     data=pdf_bytes,
-        #     file_name="filled_form.pdf",
-        #     mime="application/pdf"
-        # )
+            # Move pointer to the start
+            pdf_bytes.seek(0)
+            st.download_button(
+            label="📥 Download Filled PDF",
+            data=pdf_bytes,
+            file_name="filled_form.pdf",
+            mime="application/pdf"
+        )
 
         # return list_of_fields
     
