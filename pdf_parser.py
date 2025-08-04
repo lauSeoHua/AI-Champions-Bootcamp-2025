@@ -109,8 +109,8 @@ class read_library_search:
                             for widget in widgets:
                                 if widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[2]:
                                     curr_word = widget.field_value 
-                                    curr_word = f"{curr_word},{cpd}"
-                                    widget.field_value = curr_word
+                                    new_value = curr_word + "," + cpd
+                                    widget.field_value = new_value
                                     widget.update()
                                 elif widget.field_name == dict_for_parsing_form_fields.get(grp.strip())[1]:
                                     widget.field_value = "Yes"
@@ -124,8 +124,8 @@ class read_library_search:
                         for widget in widgets:
                             if widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[2]:
                                 curr_word = widget.field_value 
-                                curr_word = f"{curr_word},{cpd}"
-                                widget.field_value = curr_word
+                                new_value = curr_word + "," + cpd
+                                widget.field_value = new_value
                                 widget.update()
                             elif widget.field_name == dict_for_parsing_form_fields.get(grps.strip())[1]:
                                 widget.field_value = "Yes"
