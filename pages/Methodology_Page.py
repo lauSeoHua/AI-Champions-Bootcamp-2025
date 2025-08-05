@@ -27,7 +27,7 @@ with st.container():
         background-size: cover;
         background-position: top;
         padding: 120px 20px;
-        border-radius: 100px;
+        border-radius: 200px;
         color: white;
         text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
     "> 
