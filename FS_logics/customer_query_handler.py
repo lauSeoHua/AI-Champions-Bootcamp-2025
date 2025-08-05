@@ -359,7 +359,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
             st.write(effective_grp_match)
             # # used sentence transformer -> get score -> compare with score_threshold to determine good match
             # if sentence_transformer_find_best_match(normalized_names)[1] > 0.8:
-            if effective_grouping_match!="":
+            if effective_grp_match!="":
                 # effective_grouping_match = sentence_transformer_find_best_match(normalized_names)[0]
                 if f"{normalized_names} belongs to {effective_grouping_match}." not in compiled_list:
                     response = llm_drugs.get_completion(normalized_names)
