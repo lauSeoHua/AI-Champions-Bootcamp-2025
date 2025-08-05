@@ -320,23 +320,24 @@ Always consult with qualified professionals for accurate and personalized advice
                     st.write("🔍🔍🔍 Found in poisons act 1938:\n")
                     dict1 = {}
                     for cpds in found_in_poisons_but_effective_grp:
-                        st.write(cpds)
+                        
                         cpd_name = cpds.split("belongs to")[0]
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
                         # if effective_grp.strip() !="No effective grouping found":
                         #     dict1[cpd_name] = effective_grp
+                        if effective_grp=="":
+                            effective_grp = "No effective grouping found."
 
-                    if not bool(dict1) == False: #dict1 is not empty
-                        df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
-                        
-                        group_counts = df["Group"].value_counts().sort_values(ascending=False)
-                        chart_data = pd.DataFrame(group_counts)
-                        chart_data.columns = ["Number of Compounds"]
-                        st.bar_chart(chart_data)
+                    df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
+                    
+                    group_counts = df["Group"].value_counts().sort_values(ascending=False)
+                    chart_data = pd.DataFrame(group_counts)
+                    chart_data.columns = ["Number of Compounds"]
+                    st.bar_chart(chart_data)
 
-                        # Display the table
-                        st.dataframe(df, use_container_width=True)
-                
+                    # Display the table
+                    st.dataframe(df, use_container_width=True)
+            
                 if len(found_in_poisons_but_no_effective_grp)!=0:
                     for result in found_in_poisons_but_no_effective_grp:
                         st.write(result)
