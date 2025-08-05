@@ -269,7 +269,8 @@ Always consult with qualified professionals for accurate and personalized advice
             uploaded_file = st.file_uploader("Upload a Library Search -  Get compounds within 1 min retention time and match factor within 950. Click the 'submit' button to continue! ")
             
             not_found_in_poisons_but_effective_grp = []
-            found_in_poisons_but_effective_grp = []     
+            found_in_poisons_but_effective_grp = []  
+            found_in_poisons_but_no_effective_grp = []   
             
             if form.form_submit_button("Submit"):
                 if uploaded_file is not None:
@@ -292,6 +293,8 @@ Always consult with qualified professionals for accurate and personalized advice
                 for results in output_response:
                     if results == "Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.":
                         st.write(results)
+                    elif " does not belong to any effective groupings but it is found in poisons act 1938." in results:
+                        found_in_poisons_but_no_effective_grp.append(results)
                     elif "does not belong to any effective groupings" in results:
                         st.write(results)
                     else:
@@ -317,6 +320,7 @@ Always consult with qualified professionals for accurate and personalized advice
                     st.write("🔍🔍🔍 Found in poisons act 1938:\n")
                     dict1 = {}
                     for cpds in found_in_poisons_but_effective_grp:
+                
                         cpd_name = cpds.split("belongs to")[0]
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
                         # if effective_grp.strip() !="No effective grouping found":
@@ -334,6 +338,11 @@ Always consult with qualified professionals for accurate and personalized advice
 
                         # Display the table
                         st.dataframe(df, use_container_width=True)
+                
+                if len(found_in_poisons_but_no_effective_grp)!=0:
+                    for result in found_in_poisons_but_no_effective_grp:
+                        st.write(result)
+                
 
             #st.text('\n'.join(output_response))
 
