@@ -344,8 +344,7 @@ def search_poison_act_1938(normalized_name):
 # Function to get effective groupings from a compiled list of database 
 # The database is in excel format -> the compounds in the database are normalized.
 def get_effective_grouping_from_normalized_names(list_of_normalized_names):
-    print("Line 263")
-    print(list_of_normalized_names)
+    
     compiled_list = []
 
     tidied_list = []
