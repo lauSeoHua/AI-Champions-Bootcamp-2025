@@ -11,9 +11,12 @@ import json
 import pandas as pd
 import re
 import uuid
+import shutil
 import streamlit as st
+import chromadb
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma, FAISS
+from langchain_community.embeddings import CohereEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from sentence_transformers import SentenceTransformer, util
 from langchain.schema import Document
@@ -21,6 +24,7 @@ import ast
 from langchain_cohere import CohereRerank
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
 from crewai_tools import WebsiteSearchTool
+import logging
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
 from FS_helper_functions import llm_drugs

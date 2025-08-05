@@ -148,3 +148,6 @@ class read_library_search:
             file_name="filled_form.pdf",
             mime="application/pdf"
         )
+
+    def uv_spectrum_model(self):
+        pass
