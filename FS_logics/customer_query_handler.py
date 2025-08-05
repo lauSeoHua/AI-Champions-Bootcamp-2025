@@ -87,6 +87,57 @@ def normalize_chemical_names(user_message):
     #print(normalized_chemical_names_response_str)
     return normalized_chemical_names_response_str
 
+def rag_find_best_match(normalized_name):
+
+    delimiter = "####"
+
+    #get the effective groupings list
+    df = pd.read_csv("Effective groupings_reformatted.csv")
+    df=df.dropna()
+
+    cpd_effective_grp = dict(zip(df['Compounds'],df['Effective Grouping']))
+    
+    system_message = f"""
+
+    You will be provided with drug names or compound names.\
+    The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature, Chemical Abstract Number (CAS) and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
+    The drug names or compound names will be enclosed in the triple backticks.
+
+    Decide if the query is relevant to any specific compound names
+    in the Python dictionary below, which each key is a `Compounds`
+    and the value is string of `Effective Groupings`.
+
+    If there are any relevant compound found, output the exact string value which is the "Effective Groupings'.
+
+    {cpd_effective_grp}
+
+    If are no relevant courses are found, output an empty list.
+
+    Output the exact string value which is the "Effective Groupings'. 
+
+    If no drug names or compounds are found, output an empty list.
+
+    Ensure your response contains only the exact match of the string value or an empty list, \
+    without any enclosing tags or delimiters.
+    """
+
+    messages =  [
+        {'role':'system',
+         'content': system_message},
+        {'role':'user',
+         'content': f"{delimiter}{normalized_name}{delimiter}"},
+    ]
+    category_and_product_response_str = llm_drugs.get_completion_by_messages(messages)
+
+    #pretty-print the effective_grouping_match by removing double quotes and replace (";") or (",") with (" ")
+    if type(category_and_product_response_str) == list:
+        effective_grouping_match = ""
+    else:
+        effective_grouping_match = category_and_product_response_str.strip('"').replace(";",",")
+
+    return (effective_grouping_match)
+    
+
 #use a sentence transformer to compare the normalized names and the effective grouping table
 def sentence_transformer_find_best_match(normalized_name):
 
@@ -301,7 +352,11 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
     # check that the list of normalized names is not empty
     if len(list_of_normalized_names) != 0:
         for normalized_names in list_of_normalized_names:
+            
+            effective_grp_match = rag_find_best_match(normalized_names)
 
+            st.write("Line 358")
+            st.write(effective_grp_match)
             # used sentence transformer -> get score -> compare with score_threshold to determine good match
             if sentence_transformer_find_best_match(normalized_names)[1] > 0.8:
                 
