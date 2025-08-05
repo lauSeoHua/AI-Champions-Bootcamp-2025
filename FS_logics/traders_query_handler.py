@@ -91,7 +91,7 @@ def identify_qn(user_message):
     user_prompt = " ".join([i['content'] for i in user_message if i['role']=="user"])
     output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt))
    
-    if any("is found in poisons act 1938" in x.lower() or "belongs to" in x.lower() for x in output_response):
+    if any("is found in poisons act 1938" in x.lower() or "belongs to" in x.lower() for x in ",".join(output_response)):
         category_and_product_response = "Chemicals present in the Poisons Act 1938 and Misuse of Drugs MUST NOT be found in the complementary health product."
         return category_and_product_response
     
