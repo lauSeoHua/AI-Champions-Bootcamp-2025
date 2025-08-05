@@ -93,23 +93,21 @@ class read_library_search:
             for key,value in dict_for_parsing_form_fields.items():
                 undetected_field.append(value[0])
             #list_to_add : ["Doxycycline$Anti-biotics (Acne),Anti-biotics (Internal Use)","Oseltamivir$Anti-virals "]
-            for page_num, page in enumerate(doc):
-                widgets = page.widgets()
-
-                for cpds in list_of_cpds:
-                    cpd = cpds.split("$")[0]
-                    grps = cpds.split("$")[1]
-
-                    if "," in grps:
+            for cpds in list_of_cpds:
+                cpd = cpds.split("$")[0]
+                grps = cpds.split("$")[1]
+                if "," in grps:
                         grp_list = grps.split(",")
-                    else:
-                        grp_list = [grps]
+                else:
+                    grp_list = [grps]
+            
+                for grp in grp_list:
+                    grp = grp.strip()
+                    field_names = dict_for_parsing_form_fields.get(grp)
+            
+                    for page_num, page in enumerate(doc):
+                        widgets = page.widgets()
 
-                    for grp in grp_list:
-                        grp = grp.strip()
-                        field_names = dict_for_parsing_form_fields.get(grp)
-                        if not field_names:
-                            continue
 
                         field_to_update = field_names[2]
                         yes_field = field_names[1]
@@ -117,9 +115,9 @@ class read_library_search:
 
                         for widget in widgets:
                             if widget.field_name == field_to_update:
-                                # curr_word = widget.field_value or ""
-                                # new_value = curr_word + "," + cpd if curr_word else cpd
-                                new_value = "hello"
+                                curr_word = widget.field_value or ""
+                                new_value = curr_word + "," + cpd if curr_word else cpd
+                                
                                 widget.field_value = new_value
                                 widget.update()
 
@@ -130,11 +128,11 @@ class read_library_search:
                         if undetected in undetected_field:
                             undetected_field.remove(undetected)
 
-                for widget in widgets:
-                    for undetected in undetected_field:
-                        if widget.field_name == undetected:
-                            widget.field_value = "Yes"
-                            widget.update()
+            for widget in widgets:
+                for undetected in undetected_field:
+                    if widget.field_name == undetected:
+                        widget.field_value = "Yes"
+                        widget.update()
 
             # ✅ Final save
             # doc.save("updated_form.pdf")
