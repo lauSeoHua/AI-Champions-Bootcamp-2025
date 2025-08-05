@@ -104,29 +104,28 @@ class read_library_search:
                 for grp in grp_list:
                     grp = grp.strip()
                     field_names = dict_for_parsing_form_fields.get(grp)
-            
-                    for page_num, page in enumerate(doc):
-                        widgets = page.widgets()
+                    if len(field_names)==2:
+                        for page_num, page in enumerate(doc):
+                            widgets = page.widgets()
 
+                            field_to_update = field_names[2]
+                            yes_field = field_names[1]
+                            undetected = field_names[0]
 
-                        field_to_update = field_names[2]
-                        yes_field = field_names[1]
-                        undetected = field_names[0]
+                            for widget in widgets:
+                                if widget.field_name == field_to_update:
+                                    curr_word = widget.field_value or ""
+                                    new_value = curr_word + "," + cpd if curr_word else cpd
+                                    
+                                    widget.field_value = new_value
+                                    widget.update()
 
-                        for widget in widgets:
-                            if widget.field_name == field_to_update:
-                                curr_word = widget.field_value or ""
-                                new_value = curr_word + "," + cpd if curr_word else cpd
-                                
-                                widget.field_value = new_value
-                                widget.update()
+                                elif widget.field_name == yes_field:
+                                    widget.field_value = "Yes"
+                                    widget.update()
 
-                            elif widget.field_name == yes_field:
-                                widget.field_value = "Yes"
-                                widget.update()
-
-                        if undetected in undetected_field:
-                            undetected_field.remove(undetected)
+                            if undetected in undetected_field:
+                                undetected_field.remove(undetected)
 
             for widget in widgets:
                 for undetected in undetected_field:
