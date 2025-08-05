@@ -127,11 +127,14 @@ class read_library_search:
                             if undetected in undetected_field:
                                 undetected_field.remove(undetected)
 
-            for widget in widgets:
-                for undetected in undetected_field:
-                    if widget.field_name == undetected:
-                        widget.field_value = "Yes"
-                        widget.update()
+            for page_num, page in enumerate(doc):
+                widgets = page.widgets()                    
+
+                for widget in widgets:
+                    for undetected in undetected_field:
+                        if widget.field_name == undetected:
+                            widget.field_value = "Yes"
+                            widget.update()
 
             # ✅ Final save
             # doc.save("updated_form.pdf")
