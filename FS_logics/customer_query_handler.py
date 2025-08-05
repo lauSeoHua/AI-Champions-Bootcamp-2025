@@ -6,16 +6,14 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 # --- End of sqlite3 patch ---
 
 # Now safe to import the rest
+import time
 import json
 import pandas as pd
 import re
 import uuid
-import shutil
 import streamlit as st
-import chromadb
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma, FAISS
-from langchain_community.embeddings import CohereEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from sentence_transformers import SentenceTransformer, util
 from langchain.schema import Document
@@ -23,7 +21,6 @@ import ast
 from langchain_cohere import CohereRerank
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
 from crewai_tools import WebsiteSearchTool
-import logging
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
 from FS_helper_functions import llm_drugs
@@ -355,10 +352,9 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
             for normalized_names in list_of_normalized_names:
                 
                 effective_grp_match = rag_find_best_match(normalized_names)
-
+                time.sleep(2)
                 if effective_grp_match!="":
                     if f"{normalized_names} belongs to {effective_grp_match}." not in compiled_list:
-                        response = llm_drugs.get_completion(normalized_names)
                         # The "sentence" that will be presented to the user will be appended to a list.
                         # The database chemicals are all found in poisons act.
                         tidied_list.append(f"{normalized_names.capitalize()}${effective_grp_match}")
