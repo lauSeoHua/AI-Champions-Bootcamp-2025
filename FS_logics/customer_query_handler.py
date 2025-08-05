@@ -132,7 +132,7 @@ def rag_find_best_match(normalized_name):
 
     #pretty-print the effective_grouping_match by removing double quotes and replace (";") or (",") with (" ")
     if type(category_and_product_response_str) == list:
-        effective_grouping_match = ""
+        effective_grouping_match = "No effective grouping found"
     else:
         effective_grouping_match = category_and_product_response_str.strip('"').replace(";",",")
 
@@ -376,7 +376,6 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                         # Search Poisons Act 1938 for furosemide -> get frusemide -> search for frusemide in effective groupings
                         effective_grp_match = rag_find_best_match(refind_normalized_name)
                         if effective_grp_match!="":
-                        #if sentence_transformer_find_best_match(refind_normalized_name)[1] > 0.8:
                             #effective_grouping_match = rag_find_best_match(normalized_names)
                             #effective_grouping_match = sentence_transformer_find_best_match(normalized_names)[0]
                             if f"{normalized_names}/{refind_normalized_name} belongs to {effective_grp_match}." not in compiled_list:
