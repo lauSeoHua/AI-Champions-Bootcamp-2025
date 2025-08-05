@@ -361,12 +361,12 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
             # if sentence_transformer_find_best_match(normalized_names)[1] > 0.8:
             if effective_grp_match!="":
                 # effective_grouping_match = sentence_transformer_find_best_match(normalized_names)[0]
-                if f"{normalized_names} belongs to {effective_grouping_match}." not in compiled_list:
+                if f"{normalized_names} belongs to {effective_grp_match}." not in compiled_list:
                     response = llm_drugs.get_completion(normalized_names)
                     # The "sentence" that will be presented to the user will be appended to a list.
                     # The database chemicals are all found in poisons act.
-                    tidied_list.append(f"{normalized_names.capitalize()}${effective_grouping_match}")
-                    compiled_list.append(f"\n{normalized_names.capitalize()} belongs to {effective_grouping_match} and is found in the poisons act 1938.\n")
+                    tidied_list.append(f"{normalized_names.capitalize()}${effective_grp_match}")
+                    compiled_list.append(f"\n{normalized_names.capitalize()} belongs to {effective_grp_match} and is found in the poisons act 1938.\n")
             else:
                 #did not find a good match (no effective groupings) hence must search posion act 1938
                 try:
@@ -379,13 +379,16 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
 
                     # E.g. furosemide and frusemide -> they are the same but the effective groupings only have frusemide
                     # Search Poisons Act 1938 for furosemide -> get frusemide -> search for frusemide in effective groupings
-                    if sentence_transformer_find_best_match(refind_normalized_name)[1] > 0.8:
-                        effective_grouping_match = sentence_transformer_find_best_match(normalized_names)[0]
-                        if f"{normalized_names}/{refind_normalized_name} belongs to {effective_grouping_match}." not in compiled_list:
+                    effective_grp_match = rag_find_best_match(refind_normalized_name)
+                    if effective_grp_match!="":
+                    #if sentence_transformer_find_best_match(refind_normalized_name)[1] > 0.8:
+                        #effective_grouping_match = rag_find_best_match(normalized_names)
+                        #effective_grouping_match = sentence_transformer_find_best_match(normalized_names)[0]
+                        if f"{normalized_names}/{refind_normalized_name} belongs to {effective_grp_match}." not in compiled_list:
                             response = llm_drugs.get_completion(normalized_names)
                             # The "sentence" that will be presented to the user will be appended to a list.
-                            tidied_list.append(f"{normalized_names.capitalize()}${effective_grouping_match}")
-                            compiled_list.append(f"\n{normalized_names.capitalize()}/{refind_normalized_name} belongs to {effective_grouping_match} and is found in the poisons act 1938.\n ")
+                            tidied_list.append(f"{normalized_names.capitalize()}${effective_grp_match}")
+                            compiled_list.append(f"\n{normalized_names.capitalize()}/{refind_normalized_name} belongs to {effective_grp_match} and is found in the poisons act 1938.\n ")
                     else:
                         #Not found in effective groupings but found in poisons act -> use LLM to reply general
                         response = llm_drugs.get_completion(refind_normalized_name)
