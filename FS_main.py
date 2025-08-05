@@ -221,7 +221,7 @@ Always consult with qualified professionals for accurate and personalized advice
             with st.container():
                 
                     if "messages" not in st.session_state:
-                        st.session_state.messages = [{"role": "system", "content": "Welcome to this chatbot! Ask me questions related to importing/selling/testing of drugs in Singapore!"}]
+                        st.session_state.messages = [{"role": "system", "content": "Welcome to this chatbot! Ask me questions related to importing/selling/testing of complementary health products in Singapore!"}]
     
                     st.write(" ")
                     
@@ -309,12 +309,6 @@ Always consult with qualified professionals for accurate and personalized advice
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
                         dict1[cpd_name] = effective_grp
 
-                    # df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
-                    # group_counts = df["Group"].value_counts().sort_values(ascending=False)
-                    # chart_data = pd.DataFrame(group_counts)
-                    # chart_data.columns = ["Number of Compounds"]
-                    # st.bar_chart(chart_data)
-
                     # Display the table
                     st.dataframe(df, use_container_width=True)
 
@@ -325,10 +319,10 @@ Always consult with qualified professionals for accurate and personalized advice
                     for cpds in found_in_poisons_but_effective_grp:
                         cpd_name = cpds.split("belongs to")[0]
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0]
-                        if effective_grp !="":
-                            dict1[cpd_name] = effective_grp
+                        # if effective_grp.strip() !="No effective grouping found":
+                        #     dict1[cpd_name] = effective_grp
 
-                    if dict1:
+                    if not bool(dict1) == False: #dict1 is not empty
                         df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
                         # Replace empty lists with "No group"
                         df["Group"] = df["Group"].apply(lambda x: "No effective grouping found" if isinstance(x, list) and len(x) == 0 else x)

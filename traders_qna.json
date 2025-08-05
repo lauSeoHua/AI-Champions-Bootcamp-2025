@@ -7,7 +7,7 @@
     "I want to bring in something in Singapore. How?":{
     "answer": "This chatbot is only for health supplements/TCM. For food-related enquiries, please refer to https://www.sfa.gov.sg/food-import-export/commercial-imports/what-you-need-to-know-for-import-of-food. If you do not know if your product can be classfied as Complementary Health Products, please go to : https://www.hsa.gov.sg/chp-classification-tool to do a check."},
     
-    "What are the procedures of selling and importing vitamins/minerals/health supplements/traditional medicines (TM), medicated oils, balms (MOB) and medicated plasters and TCM in Singapore?": {
+    "What are the procedures of selling and importing vitamins/minerals/health supplements/traditional chinese medicines/traditional medicines (TM), medicated oils, balms (MOB) and medicated plasters and TCM in Singapore?": {
     "answer": "Quoted From : https://www.hsa.gov.sg/health-supplements/overview: \n Health supplements are not subject to approvals and licensing by Singapore for their importation, manufacture and sales. However, it prohibits the addition of medicinal ingredients such as steroids in health supplements. It also sets strict limits on toxic heavy metals in these products. Dealers (importers, manufacturers, wholesale dealers and sellers)of health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) and medicated plasters have the obligation to ensure that their products are not harmful or unsafe, and that they conform with the following guidelines before supplying health supplements into Singapore. If you are a locally registered company, you can make a voluntary notification with the regulatory authorities of the health supplements supplied. This is known as voluntary notification and you can refer to http://hsa.gov.sg/health-supplements/vns to submit a voluntary notification. "
     },
 
@@ -91,6 +91,10 @@
 
     "Is it mandatory to make a voluntary notification (VNS)?":{
     "answer": "It is not mandatory but it aims to establish a local database of reliable, good quality and safe products that consumers can refer to when they are making their purchases. Please refer to the QnA in URL : https://www.hsa.gov.sg/docs/default-source/hprg-tmhs/chpb-tmhs/vns_qna.pdf to read up on VNS. "
+    },
+
+    "How do I make a voluntary notification (VNS)?":{
+    "answer": "Quoted From : https://www.hsa.gov.sg/health-supplements/overview: \n If you are a locally registered company, you can make a voluntary notification with the regulatory authorities of the health supplements supplied. This is known as voluntary notification and you can refer to http://hsa.gov.sg/health-supplements/vns to submit a voluntary notification. "
     },
 
     "I apologize for the confusion. Could you please rephrase the sentence?":{

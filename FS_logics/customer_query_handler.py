@@ -356,7 +356,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                 
                 effective_grp_match = rag_find_best_match(normalized_names)
                 time.sleep(2)
-                if effective_grp_match!="":
+                if effective_grp_match!="No effective grouping found":
                     if f"{normalized_names} belongs to {effective_grp_match}." not in compiled_list:
                         # The "sentence" that will be presented to the user will be appended to a list.
                         # The database chemicals are all found in poisons act.
@@ -375,7 +375,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                         # E.g. furosemide and frusemide -> they are the same but the effective groupings only have frusemide
                         # Search Poisons Act 1938 for furosemide -> get frusemide -> search for frusemide in effective groupings
                         effective_grp_match = rag_find_best_match(refind_normalized_name)
-                        if effective_grp_match!="":
+                        if effective_grp_match!="No effective grouping found":
                             #effective_grouping_match = rag_find_best_match(normalized_names)
                             #effective_grouping_match = sentence_transformer_find_best_match(normalized_names)[0]
                             if f"{normalized_names}/{refind_normalized_name} belongs to {effective_grp_match}." not in compiled_list:
