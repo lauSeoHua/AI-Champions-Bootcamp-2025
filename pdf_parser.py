@@ -104,7 +104,7 @@ class read_library_search:
                 for grp in grp_list:
                     grp = grp.strip()
                     field_names = dict_for_parsing_form_fields.get(grp)
-                    if len(field_names)==2:
+                    if field_names:
                         for page_num, page in enumerate(doc):
                             widgets = page.widgets()
 
