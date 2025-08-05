@@ -328,9 +328,7 @@ Always consult with qualified professionals for accurate and personalized advice
 
                     if not bool(dict1) == False: #dict1 is not empty
                         df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
-                        # Replace empty lists with "No group"
-                        df["Group"] = df["Group"].apply(lambda x: "No effective grouping found" if isinstance(x, list) and len(x) == 0 else x)
-
+                        
                         group_counts = df["Group"].value_counts().sort_values(ascending=False)
                         chart_data = pd.DataFrame(group_counts)
                         chart_data.columns = ["Number of Compounds"]
