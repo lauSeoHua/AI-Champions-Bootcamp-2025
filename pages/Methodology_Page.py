@@ -26,8 +26,7 @@ with st.container():
         background-image: url('data:image/jpg;base64,{methodology_traders_tab_img }');
         background-size: cover;
         background-position: top;
-        padding: 120px 20px;
-        border-radius: 200px;
+        padding: 120px 200px;
         color: white;
         text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
     "> 
