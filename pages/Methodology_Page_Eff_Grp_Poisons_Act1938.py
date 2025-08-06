@@ -26,7 +26,7 @@ with st.container():
         background-image: url('data:image/jpg;base64,{Tab2_Flowchart_img }');
         background-size: cover;
         background-position: top;
-        padding: 200px 400px;
+        padding: 200px 350px;
         color: white;
         text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
     "> 
