@@ -3,11 +3,11 @@ import base64
 # region <--------- Streamlit App Configuration --------->
 st.set_page_config(
     layout="centered",
-    page_title="Methodology Page"
+    page_title="Methodology Page - Traders Tab Chatbot"
 )
 # endregion <--------- Streamlit App Configuration --------->
 
-st.title("Methodology")
+st.title("Methodology - Traders Tab Chatbot")
 
 
 # Encode images into base 64 for streamlit's visuals
