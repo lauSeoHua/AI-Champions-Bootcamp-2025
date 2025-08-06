@@ -34,5 +34,12 @@ with st.container():
     </div>
     """, unsafe_allow_html=True)
     st.write("References:\n 1. Python's Icon: Python Logo PNG Vector (SVG) Free Download. (2025). Seeklogo. https://seeklogo.com/vector-logo/332789/python \n 2. Neural Network's Icon: https://www.facebook.com/flaticon. (2019, September 3). Neural Icon - 2103633. Flaticon. https://www.flaticon.com/free-icon/neural_2103633 \n 3. Robot's Icon : https://www.facebook.com/flaticon. (2022, June 6). Robot Icon - 7717267. Flaticon. https://www.flaticon.com/free-icon/robot_7717267")
-    st.header("Sample Chatbot", divider=True)
+    st.header("Sample User queries", divider=True)
     st.write("Hello")
+    st.write("I want to import chinese medicine")
+    st.write("yes ! I am")
+    st.write("i see! where can i get testing from")
+    st.write("oh my company is based in australia. can i conduct testing at a lab in australia?")
+    st.write("btw, what are the procedures required for import?")
+    st.write("what is voluntary notification? is it mandatory?")
+    st.write("how do i know whether my product has androgenic steroids?")
