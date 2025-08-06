@@ -334,10 +334,10 @@ Always consult with qualified professionals for accurate and personalized advice
 
                     df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
                     
-                    group_counts = df["Group"].value_counts().sort_values(ascending=False)
-                    chart_data = pd.DataFrame(group_counts)
-                    chart_data.columns = ["Number of Compounds"]
-                    st.bar_chart(chart_data)
+                    # group_counts = df["Group"].value_counts().sort_values(ascending=False)
+                    # chart_data = pd.DataFrame(group_counts)
+                    # chart_data.columns = ["Number of Compounds"]
+                    # st.bar_chart(chart_data)
 
                     # Display the table
                     st.dataframe(df, use_container_width=True)
