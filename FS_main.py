@@ -327,8 +327,7 @@ Always consult with qualified professionals for accurate and personalized advice
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0] 
                         if effective_grp.strip() == "[]":
                             effective_grp = "No effective grouping found."
-                        st.write(effective_grp)
-                        st.write("Line 327")
+
 
                         dict1[cpd_name] = effective_grp
 
