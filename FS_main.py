@@ -323,10 +323,11 @@ Always consult with qualified professionals for accurate and personalized advice
                         
                         cpd_name = cpds.split("belongs to")[0]
                         effective_grp = cpds.split("belongs to")[1].split("and is found in the poisons act 1938")[0] 
+                        if effective_grp.strip() == "[]":
+                            effective_grp = "No effective grouping found."
                         st.write(effective_grp)
                         st.write("Line 327")
-                        # if effective_grp == "[]":
-                        #     effective_grp = "No effective grouping found."
+
                         dict1[cpd_name] = effective_grp
 
                     df = pd.DataFrame(list(dict1.items()), columns=["Compound", "Group"])
