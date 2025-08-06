@@ -108,15 +108,11 @@ def rag_find_best_match(normalized_name):
     in the Python dictionary below, which each key is a `Compounds`
     and the value is string of `Effective Groupings`.
 
-    If there are any relevant compound found, output the exact string value which is the "Effective Groupings'.
+    If there are any relevant compound found, output the exact string value which is the "Effective Groupings'. Otherwise, output an empty list.
 
     {cpd_effective_grp}
 
-    If are no relevant courses are found, output an empty list.
-
     Output the exact string value which is the "Effective Groupings'. 
-
-    If no drug names or compounds are found, output an empty list.
 
     Ensure your response contains only the exact match of the string value or an empty list, \
     without any enclosing tags or delimiters.
