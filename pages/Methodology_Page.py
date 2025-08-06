@@ -3,7 +3,7 @@ import base64
 # region <--------- Streamlit App Configuration --------->
 st.set_page_config(
     layout="centered",
-    page_title="Methodology Page - Traders Tab Chatbot"
+    page_title="Methodology Page 1"
 )
 # endregion <--------- Streamlit App Configuration --------->
 

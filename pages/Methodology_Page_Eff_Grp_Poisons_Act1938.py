@@ -3,7 +3,7 @@ import base64
 # region <--------- Streamlit App Configuration --------->
 st.set_page_config(
     layout="centered",
-    page_title="Methodology Page - Effective Groupings + Poisons Act 1938"
+    page_title="Methodology Page 2"
 )
 # endregion <--------- Streamlit App Configuration --------->
 
