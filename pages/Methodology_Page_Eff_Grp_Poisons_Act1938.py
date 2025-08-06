@@ -3,11 +3,11 @@ import base64
 # region <--------- Streamlit App Configuration --------->
 st.set_page_config(
     layout="centered",
-    page_title="Methodology Page - Effective Groupings + Poisons Act 1938 Chatbot"
+    page_title="Methodology Page - Effective Groupings + Poisons Act 1938"
 )
 # endregion <--------- Streamlit App Configuration --------->
 
-st.title("Methodology - Effective Groupings + Poisons Act 1938 Chatbot")
+st.title("Methodology - Effective Groupings + Poisons Act 1938")
 
 
 # Encode images into base 64 for streamlit's visuals
@@ -26,7 +26,7 @@ with st.container():
         background-image: url('data:image/jpg;base64,{Tab2_Flowchart_img }');
         background-size: cover;
         background-position: top;
-        padding: 120px 400px;
+        padding: 120px 800px;
         color: white;
         text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
     "> 
