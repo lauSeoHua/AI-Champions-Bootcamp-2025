@@ -157,6 +157,8 @@ def main():
         <h1>Proof Of Concept</h1>
         <p>Inquiries about categories, testing, and trade</p>
         <p> Lau Seo Hua </p>
+        <p> Image Citation : Green. (2025). Green grass field and bright blue sky. Background. Stock Photo | Adobe Stock. Adobe Stock. https://stock.adobe.com/images/green-grass-field-and-bright-blue-sky-background/112010706?prev_url=detail
+
     </div>
     """
     st.markdown(cover_page_img,unsafe_allow_html=True)
@@ -216,7 +218,7 @@ Always consult with qualified professionals for accurate and personalized advice
                         <h3 style="margin: 0;">Importing and/or selling in Singapore</h3>
                     </div>
                     """, unsafe_allow_html=True)
-            
+            st.write("Citation for image : Tailwinds Travels. (2024, April 20). The Top 10 Luxury Hotels & Resorts Around the World. Tailwinds Travels. https://tailwindstravels.co/the-top-10-luxury-hotels-resorts-around-the-world/")
             # chatbot
             with st.container():
                 
