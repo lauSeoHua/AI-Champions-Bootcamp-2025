@@ -66,7 +66,7 @@ def normalize_chemical_names(user_message):
     3) If the compound includes prefixes such as "nor-","homo-", "des-", or other demethylated forms, return the corresponding parent compound by removing the prefix. 
     4) If the compound has a "pseudo", retain it in the compound.
     5) However, if the compound has a functional modification (e.g., hydroxy-, ester, amide), keep it as-is.
-    6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name. If is in US naming, convery to UK naming.
+    6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name. Convert to UK naming if possible.
     
     The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature, Chemical Abstract Number (CAS) and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
 
