@@ -156,7 +156,7 @@ def normalize_chemical_names(user_message):
     st.write("Line 150")
     try1 = cs.search("1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tolylsulphon")
     st.write(try1)
-    chemspipy_database(user_message)
+    chemspipy_database(normalized_chemical_names_response_str)
     return normalized_chemical_names_response_str
 
 def rag_find_best_match(normalized_name):
