@@ -46,6 +46,57 @@ text_splitter_ = RecursiveCharacterTextSplitter(
         length_function=llm_drugs.count_tokens
 )
 
+
+def get_chemical_names(user_message):
+
+    system_message = f"""
+
+    You will be provided with drug-related queries.\
+    The drug-related queries will be enclosed in the triple backticks.
+
+    You are a super intelligent chemistry professor. 
+    Decide if the query is relevant to drug names/chemical compounds/chemical formula/Chemical Abstract Number (CAS) or arsenic. There can be more than 1 in the query.
+    
+    A valid CAS number follows this format:
+    - It consists of 3 groups of digits separated by hyphens: XXXXXXX-XX-X
+    - The first part has 2 to 7 digits, the second has exactly 2, the third has exactly 1.
+    - This can be described by the regular expression: \d{2,7}-\d{2}-\d
+    - Example valid CAS numbers: 50-00-0 (formaldehyde), 58-08-2, 100-44-7, 124-38-9
+    - Example invalid: 1-23-4, 1234-56-78 (too many digits in last group), abc-12-3
+
+    If there are any drug names/chemical compounds/chemical formula/IUPAC Name/Chemical Abstract Number (CAS)/arsenic found, use the following rules to identify the compound mentioned.
+    1) If it is an analogue, metabolite, or salt or HCl or Na or sulfate of another compound, return the simplest base compound.
+    2) However, if it is in a ester, amide, carboxylic acid, acid chloride, anhydride, or amine form — including specific stereoisomers or positional variants — return the compound name exactly as given, without simplification.
+    3) If the compound includes prefixes such as "nor-","homo-", "des-", or other demethylated forms, return the corresponding parent compound by removing the prefix. 
+    4) If the compound has a "pseudo", retain it in the compound.
+    5) However, if the compound has a functional modification (e.g., hydroxy-, ester, amide), keep it as-is.
+    6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name. Convert to UK naming if possible.
+    
+    The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature, Chemical Abstract Number (CAS) and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
+
+    Output the identified compounds as a list. 
+
+    If no drug names are found, output an empty list.
+
+    Ensure your response contains only the list of string objects or an empty list, \
+    without any enclosing tags or delimiters.
+    """
+
+    messages =  [
+        {'role':'system',
+         'content': system_message},
+        {'role':'user',
+         'content': f"```{user_message}```"},
+    ]
+    normalized_chemical_names_response_str = llm_drugs.get_completion_by_messages(messages)
+    normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
+    normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
+    #print(normalized_chemical_names_response_str)
+    st.write("Line 95")
+    st.write(cs.get_compound(cs.search("50-78-2")[0]))
+    return normalized_chemical_names_response_str
+
+
 #Use LLM to convert salt form to base form e.g. Sildenafil Citrate -> Sildenafil
 
 # Prevent prompt injection by adding delimiters ->
@@ -93,7 +144,12 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
     #print(normalized_chemical_names_response_str)
     st.write("Line 95")
-    st.write(cs.get_compound(cs.search("50-78-2")[0]))
+    try1 = cs.search("50-78-2")
+    cpd = try1[0]
+    st.write(cpd.common_name)
+    st.write("Line 150")
+    try1 = cs.search("1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tolylsulphon")
+    st.write(try1)
     return normalized_chemical_names_response_str
 
 def rag_find_best_match(normalized_name):
