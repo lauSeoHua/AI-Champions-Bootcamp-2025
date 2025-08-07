@@ -102,6 +102,7 @@ def chemspipy_database(user_message):
     test = get_chemical_names(user_message)
     st.write(test)
     st.write(list(test))
+    return (list(test))
 
 #Use LLM to convert salt form to base form e.g. Sildenafil Citrate -> Sildenafil
 
@@ -147,7 +148,10 @@ def normalize_chemical_names(user_message):
     ]
     normalized_chemical_names_response_str = llm_drugs.get_completion_by_messages(messages)
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
-    normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
+    try:
+        normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
+    except json.JSONDecodeError:
+        normalized_chemical_names_response_str = chemspipy_database(normalized_chemical_names_response_str)
     #print(normalized_chemical_names_response_str)
     st.write("Line 95")
     try1 = cs.search("50-78-2")
@@ -156,7 +160,6 @@ def normalize_chemical_names(user_message):
     st.write("Line 150")
     try1 = cs.search("1-(3-Azabicyclo[3.3.0]oct-3-yl)-3-o-tolylsulphon")
     st.write(try1)
-    chemspipy_database(normalized_chemical_names_response_str)
     return normalized_chemical_names_response_str
 
 def rag_find_best_match(normalized_name):
