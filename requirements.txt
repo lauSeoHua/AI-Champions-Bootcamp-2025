@@ -20,7 +20,7 @@ cachetools==5.5.2
 certifi==2025.7.9
 cffi==1.17.1
 cfgv==3.4.0
-ChemSpiPy==2.0.0
+chemspipy==2.0.0
 charset-normalizer==3.4.2
 chroma-hnswlib==0.7.6
 chromadb==0.5.23

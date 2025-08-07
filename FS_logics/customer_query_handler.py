@@ -25,6 +25,7 @@ from langchain_cohere import CohereRerank
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
 from crewai_tools import WebsiteSearchTool
 import logging
+from chemspipy import ChemSpider
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
 from FS_helper_functions import llm_drugs
@@ -32,6 +33,9 @@ from FS_helper_functions import llm_drugs
 # Define type of embeddings_models used
 
 embeddings_model = OpenAIEmbeddings(model='text-embedding-3-small', openai_api_key=st.secrets["OPENAI_API_KEY"]) 
+
+cs = ChemSpider(st.secrets["CHEM_API_KEY"])
+
 
 # Define text splitter to split text for chunking/vector embeddings
 
@@ -88,6 +92,8 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
     #print(normalized_chemical_names_response_str)
+    st.write("Line 95")
+    st.write(cs.search("50-78-2"))
     return normalized_chemical_names_response_str
 
 def rag_find_best_match(normalized_name):
