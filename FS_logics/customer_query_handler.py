@@ -93,7 +93,7 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
     #print(normalized_chemical_names_response_str)
     st.write("Line 95")
-    st.write(cs.search("50-78-2"))
+    st.write(cs.get_compound(cs.search("50-78-2")[0]))
     return normalized_chemical_names_response_str
 
 def rag_find_best_match(normalized_name):
