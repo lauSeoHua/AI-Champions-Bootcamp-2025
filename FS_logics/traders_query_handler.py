@@ -61,7 +61,7 @@ def identify_qn(user_message):
 
     Your job is to:
     - Focus only on the messages between the "user" key and the "assistant" key.
-    - When the user messages contain positive sentiments such as "Yes","Okay",use the last occurring most informative "user message" or "assistant message" to generate your reply.
+    - When the user messages contain positive sentiments such as "Yes","Okay",use the last occurring most informative "user message" and/or "assistant message" to generate your reply.
     - When the user messages contain negative sentiments such as "No","You are wrong", reply "I apologize for the confusion. Could you please rephrase the sentence".
 
     Sometimes you may need to combine the last occurring informative assistant message + last occurring informative user message. 
