@@ -249,13 +249,15 @@ Always consult with qualified professionals for accurate and personalized advice
                                 
                                 response =traders_query_handler.process_user_message(st.session_state.messages,st.session_state.messages[-1]['content'])
     
-                            if response[0:5] =="html:":
-                                full_response = st.write_stream(streamdata(response[5:]))
+                            if response[0][0:5] =="html:":
+                                #full_response = st.write_stream(streamdata(response[5:]))
+                                full_response = st.write_stream(streamdata(response[1]))
                                 full_response=(display_html_text(Limits_df))
                                 # display the Limits table :
                                 st.session_state.last_html_payload = full_response
                             else:
-                                full_response = st.write_stream(streamdata(response))
+                                #full_response = st.write_stream(streamdata(response))
+                                full_response = st.write_stream(streamdata(response[1]))
                         # Save assistant message
                         st.session_state.messages.append({"role": "assistant", "content": full_response})
 

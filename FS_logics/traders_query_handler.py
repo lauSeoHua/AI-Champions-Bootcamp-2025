@@ -109,7 +109,33 @@ def identify_qn(user_message):
     else:
         return category_and_product_response
 
+def generate_response_based_on_course_details(product_details):
+    delimiter = "####"
+
+    system_message = f"""
+
+    You are a friendly and professional assistant. 
+    You have the answers to the customer's query which is enclosed in the pair of {delimiter}.
+    
+    Rephrase the answers using Neural Linguistic Programming.
+    Make sure the statements are factually accurate.
+    Your response should be comprehensive and informative 
+    """
+
+    messages =  [
+        {'role':'system',
+         'content': system_message},
+        {'role':'user',
+         'content': f"{delimiter}{product_details}{delimiter}"},
+    ]
+
+    response_to_customer = llm_drugs.get_completion_by_messages(messages)
+
+    return response_to_customer
+
+
 def process_user_message(user_input,str_user_input):
    
     category_and_product_response_str  = identify_qn(user_input)
-    return category_and_product_response_str
+    rephrased_response = generate_response_based_on_course_details(category_and_product_response_str)
+    return (category_and_product_response_str,rephrased_response)
