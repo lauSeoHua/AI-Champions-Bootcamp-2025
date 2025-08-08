@@ -87,6 +87,8 @@ def normalize_chemical_names(user_message):
     ]
     normalized_chemical_names_response_str = llm_drugs.get_completion_by_messages(messages)
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
+    st.write("Line 90")
+    st.write(normalized_chemical_names_response_str)
     try:
         normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
     except json.JSONDecodeError:
