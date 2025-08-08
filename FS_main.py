@@ -227,7 +227,7 @@ Always consult with qualified professionals for accurate and personalized advice
                 
                     if "messages" not in st.session_state:
                         st.session_state.messages = [{"role": "system", "content": "Welcome to this chatbot! Ask me questions related to importing/selling/testing of complementary health products in Singapore!"}]
-                        for_lang_graph = [SystemMessage("Welcome to this chatbot! Ask me questions related to importing/selling/testing of complementary health products in Singapore!")]
+                        #for_lang_graph = [SystemMessage("Welcome to this chatbot! Ask me questions related to importing/selling/testing of complementary health products in Singapore!")]
                     st.write(" ")
                     
                     # Prompt user for new input
@@ -243,7 +243,7 @@ Always consult with qualified professionals for accurate and personalized advice
                     if prompt:
                         # Add user message
                         st.session_state.messages.append({"role": "user", "content": prompt})
-                        for_lang_graph.append(HumanMessage(prompt))
+                        #for_lang_graph.append(HumanMessage(prompt))
                         with st.chat_message("user"):
                             st.markdown(prompt)
 
