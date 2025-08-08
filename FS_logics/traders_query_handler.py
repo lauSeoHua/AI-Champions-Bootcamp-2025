@@ -95,7 +95,7 @@ def identify_qn(user_message):
     except Exception as e:
         category_and_product_response = "Can you rephrase the question?"
     # For these 3 particular qns -> have to present the table of limits (using streamlit's html)
-    if category_and_product_response_str in ["Limits in the complementary health products (CHP) or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters","Guidelines of tests to be conducted","May I know which tests are necessary in order for my product(s) to be licensed for sale and import in Singapore?"]:
+    if category_and_product_response_str in ["Limits in the complementary health products (CHP) or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters","Guidelines of tests to be conducted","May I know which tests are necessary in order for my product(s) to be licensed for sale and import in Singapore?","What to do after voluntary notification (VNS)?"]:
         returnstr = "html: " + category_and_product_response
         return returnstr
     else:

@@ -103,6 +103,10 @@
 
     "I apologize for the confusion. Could you please rephrase the sentence?":{
     "answer": "I apologize for the confusion. Could you please rephrase the sentence?"
+    },
+
+    "What to do after voluntary notification (VNS)?":{
+    "answer" : "Please refer to https://www.hsa.gov.sg/health-supplements/overview for details on what to do after voluntary notifications. One thing to take note is that, by registering for voluntary notification, you have to ensure that your products conform safety and quality standards. You may send your product to labs for testing as a proof that they conform to safety and quality standards. The limits are as follows:."
     }
 
 }
