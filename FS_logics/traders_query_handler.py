@@ -55,24 +55,37 @@ def identify_qn(user_message):
     The customer service query will be enclosed in
     the pair of {delimiter}.
 
-    the customer service query is a list of dictionary with one of the following keys: "system", "user", or "assistant".
 
-    Your job is to:
-    - Focus only on the messages between the "user" key and the "assistant" key.
-    -If the user says 'yes', 'no', 'sure', 'okay', etc., assume they are responding to your last question or suggestion. Never ask them to repeat unless absolutely necessary.
+You are a customer support assistant.
+
+You are given a list of messages. Each message is a dictionary with one of the following keys: `"system"`, `"user"`, or `"assistant"`. 
+
+The list represents a full conversation history in chronological order.
+
+---
+
+### Your Task:
+
+1. **Start from the last item in the list and go backwards**.
+
+2. **Identify the most recent dictionary** that has a `"user"` key.
+
+   - Focus only on the **value** of that `"user"` dictionary (i.e., the user's message).
+   - This is the primary user query.
+
+3. **Compare or rephrase the user message** to be as close as possible to one of the available keys in `dict_of_traders_qna.keys()`.  
+   - Match the **intent** or **topic** of the user’s message to the most relevant key.
+   - Rephrasing should preserve meaning while aligning it to an existing question format.
+
+4. If the user's message is vague or an affirmation (e.g., `"Yes"`, `"Ok"`, `"Sure"`, `"Yeah"`):
+   - **Look to the second-last user message** (or the latest assistant message if more appropriate) to clarify the intent.
+   - Rephrase the **prior** user message instead of the vague one.
+   -Rephrase the query to be as close as the keys available in the {dict_of_traders_qna.keys()}. 
+
+5. If the last message does not contain enough information (e.g., "Okay", "I see", etc.), you **must intelligently infer context** by going further back in the conversation history, using previous user/assistant turns as needed.
+
+
     
-    Sometimes you may need to combine the most recent informative assistant message + most recent informative user message. 
-    After retrieving the most recent informative assistant message or user message, use the following instructions:
-
-    1) You are a regulatory expert answering questions about health product compliance and regulations. \
-    2) Interpret short or vague queries like 'limits on oil balm' as referring to regulatory thresholds (e.g., regulation limits of complementary health products) under relevant health authority guidelines.
-   
-    The customer service queries are usually related to chp or complementary health products or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters.
-
-    If the query include limits, treat it as guidelines for regulatory limits. 
-    If the query asked about chp or complementary health products or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters, treat them as complementary health products.
-    
-    Rephrase the query to be as close as the keys available in the {dict_of_traders_qna.keys()}. 
 
     Ensure your response contains only the string, \
     without any enclosing tags or delimiters.
@@ -133,7 +146,7 @@ def generate_response_based_on_course_details(product_details):
     return response_to_customer
 
 
-def process_user_message(user_input,str_user_input):
+def process_user_message(user_input):
    
     category_and_product_response_str  = identify_qn(user_input)
     rephrased_response = generate_response_based_on_course_details(category_and_product_response_str)

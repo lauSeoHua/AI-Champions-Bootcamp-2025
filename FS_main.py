@@ -249,7 +249,7 @@ Always consult with qualified professionals for accurate and personalized advice
                         with st.chat_message("assistant"):
                             with st.spinner("🔍🔍🔍 Searching database..."):
                                 
-                                response =traders_query_handler.process_user_message(st.session_state.messages,st.session_state.messages[-1]['content'])
+                                response =traders_query_handler.process_user_message(st.session_state.messages)
     
                             if response[0][0:5] =="html:":
                                 #full_response = st.write_stream(streamdata(response[5:]))
