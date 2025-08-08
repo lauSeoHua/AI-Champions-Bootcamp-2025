@@ -56,7 +56,8 @@ class read_library_search:
             #     #loop through uv spectrums
             #     for page_no in list_of_pg_w_uv:
             #         if doc[page_no] 
-
+        st.write("line 59")
+        st.write(combined_compiled_list)
         return (combined_compiled_list)
     
     def fill_in_form(self,list_of_cpds):
