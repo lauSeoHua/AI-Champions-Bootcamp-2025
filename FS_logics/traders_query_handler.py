@@ -52,40 +52,20 @@ def identify_qn(user_message):
 
     system_message = f"""
     You will receive customer service query. 
+    Follow these steps to answer the customer queries.
     The customer service query will be enclosed in
     the pair of {delimiter}.
 
+    Step 1:{delimiter} Rephrase the user query to be as close as the keys available in the {dict_of_traders_qna.keys()}. 
 
-You are a customer support assistant.
-
-You are given a list of messages. Each message is a dictionary with one of the following keys: `"system"`, `"user"`, or `"assistant"`. 
-
-The list represents a full conversation history in chronological order.
-
----
-
-### Your Task:
-
-1. **Start from the last item in the list and go backwards**.
-
-2. **Identify the most recent dictionary** that has a `"user"` key.
-
-   - Focus only on the **value** of that `"user"` dictionary (i.e., the user's message).
-   - This is the primary user query.
-
-3. **Compare or rephrase the user message** to be as close as possible to one of the available keys in `dict_of_traders_qna.keys()`.  
-   - Match the **intent** or **topic** of the user’s message to the most relevant key.
-   - Rephrasing should preserve meaning while aligning it to an existing question format.
-
-4. If the user's message is vague or an affirmation (e.g., `"Yes"`, `"Ok"`, `"Sure"`, `"Yeah"`):
-   - **Look to the second-last user message** (or the latest assistant message if more appropriate) to clarify the intent.
-   - Rephrase the **prior** user message instead of the vague one.
-   -Rephrase the query to be as close as the keys available in the {dict_of_traders_qna.keys()}. 
-
-5. If the last message does not contain enough information (e.g., "Okay", "I see", etc.), you **must intelligently infer context** by going further back in the conversation history, using previous user/assistant turns as needed.
-
-
+    Step 2:{delimiter} If the user query is vague, look to the previous assistant query and connect the dots. Try to interpret what the user wants to know and rephrase the user query to be as close as the keys available in the {dict_of_traders_qna.keys()}. 
     
+    Step 3:{delimiter}: Return the exact key availabe in the {dict_of_traders_qna} which you think matches the most to the user's query.
+
+    Use the following format:
+    Step 1:{delimiter} <step 1 reasoning>
+    Step 2:{delimiter} <step 2 reasoning>
+    Step 3:{delimiter} <step 3 response to customer>
 
     Ensure your response contains only the string, \
     without any enclosing tags or delimiters.
