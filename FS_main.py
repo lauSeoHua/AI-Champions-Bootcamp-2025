@@ -22,6 +22,7 @@ import pathlib
 import pandas as pd
 import openai
 from langchain.prompts import PromptTemplate
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 import altair as alt
 
 sys.path.append(os.path.dirname((__file__)))
@@ -226,7 +227,7 @@ Always consult with qualified professionals for accurate and personalized advice
                 
                     if "messages" not in st.session_state:
                         st.session_state.messages = [{"role": "system", "content": "Welcome to this chatbot! Ask me questions related to importing/selling/testing of complementary health products in Singapore!"}]
-    
+                        for_lang_graph = [SystemMessage("Welcome to this chatbot! Ask me questions related to importing/selling/testing of complementary health products in Singapore!")]
                     st.write(" ")
                     
                     # Prompt user for new input
@@ -241,7 +242,8 @@ Always consult with qualified professionals for accurate and personalized advice
 
                     if prompt:
                         # Add user message
-                        st.session_state.messages.append({"role": "user", "content": prompt+" for "+assistance_most_recent_message})
+                        st.session_state.messages.append({"role": "user", "content": prompt})
+                        for_lang_graph.append(HumanMessage(prompt))
                         with st.chat_message("user"):
                             st.markdown(prompt)
 
@@ -250,7 +252,7 @@ Always consult with qualified professionals for accurate and personalized advice
                             with st.spinner("🔍🔍🔍 Searching database..."):
                                 
                                 response =traders_query_handler.process_user_message(st.session_state.messages)
-    
+                                #test_response = traders_query_handler.test_process_user_message(for_lang_graph)
                             if response[0][0:5] =="html:":
                                 #full_response = st.write_stream(streamdata(response[5:]))
                                 full_response = st.write_stream(streamdata(response[1]))
@@ -260,8 +262,10 @@ Always consult with qualified professionals for accurate and personalized advice
                             else:
                                 #full_response = st.write_stream(streamdata(response))
                                 full_response = st.write_stream(streamdata(response[1]))
+                            st.write_stream(st.session_state.messages)
                         # Save assistant message
                         st.session_state.messages.append({"role": "assistant", "content": full_response})
+                        #for_lang_graph.append(AIMessage(full_response))
                         assistance_most_recent_message = full_response
 
         with tab2:

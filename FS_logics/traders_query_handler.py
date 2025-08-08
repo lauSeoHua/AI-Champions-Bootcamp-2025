@@ -131,3 +131,53 @@ def process_user_message(user_input):
     category_and_product_response_str  = identify_qn(user_input)
     rephrased_response = generate_response_based_on_course_details(category_and_product_response_str)
     return (category_and_product_response_str,rephrased_response)
+
+# def test_process_user_message(list_of_input):
+#     from langchain_core.messages import HumanMessage, RemoveMessage
+#     from langgraph.checkpoint.memory import MemorySaver
+#     from langgraph.graph import START, MessagesState, StateGraph
+
+#     workflow = StateGraph(state_schema=MessagesState)
+
+
+# # Define the function that calls the model
+# def call_model(state: MessagesState):
+#     system_prompt = (
+#         "You are a helpful assistant. "
+#         "Answer all questions to the best of your ability. "
+#         "The provided chat history includes a summary of the earlier conversation."
+#     )
+#     system_message = SystemMessage(content=system_prompt)
+#     message_history = list_of_input[:-1]  # exclude the most recent user input
+#     # Summarize the messages if the chat history reaches a certain size
+#     if len(message_history) >= 4:
+#         last_human_message = list_of_input[-1]
+#         # Invoke the model to generate conversation summary
+#         summary_prompt = (
+#             "Distill the above chat messages into a single summary message. "
+#             "Include as many specific details as you can."
+#         )
+#         summary_message = model.invoke(
+#             message_history + [HumanMessage(content=summary_prompt)]
+#         )
+
+#         # Delete messages that we no longer want to show up
+#         delete_messages = [RemoveMessage(id=m.id) for m in state["messages"]]
+#         # Re-add user message
+#         human_message = HumanMessage(content=last_human_message.content)
+#         # Call the model with summary & response
+#         response = model.invoke([system_message, summary_message, human_message])
+#         message_updates = [summary_message, human_message, response] + delete_messages
+#     else:
+#         message_updates = model.invoke([system_message] + state["messages"])
+
+#     return {"messages": message_updates}
+
+
+# # Define the node and edge
+# workflow.add_node("model", call_model)
+# workflow.add_edge(START, "model")
+
+# # Add simple in-memory checkpointer
+# memory = MemorySaver()
+# app = workflow.compile(checkpointer=memory)
