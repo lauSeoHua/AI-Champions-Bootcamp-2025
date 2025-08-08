@@ -219,6 +219,8 @@ Always consult with qualified professionals for accurate and personalized advice
                     </div>
                     """, unsafe_allow_html=True)
             st.write("Citation for image : Tailwinds Travels. (2024, April 20). The Top 10 Luxury Hotels & Resorts Around the World. Tailwinds Travels. https://tailwindstravels.co/the-top-10-luxury-hotels-resorts-around-the-world/")
+            
+            assistance_most_recent_message = ""
             # chatbot
             with st.container():
                 
@@ -239,7 +241,7 @@ Always consult with qualified professionals for accurate and personalized advice
 
                     if prompt:
                         # Add user message
-                        st.session_state.messages.append({"role": "user", "content": prompt})
+                        st.session_state.messages.append({"role": "user", "content": prompt+" for "+assistance_most_recent_message})
                         with st.chat_message("user"):
                             st.markdown(prompt)
 
@@ -260,6 +262,7 @@ Always consult with qualified professionals for accurate and personalized advice
                                 full_response = st.write_stream(streamdata(response[1]))
                         # Save assistant message
                         st.session_state.messages.append({"role": "assistant", "content": full_response})
+                        assistance_most_recent_message = full_response
 
         with tab2:
             st.header("Check the compound(s)'s grouping and if in poisons act")
