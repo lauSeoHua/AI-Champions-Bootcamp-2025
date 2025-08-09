@@ -116,7 +116,7 @@ def rag_find_best_match(normalized_name):
     in the Python dictionary below, which each key is a `Compounds`
     and the value is string of `Effective Groupings`.
 
-    If there are any relevant compound found, output the exact string value which is the "Effective Groupings'. Otherwise, output an empty list.
+    If there are any relevant compound found, output the exact string value which is the "Effective Groupings'. Otherwise, output "No effective grouping found".
 
     {cpd_effective_grp}
 
@@ -135,9 +135,7 @@ def rag_find_best_match(normalized_name):
     effective_grouping_response_str = llm_drugs.get_completion_by_messages(messages)
 
     #pretty-print the effective_grouping_match by removing double quotes and replace (";") or (",") with (" ")
-    if type(effective_grouping_response_str) == list:
-        effective_grouping_match = "No effective grouping found"
-    else:
+    if effective_grouping_match != "No effective grouping found":
         effective_grouping_match = effective_grouping_response_str.strip('"').replace(";",",")
 
     return (effective_grouping_match)
