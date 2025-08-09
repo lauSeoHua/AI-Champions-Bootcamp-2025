@@ -92,7 +92,8 @@ def normalize_chemical_names(user_message):
         normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
     except json.JSONDecodeError:
         normalized_chemical_names_response_str = []
-    
+    st.write("Line 95")
+    st.write(normalized_chemical_names_response_str)
     return normalized_chemical_names_response_str
 
 def rag_find_best_match(normalized_name):
@@ -131,13 +132,13 @@ def rag_find_best_match(normalized_name):
         {'role':'user',
          'content': f"{delimiter}{normalized_name}{delimiter}"},
     ]
-    category_and_product_response_str = llm_drugs.get_completion_by_messages(messages)
+    effective_grouping_response_str = llm_drugs.get_completion_by_messages(messages)
 
     #pretty-print the effective_grouping_match by removing double quotes and replace (";") or (",") with (" ")
-    if type(category_and_product_response_str) == list:
+    if type(effective_grouping_response_str) == list:
         effective_grouping_match = "No effective grouping found"
     else:
-        effective_grouping_match = category_and_product_response_str.strip('"').replace(";",",")
+        effective_grouping_match = effective_grouping_response_str.strip('"').replace(";",",")
 
     return (effective_grouping_match)
     
@@ -284,6 +285,9 @@ def search_poison_act_1938(normalized_name):
                     list_of_contexts.append(doc.page_content)
             except Exception as e:
                 print("Error at fallback query:", e, flush=True)
+    
+    st.write("Line 289")
+    st.write(list_of_contexts)
 
     with st.spinner("Cleaning 🧹🧹🧹 the matches... "):
         # Split by ; or whitespace, also add spacing for capitalized words stuck together
@@ -334,6 +338,11 @@ def search_poison_act_1938(normalized_name):
             else:
                 print("None")
                 conclusion = "None"
+        
+            st.write("Line 342")
+            st.write(conclusion)
+    
+    st.write(possible_cpds)
 
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
