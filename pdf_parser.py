@@ -22,9 +22,9 @@ class read_library_search:
                     list_of_pg_w_uv.append(page.number)
                 else:
                     text += page.get_text()
-                    
+
             # Library Search starts 
-            pattern = r"-{7}\|-{7}\|-{7}\|---\|-{10}\|-{6}\|-\|-{6}\|-{20}\n(.*?)Data File"
+            pattern = r"(?<=" + r"-{7}\|-{7}\|-{7}\|---\|-{10}\|-{6}\|-\|-{6}\|-{20}" + r").*"
 
             try:
                 matches = re.findall(pattern, text, re.DOTALL)
@@ -35,19 +35,24 @@ class read_library_search:
                 #combined_matches = combined_matches.split("\n").split("    ")[0]
 
                 list_combined_matches = combined_matches.split("\n")
-
+                
                 list_combined_matches = [b for b in list_combined_matches if b]
-
+                
                 test = [i.split(" ") for i in list_combined_matches]
-
+                
                 test = [[x for x in y if x.strip() and x!="u" and x!="d"] for y in test]
-
+            
                 compiled_list = []
                 for listmini in test:
-                    #compiled_dict = {}
-                    if abs(float(listmini[0]) - float(listmini[1])) <= 1 and int(listmini[7])>=950:
-                        compiled_list.append(" ".join(listmini[8:]))
-
+                    if listmini:
+                        print(listmini)
+                        #compiled_dict = {}
+                        try:
+                            if abs(float(listmini[0]) - float(listmini[1])) <= 1 and int(listmini[7])>=950:
+                                compiled_list.append(" ".join(listmini[8:]))
+                        except Exception as e:
+                            continue
+                    
                 combined_compiled_list = ("$").join(compiled_list)
             except Exception as e:
                 st.write("File was not library search.")
