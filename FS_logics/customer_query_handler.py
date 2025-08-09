@@ -398,4 +398,6 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
     # All other random queries
     else:
         compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
+    st.write("Line 401")
+    st.write(compiled_list)
     return (compiled_list,tidied_list)
