@@ -136,7 +136,7 @@ def rag_find_best_match(normalized_name):
     if effective_grouping_response_str != "No effective grouping found":
         effective_grouping_match = effective_grouping_response_str.strip('"').replace(";",",")
     else:
-        effective_grouping_match == "No effective grouping found"
+        effective_grouping_match = "No effective grouping found"
     return (effective_grouping_match)
     
 
