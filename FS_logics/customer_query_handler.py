@@ -372,11 +372,11 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                 effective_grp_match = rag_find_best_match(normalized_names)
                 time.sleep(2)
                 if effective_grp_match!="No effective grouping found":
-                    if f"{normalized_names} belongs to {effective_grp_match}." not in compiled_list:
+                    if f"{normalized_names.strip('"').capitalize()} belongs to {effective_grp_match}." not in compiled_list:
                         # The "sentence" that will be presented to the user will be appended to a list.
                         # The database chemicals are all found in poisons act.
-                        tidied_list.append(f"{normalized_names.capitalize()}${effective_grp_match}")
-                        compiled_list.append(f"\n{normalized_names.capitalize()} belongs to {effective_grp_match} and is found in the poisons act 1938.\n")
+                        tidied_list.append(f"{normalized_names.strip('"').capitalize()}${effective_grp_match}")
+                        compiled_list.append(f"\n{normalized_names.strip('"').capitalize()} belongs to {effective_grp_match} and is found in the poisons act 1938.\n")
                 else:
                     #did not find a good match (no effective groupings) hence must search posion act 1938
                     try:
@@ -393,20 +393,20 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                         if effective_grp_match!="No effective grouping found":
                             #effective_grouping_match = rag_find_best_match(normalized_names)
                             #effective_grouping_match = sentence_transformer_find_best_match(normalized_names)[0]
-                            if f"{normalized_names}/{refind_normalized_name} belongs to {effective_grp_match}." not in compiled_list:
+                            if f"{normalized_names.strip('"').capitalize()}/{refind_normalized_name} belongs to {effective_grp_match}." not in compiled_list:
                                 
                                 # The "sentence" that will be presented to the user will be appended to a list.
-                                tidied_list.append(f"{normalized_names.capitalize()}${effective_grp_match}")
-                                compiled_list.append(f"\n{normalized_names.capitalize()}/{refind_normalized_name} belongs to {effective_grp_match} and is found in the poisons act 1938.\n ")
+                                tidied_list.append(f"{normalized_names.strip('"').capitalize()}${effective_grp_match}")
+                                compiled_list.append(f"\n{normalized_names.strip('"').capitalize()}/{refind_normalized_name} belongs to {effective_grp_match} and is found in the poisons act 1938.\n ")
                         else:
                             #Not found in effective groupings but found in poisons act -> use LLM to reply general
                             
-                            compiled_list.append(f"\n{normalized_names.capitalize()} does not belong to any effective groupings but it is found in poisons act 1938. \n")
+                            compiled_list.append(f"\n{normalized_names.strip('"').capitalize()} does not belong to any effective groupings but it is found in poisons act 1938. \n")
                     
                     # The user query has no drugs-related names. E.g. just sodium chloride. 
                     else:
                         # The "sentence" that will be presented to the user will be appended to a list.
-                        compiled_list.append(f"\n{normalized_names.capitalize()} does not belong to any effective groupings. It is not found in poisons act 1938. \n")
+                        compiled_list.append(f"\n{normalized_names.strip('"').capitalize()} does not belong to any effective groupings. It is not found in poisons act 1938. \n")
     # All other random queries
     else:
         compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
