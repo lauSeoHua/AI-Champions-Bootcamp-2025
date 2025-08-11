@@ -43,6 +43,18 @@ text_splitter_ = RecursiveCharacterTextSplitter(
         length_function=llm_drugs.count_tokens
 )
 
+def parse_drug_list(s):
+    # Remove square brackets
+    s = s.strip().strip("[]")
+
+    # Handle empty list
+    if not s:
+        return []
+
+    # Split by commas and strip whitespace
+    return [item.strip() for item in s.split(",") if item.strip()]
+
+
 #Use LLM to convert salt form to base form e.g. Sildenafil Citrate -> Sildenafil
 
 # Prevent prompt injection by adding delimiters ->
@@ -89,7 +101,7 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
     st.write("Line 90")
     st.write(normalized_chemical_names_response_str)
-    normalized_chemical_names_response_list =  ast.literal_eval(normalized_chemical_names_response_str)
+    normalized_chemical_names_response_list = parse_drug_list(normalized_chemical_names_response_str)
     # try:
     #     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
     # except json.JSONDecodeError:
