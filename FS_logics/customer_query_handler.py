@@ -101,10 +101,10 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
 
     normalized_chemical_names_response_list = parse_drug_list(normalized_chemical_names_response_str)
-    # try:
-    #     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
-    # except json.JSONDecodeError:
-    #     normalized_chemical_names_response_str = []
+    try:
+        normalized_chemical_names_response_list = json.loads(normalized_chemical_names_response_list)
+    except json.JSONDecodeError:
+        normalized_chemical_names_response_list = []
     return normalized_chemical_names_response_list
 
 def rag_find_best_match(normalized_name):
