@@ -62,7 +62,7 @@ def normalize_chemical_names(user_message):
     Decide if the query is relevant to drug names/chemical compounds or arsenic. There can be more than 1 in the query.
 
     If there are any drug names/chemical compounds/IUPAC Name/arsenic found, use the following rules to identify the compound mentioned.
-    1) If it is an analogue, metabolite, or salt or HCl or Na or sulfate of another compound, return the simplest base compound.
+    1) If it is an analogue, metabolite, or salt or HCl or Na or sulfate of another compound, return the simplest base compound. E.g. simplest base compound of hydroxyhomosildenafil is sildenafil. simplest base compound of  desmethylsibutramine is sibutramine. 
     2) However, if it is in a ester, amide, carboxylic acid, acid chloride, anhydride, or amine form — including specific stereoisomers or positional variants — return the compound name exactly as given, without simplification.
     3) Remove prefixes such as "nor","homo", "des", or other demethylated forms from the compound. 
     4) If the compound has a "pseudo", retain it in the compound. 
@@ -70,22 +70,6 @@ def normalize_chemical_names(user_message):
     6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name. Convert to UK naming if possible.
     
     The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
-
-    If you could not find any drug names, try this:
-
-    Given the name of a chemical compound, determine whether it is an analogue of a known pharmaceutical drug. If so, return the name of the parent compound it is most closely related to.
-
-    Steps:
-
-    Analyze the name or structure of the compound.
-
-    Identify any structural or pharmacophore similarities to known drugs.
-
-    Decide whether the compound qualifies as an analogue (i.e., similar in structure and likely biological activity).
-
-    If it is an analogue, return the parent drug name (e.g., “sildenafil”).
-
-    If not, return “None”.
 
     Output the identified compounds as a list. 
 
