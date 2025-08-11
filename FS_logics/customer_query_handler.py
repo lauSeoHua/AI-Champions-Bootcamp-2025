@@ -352,7 +352,8 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
     compiled_list = []
 
     tidied_list = []
-
+    st.write("Line 355")
+    st.write(list_of_normalized_names)
     # check that the list of normalized names is not empty
     if len(list_of_normalized_names) != 0:
         with st.spinner("🖋️📖 Searching and normalizing names 🖋️📖"):
