@@ -372,7 +372,8 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                 effective_grp_match = rag_find_best_match(normalized_names)
                 time.sleep(2)
                 st.write("Line 374")
-                st.write(normalized_names)
+                st.write(re.sub(r'^"(.*)"$', r'\1', normalized_names))
+                normalized_names = re.sub(r'^"(.*)"$', r'\1', normalized_names)
                 if effective_grp_match!="No effective grouping found":
                     if f"{normalized_names} belongs to {effective_grp_match}." not in compiled_list:
                         # The "sentence" that will be presented to the user will be appended to a list.
