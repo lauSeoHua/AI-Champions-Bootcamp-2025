@@ -52,7 +52,7 @@ def parse_drug_list(s):
         return []
 
     # Split by commas and strip whitespace
-    return [item.strip() for item in s.split(",") if item.strip()]
+    return [item for item in s.split(",") if item]
 
 
 #Use LLM to convert salt form to base form e.g. Sildenafil Citrate -> Sildenafil
