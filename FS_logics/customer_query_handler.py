@@ -64,7 +64,7 @@ def normalize_chemical_names(user_message):
     If there are any drug names/chemical compounds/IUPAC Name/arsenic found, use the following rules to identify the compound mentioned.
     1) If it is an analogue, metabolite, or salt or HCl or Na or sulfate of another compound, return the simplest base compound.
     2) However, if it is in a ester, amide, carboxylic acid, acid chloride, anhydride, or amine form — including specific stereoisomers or positional variants — return the compound name exactly as given, without simplification.
-    3) Remove prefixes such as "nor-","homo-", "des-", or other demethylated forms from the compound. 
+    3) Remove prefixes such as "nor","homo", "des", or other demethylated forms from the compound. 
     4) If the compound has a "pseudo", retain it in the compound.
     5) However, if the compound has a functional modification (e.g., hydroxy-, ester, amide), keep it as-is.
     6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name. Convert to UK naming if possible.
