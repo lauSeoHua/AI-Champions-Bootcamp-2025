@@ -83,7 +83,7 @@ def normalize_chemical_names(user_message):
     
     The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
 
-    Output the identified compounds as a list. 
+    Output the identified compounds as a list of strings where each identified compound is enclosed in double quotes. 
 
     If no drug names are found, output an empty list.
 
@@ -100,9 +100,9 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = llm_drugs.get_completion_by_messages(messages)
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
 
-    normalized_chemical_names_response_list = parse_drug_list(normalized_chemical_names_response_str)
+    #normalized_chemical_names_response_list = parse_drug_list(normalized_chemical_names_response_str)
     try:
-        normalized_chemical_names_response_list = json.loads(normalized_chemical_names_response_list)
+        normalized_chemical_names_response_list = json.loads(normalized_chemical_names_response_str)
     except json.JSONDecodeError:
         normalized_chemical_names_response_list = []
     return normalized_chemical_names_response_list
