@@ -89,12 +89,12 @@ def normalize_chemical_names(user_message):
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
     st.write("Line 90")
     st.write(normalized_chemical_names_response_str)
-
+    normalized_chemical_names_response_list =  ast.literal_eval(normalized_chemical_names_response_str)
     # try:
     #     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
     # except json.JSONDecodeError:
     #     normalized_chemical_names_response_str = []
-    return normalized_chemical_names_response_str
+    return normalized_chemical_names_response_list
 
 def rag_find_best_match(normalized_name):
 
