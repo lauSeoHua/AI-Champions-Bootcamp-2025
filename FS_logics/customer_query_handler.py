@@ -99,8 +99,7 @@ def normalize_chemical_names(user_message):
     ]
     normalized_chemical_names_response_str = llm_drugs.get_completion_by_messages(messages)
     normalized_chemical_names_response_str = normalized_chemical_names_response_str.replace("'", "\"")
-    st.write("Line 90")
-    st.write(normalized_chemical_names_response_str)
+
     normalized_chemical_names_response_list = parse_drug_list(normalized_chemical_names_response_str)
     # try:
     #     normalized_chemical_names_response_str = json.loads(normalized_chemical_names_response_str)
@@ -365,15 +364,11 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
     compiled_list = []
 
     tidied_list = []
-    st.write("Line 355")
-    st.write(list_of_normalized_names)
     # check that the list of normalized names is not empty
     if len(list_of_normalized_names) != 0:
         with st.spinner("🖋️📖 Searching and normalizing names 🖋️📖"):
         
             for normalized_names in list_of_normalized_names:
-                st.write("Line 360")
-                st.write(normalized_names)
                 effective_grp_match = rag_find_best_match(normalized_names)
                 time.sleep(2)
                 if effective_grp_match!="No effective grouping found":
