@@ -316,8 +316,8 @@ def search_poison_act_1938(normalized_name):
         # Loop through each possible matches and do one more search -> compare  CAS number.
         # What is CAS number? -> CAS (Chemical Abstracts Service (CAS)) number is unique for each compound.
         # Compare CAS number ensures the right compound is queried.
-    st.write("Line 319")
-    st.write(list_of_cleaned_in_matches)
+    # st.write("Line 319")
+    # st.write(list_of_cleaned_in_matches)
     with st.spinner("🔍Checking with the LLM🔎..."):
         for words in list_of_cleaned_in_matches:
             context = words
