@@ -220,6 +220,17 @@ vector_store =  Chroma.from_documents(
             collection_name=f"temp_collection_{uuid.uuid4().hex}" # to make collection name unique
             )
 
+import asyncio
+
+def run_async(coro):
+    try:
+        return asyncio.get_event_loop().run_until_complete(coro)
+    except RuntimeError:
+        # In case of nested loops (common in Streamlit)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        return loop.run_until_complete(coro)
+
 ''' RAG'''
 # Using CrewAI's tool : WebsiteSearchTool to search from Poisons Act 1938's website
 def search_poison_act_1938(normalized_name):
@@ -236,7 +247,10 @@ def search_poison_act_1938(normalized_name):
     except Exception as e:
         st.write("Error", e)
 
-   
+        
+    # Usage
+    test_search_result = run_async(tool_websearch.arun(normalized_name))
+
     # # Lookup the normalized name from the Poisons Act 1938.
     # search_result = tool_websearch.run(normalized_name)
 
@@ -246,6 +260,9 @@ def search_poison_act_1938(normalized_name):
     give_id = []
     st.write("line 247")
     st.write(search_result)
+
+    st.write("Line 264")
+    st.write(test_search_result)
     for chunk in (text_splitter_.split_text(search_result)):
         # st.write("Line 249")
         # st.write(chunk)
