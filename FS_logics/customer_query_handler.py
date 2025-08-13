@@ -231,7 +231,7 @@ def search_poison_act_1938(normalized_name):
     #st.write(f"Looking for {normalized_name}")
     # Lookup the normalized name from the Poisons Act 1938.
     try:
-        search_result = tool_websearch.run(normalized_name)
+        search_result = tool_websearch.run(normalized_name.strip().lower())
 
     except Exception as e:
         st.write("Error", e)
