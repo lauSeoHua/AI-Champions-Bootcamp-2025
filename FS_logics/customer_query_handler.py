@@ -244,9 +244,7 @@ def search_poison_act_1938(normalized_name):
     list_of_contexts = []
     # Initialize a list for the IDs -> each document in the splitted document will be given an ID in the vector store -> for ease of deletion/refresh after each query
     give_id = []
-    st.write("line 247")
-    st.write(len(search_result))
-    st.text_area("Search Result", search_result, height=400)
+   
     for chunk in (text_splitter_.split_text(search_result)):
         # st.write("Line 249")
         # st.write(chunk)
