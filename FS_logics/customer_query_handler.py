@@ -247,10 +247,6 @@ def search_poison_act_1938(normalized_name):
     except Exception as e:
         st.write("Error", e)
 
-        
-    # Usage
-    test_search_result = run_async(tool_websearch.arun(normalized_name))
-
     # # Lookup the normalized name from the Poisons Act 1938.
     # search_result = tool_websearch.run(normalized_name)
 
@@ -260,6 +256,12 @@ def search_poison_act_1938(normalized_name):
     give_id = []
     st.write("line 247")
     st.write(search_result)
+
+    
+        
+    # Usage
+    test_search_result = run_async(tool_websearch.arun(normalized_name))
+
 
     st.write("Line 264")
     st.write(test_search_result)
