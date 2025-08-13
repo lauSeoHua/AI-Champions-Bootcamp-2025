@@ -246,6 +246,7 @@ def search_poison_act_1938(normalized_name):
     give_id = []
     st.write("line 247")
     st.write(len(search_result))
+    st.text_area("Search Result", search_result, height=400)
     for chunk in (text_splitter_.split_text(search_result)):
         # st.write("Line 249")
         # st.write(chunk)
