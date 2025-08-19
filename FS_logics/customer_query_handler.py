@@ -64,6 +64,7 @@ def parse_drug_list(s):
 # e.g. 3. Trimipramine Maleate is actually Trimipramine in poisons act 1938.
 # e.g. 4. clobetasol propionate is actually clobetasol propionate in the effective groupings list/poisons act 1938.
 
+for_alkaloids = ""
 def normalize_chemical_names(user_message):
 
     system_message = f"""
@@ -105,6 +106,8 @@ def normalize_chemical_names(user_message):
         normalized_chemical_names_response_list = json.loads(normalized_chemical_names_response_str)
     except json.JSONDecodeError:
         normalized_chemical_names_response_list = []
+    
+    for_alkaloids = user_message
     return normalized_chemical_names_response_list
 
 def rag_find_best_match(normalized_name):
@@ -469,7 +472,22 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                         #compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. Please double-check yourself to confirm.\n ")
     # All other random queries
     else:
+        backup_response = llm_drugs.get_completion(for_alkaloids)
+        list_of_alkaloids_found = alkaloids_checker(backup_response)
+        if len(list_of_alkaloids_found)==0:
+            compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
+        else:
+            for names in list_of_alkaloids_found:
+                #st.write(alkaloids_checker(backup_response))
+                try:
+                    refind_alkaloids_name = search_poison_act_1938(names)
+                except Exception as e:
+                    refind_alkaloids_name="Absent"
+            if refind_alkaloids_name == "Absent":
+                compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. Please double-check yourself to confirm.\n ")
+            else:
+                compiled_list.append(f"\n{normalized_names.capitalize()} belongs to alkaloids of genus {names} and is found in poisons act 1938.")
         
-        compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
+        #compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
 
     return (compiled_list,tidied_list)
