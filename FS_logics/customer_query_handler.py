@@ -469,23 +469,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                         #compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. Please double-check yourself to confirm.\n ")
     # All other random queries
     else:
-        # The "sentence" that will be presented to the user will be appended to a list.
-        backup_response = llm_drugs.get_completion(normalized_names)
-        list_of_alkaloids_found = alkaloids_checker(backup_response)
-        if len(list_of_alkaloids_found)==0:
-            compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. Please double-check yourself to confirm.\n ")
-        else:
-            for names in list_of_alkaloids_found:
-                #st.write(alkaloids_checker(backup_response))
-                try:
-                    refind_alkaloids_name = search_poison_act_1938(names)
-                except Exception as e:
-                    refind_alkaloids_name="Absent"
-            if refind_alkaloids_name == "Absent":
-                compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. Please double-check yourself to confirm.\n ")
-            else:
-                compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
-
-        #compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
+        
+        compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
 
     return (compiled_list,tidied_list)
