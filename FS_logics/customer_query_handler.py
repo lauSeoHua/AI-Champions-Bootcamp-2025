@@ -374,9 +374,9 @@ def alkaloids_checker(paragraph):
 
     Decide if there are any alkaloids names present in the paragraphs. 
 
-    If there are any alkaloids found, return the genus of the alkaloids.
+    If there are any alkaloids found, return the genus or family of the alkaloids.
     
-    Output the identified genus as a list of strings where each genus is enclosed in double quotes. 
+    Output the identified genus or family as a list of strings where each genus is enclosed in double quotes. 
 
     If no alkaloids are found, output an empty list.
 
