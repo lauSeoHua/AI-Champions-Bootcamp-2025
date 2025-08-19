@@ -361,6 +361,43 @@ def search_poison_act_1938(normalized_name):
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
         return "Absent"
+    
+def alkaloids_checker(paragraph):
+    
+    system_message = f"""
+
+    You will be provided with paragraphs produced by the large language model.\
+    The paragraphs will be enclosed in the triple backticks.
+
+    Decide if there are any alkaloids names present in the paragraphs. 
+
+    If there are any alkaloids found, return the genus of the alkaloids.
+    
+    Output the identified genus as a list of strings where each genus is enclosed in double quotes. 
+
+    If no alkaloids are found, output an empty list.
+
+    Ensure your response contains only the list of string objects or an empty list, \
+    without any enclosing tags or delimiters.
+    """
+
+    messages =  [
+        {'role':'system',
+         'content': system_message},
+        {'role':'user',
+         'content': f"```{paragraph}```"},
+    ]
+    check_alkaloids_str = llm_drugs.get_completion_by_messages(messages)
+    check_alkaloids_response_str = check_alkaloids_str.replace("'", "\"")
+
+    #normalized_chemical_names_response_list = parse_drug_list(normalized_chemical_names_response_str)
+    try:
+        genus_list = json.loads(check_alkaloids_response_str)
+    except json.JSONDecodeError:
+        genus_list = []
+    return genus_list
+
+
 
 # Function to get effective groupings from a compiled list of database 
 # The database is in excel format -> the compounds in the database are normalized.
@@ -413,8 +450,9 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                     else:
                         # The "sentence" that will be presented to the user will be appended to a list.
                         backup_response = llm_drugs.get_completion(normalized_names)
-                        st.write(backup_response)
-                        st.write(search_poison_act_1938(backup_response))
+                        st.write(alkaloids_checker(backup_response))
+                        # st.write(backup_response)
+                        # st.write(search_poison_act_1938(backup_response))
                         compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. Please double-check yourself to confirm.\n ")
     # All other random queries
     else:
