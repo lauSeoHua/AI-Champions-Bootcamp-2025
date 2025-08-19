@@ -412,7 +412,8 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                     # The user query has no drugs-related names. E.g. just sodium chloride. 
                     else:
                         # The "sentence" that will be presented to the user will be appended to a list.
-                        compiled_list.append(f"\n{normalized_names.capitalize()} does not belong to any effective groupings. It is not found in poisons act 1938. \n")
+                        backup_response = llm_drugs.get_completion(normalized_names)
+                        compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. \n {backup_response}")
     # All other random queries
     else:
         compiled_list.append("Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.")
