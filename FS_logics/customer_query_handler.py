@@ -453,6 +453,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
                     else:
                         # The "sentence" that will be presented to the user will be appended to a list.
                         backup_response = llm_drugs.get_completion(normalized_names)
+                        st.write(backup_response)
                         list_of_alkaloids_found = alkaloids_checker(backup_response)
                         if len(list_of_alkaloids_found)==0:
                             compiled_list.append(f"\nBased on initial check, {normalized_names.capitalize()} does not belong to any effective groupings and it is not found in poisons act 1938. Please double-check yourself to confirm.\n ")
