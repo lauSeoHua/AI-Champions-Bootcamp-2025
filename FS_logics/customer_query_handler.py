@@ -336,7 +336,7 @@ def search_poison_act_1938(normalized_name):
             {context}
 
             Question:
-            The context contains a list of chemical compounds. For each compound, identify its Chemical Abstracts Service (CAS) Number. Then, return them in a json format where the key is the compound and the value is the cas number.
+            The context contains a list of chemical compounds. Deduce if the {normalized_name} is related to what is presented in the context. If you think that it is not related, then do the following : For each compound, identify its Chemical Abstracts Service (CAS) Number. Then, return them in a json format where the key is the compound and the value is the cas number.
             Retrieve the CAS number of the {normalized_name} and add to the json with key "Target" and value the CAS Number. Do not return anything else and do not add any comments.
             Answer:
             """
