@@ -356,18 +356,19 @@ def search_poison_act_1938(normalized_name):
             else:
                 # context = words
 
-                # prompt = f"""
-                # Context:
-                # {context}
+                prompt = f"""
+                Context:
+                {context}
 
-                # The context contains a list of chemical compounds. 
-                # Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                Answer:
-                # """
+                The context contains a list of chemical compounds. 
+                Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                
+                Answer:
+                """
                 
-                # response = llm_drugs.get_completion(prompt)
-                # st.write("Line 368")
-                # st.write(response)
-                # conclusion=""
+                response = llm_drugs.get_completion(prompt)
+                st.write("Line 368")
+                st.write(response)
+                conclusion=""
                 print("None")
                 conclusion = "None"
     
