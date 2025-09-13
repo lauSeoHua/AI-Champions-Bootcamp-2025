@@ -69,8 +69,8 @@ def normalize_chemical_names(user_message):
 
     system_message = f"""
 
-    You will be provided with drug-related queries.\
-    The drug-related queries will be enclosed in the triple backticks.
+    You will be provided with chemical compound queries.\
+    The chemical compound queries will be enclosed in the triple backticks.
 
     Decide if the query is relevant to drug names/chemical compounds or arsenic. There can be more than 1 in the query.
 
