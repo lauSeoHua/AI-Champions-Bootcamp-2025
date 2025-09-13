@@ -377,6 +377,7 @@ def search_poison_act_1938(normalized_name):
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
         st.write("lINE 379")
         st.write(possible_cpds)
+        st.write(normalized_name)
         return normalized_name
 
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
