@@ -354,6 +354,20 @@ def search_poison_act_1938(normalized_name):
                 if conclusion!="" and conclusion not in possible_cpds:
                     possible_cpds.append(conclusion)
             else:
+                context = words
+
+                prompt = f"""
+                Context:
+                {context}
+
+                The context contains a list of chemical compounds. 
+                Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                Answer:
+                """
+                
+                response = llm_drugs.get_completion(prompt)
+                print("Line 368")
+                print(response)
+                conclusion=""
                 print("None")
                 conclusion = "None"
     
