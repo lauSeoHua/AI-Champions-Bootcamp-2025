@@ -377,7 +377,7 @@ def search_poison_act_1938(normalized_name):
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
         st.write("lINE 379")
         st.write(possible_cpds)
-        return possible_cpds
+        return normalized_name
 
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
@@ -432,6 +432,7 @@ def get_effective_grouping_from_normalized_names(list_of_normalized_names):
         with st.spinner("🖋️📖 Searching and normalizing names 🖋️📖"):
         
             for normalized_names in list_of_normalized_names:
+                normalized_names = normalized_names.lower()
                 effective_grp_match = rag_find_best_match(normalized_names)
                 time.sleep(2)
                 normalized_names = re.sub(r'^"(.*)"$', r'\1', normalized_names)
