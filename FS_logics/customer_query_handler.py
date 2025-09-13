@@ -325,8 +325,8 @@ def search_poison_act_1938(normalized_name):
         # Loop through each possible matches and do one more search -> compare  CAS number.
         # What is CAS number? -> CAS (Chemical Abstracts Service (CAS)) number is unique for each compound.
         # Compare CAS number ensures the right compound is queried.
-    # st.write("Line 319")
-    # st.write(list_of_cleaned_in_matches)
+    st.write("Line 319")
+    st.write(list_of_cleaned_in_matches)
     with st.spinner("🔍Checking with the LLM🔎..."):
         for words in list_of_cleaned_in_matches:
             context = words
@@ -336,7 +336,7 @@ def search_poison_act_1938(normalized_name):
             {context}
 
             Question:
-            The context contains a list of chemical compounds. Deduce if the {normalized_name} is related to what is presented in the context. If you think that it is not related, then do the following : For each compound, identify its Chemical Abstracts Service (CAS) Number. Then, return them in a json format where the key is the compound and the value is the cas number.
+            The context contains a list of chemical compounds. For each compound, identify its Chemical Abstracts Service (CAS) Number. Then, return them in a json format where the key is the compound and the value is the cas number.
             Retrieve the CAS number of the {normalized_name} and add to the json with key "Target" and value the CAS Number. Do not return anything else and do not add any comments.
             Answer:
             """
