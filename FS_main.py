@@ -299,7 +299,7 @@ Always consult with qualified professionals for accurate and personalized advice
                 else:
                     
                     st.toast(f"User input submitted_{user_prompt}")
-                    output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt))[0]
+                    output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt.lower()))[0]
                 
                 for results in output_response:
                     if results == "Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.":
