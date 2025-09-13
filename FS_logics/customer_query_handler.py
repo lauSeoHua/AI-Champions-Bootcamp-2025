@@ -365,8 +365,8 @@ def search_poison_act_1938(normalized_name):
                 """
                 
                 response = llm_drugs.get_completion(prompt)
-                print("Line 368")
-                print(response)
+                st.write("Line 368")
+                st.write(response)
                 conclusion=""
                 print("None")
                 conclusion = "None"
