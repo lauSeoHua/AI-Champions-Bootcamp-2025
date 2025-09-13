@@ -300,6 +300,8 @@ def search_poison_act_1938(normalized_name):
             
                 for doc in retriever_documents:
                     list_of_contexts.append(doc.page_content)
+                    st.write(doc.page_content)
+                st.write("I am list_of_contexts")
             except Exception as e:
                 print("Error at fallback query:", e, flush=True)
 
