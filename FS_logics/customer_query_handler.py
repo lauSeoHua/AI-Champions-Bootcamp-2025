@@ -337,7 +337,7 @@ def search_poison_act_1938(normalized_name):
 
             Question:
             The context contains a list of chemical compounds. For each compound, identify its Chemical Abstracts Service (CAS) Number. Then, return them in a json format where the key is the compound and the value is the cas number.
-            Retrieve the CAS number of the {normalized_name} and add to the json with key "Target" and value the CAS Number. Do not return anything else and do not add any comments.
+            Retrieve the CAS number of the {normalized_name.lower()} and add to the json with key "Target" and value the CAS Number. Do not return anything else and do not add any comments.
             Answer:
             """
             
@@ -354,20 +354,20 @@ def search_poison_act_1938(normalized_name):
                 if conclusion!="" and conclusion not in possible_cpds:
                     possible_cpds.append(conclusion)
             else:
-                context = words
+                # context = words
 
-                prompt = f"""
-                Context:
-                {context}
+                # prompt = f"""
+                # Context:
+                # {context}
 
-                The context contains a list of chemical compounds. 
-                Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                Answer:
-                """
+                # The context contains a list of chemical compounds. 
+                # Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                Answer:
+                # """
                 
-                response = llm_drugs.get_completion(prompt)
-                st.write("Line 368")
-                st.write(response)
-                conclusion=""
+                # response = llm_drugs.get_completion(prompt)
+                # st.write("Line 368")
+                # st.write(response)
+                # conclusion=""
                 print("None")
                 conclusion = "None"
     
@@ -375,8 +375,10 @@ def search_poison_act_1938(normalized_name):
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
+        st.write("lINE 379")
+        st.write(possible_cpds)
         return possible_cpds
-    
+
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
         return "Absent"
