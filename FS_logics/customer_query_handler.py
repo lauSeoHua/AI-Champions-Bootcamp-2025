@@ -385,7 +385,10 @@ def search_poison_act_1938(normalized_name):
         st.write("Line 368")
         st.write(response)
         conclusion=""
-        return "Absent"
+        if response=="Yes":
+            return normalized_name
+        else:
+            return "Absent"
     
 def alkaloids_checker(paragraph):
     
