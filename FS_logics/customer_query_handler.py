@@ -354,11 +354,13 @@ def search_poison_act_1938(normalized_name):
                 if conclusion!="" and conclusion not in possible_cpds:
                     possible_cpds.append(conclusion)
             else:
+                st.write("Line 357")
+                st.write(list_of_contexts)
                 # context = words
 
                 prompt = f"""
                 Context:
-                {context}
+                {list_of_contexts}
 
                 The context contains a list of chemical compounds. 
                 Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                
@@ -378,8 +380,7 @@ def search_poison_act_1938(normalized_name):
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
         st.write("lINE 379")
         st.write(possible_cpds)
-        st.write(normalized_name)
-        return normalized_name
+        return possible_cpds
 
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
