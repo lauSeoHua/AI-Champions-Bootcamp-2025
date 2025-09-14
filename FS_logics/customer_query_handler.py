@@ -325,8 +325,8 @@ def search_poison_act_1938(normalized_name):
         # Loop through each possible matches and do one more search -> compare  CAS number.
         # What is CAS number? -> CAS (Chemical Abstracts Service (CAS)) number is unique for each compound.
         # Compare CAS number ensures the right compound is queried.
-    st.write("Line 319")
-    st.write(list_of_cleaned_in_matches)
+    # st.write("Line 319")
+    # st.write(list_of_cleaned_in_matches)
     with st.spinner("🔍Checking with the LLM🔎..."):
         for words in list_of_cleaned_in_matches:
             context = words
@@ -362,14 +362,14 @@ def search_poison_act_1938(normalized_name):
     # Loop through possible_cpds list to search for words.
     if "".join([items for items in possible_cpds if items!= None]).strip()!="":
         possible_cpds = "".join([items for items in possible_cpds if items!= None])
-        st.write("lINE 379")
-        st.write(possible_cpds)
+        # st.write("lINE 379")
+        # st.write(possible_cpds)
         return possible_cpds
 
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
-        st.write("Line None compounds found")
-        st.write(list_of_cleaned_in_matches)
+        # st.write("Line None compounds found")
+        # st.write(list_of_cleaned_in_matches)
         # context = words
 
         prompt = f"""
@@ -382,8 +382,8 @@ def search_poison_act_1938(normalized_name):
         """
         
         response = llm_drugs.get_completion(prompt)
-        st.write("Line 368")
-        st.write(response)
+        # st.write("Line 368")
+        # st.write(response)
         conclusion=""
         if response=="Yes":
             return normalized_name
