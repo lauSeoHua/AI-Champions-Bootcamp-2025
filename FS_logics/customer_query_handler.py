@@ -354,23 +354,7 @@ def search_poison_act_1938(normalized_name):
                 if conclusion!="" and conclusion not in possible_cpds:
                     possible_cpds.append(conclusion)
             else:
-                st.write("Line 357")
-                st.write(list_of_contexts)
-                # context = words
-
-                prompt = f"""
-                Context:
-                {list_of_contexts}
-
-                The context contains a list of chemical compounds. 
-                Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                
-                Answer:
-                """
                 
-                response = llm_drugs.get_completion(prompt)
-                st.write("Line 368")
-                st.write(response)
-                conclusion=""
                 print("None")
                 conclusion = "None"
     
@@ -384,6 +368,23 @@ def search_poison_act_1938(normalized_name):
 
     # "None" in possible_cpds list only -> no match found -> absent in Poisons Act 1938.
     elif possible_cpds[0]==None:
+        st.write("Line None compounds found")
+        st.write(list_of_cleaned_in_matches)
+        # context = words
+
+        prompt = f"""
+        Context:
+        {list_of_cleaned_in_matches}
+
+        The context contains a list of chemical compounds. 
+        Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                
+        Answer:
+        """
+        
+        response = llm_drugs.get_completion(prompt)
+        st.write("Line 368")
+        st.write(response)
+        conclusion=""
         return "Absent"
     
 def alkaloids_checker(paragraph):
