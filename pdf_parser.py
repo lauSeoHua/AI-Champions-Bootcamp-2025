@@ -52,7 +52,8 @@ class read_library_search:
                                 compiled_list.append(" ".join(listmini[8:]))
                         except Exception as e:
                             continue
-                    
+                st.write("Line 55")
+                st.write(compiled_list)
                 combined_compiled_list = ("$").join(compiled_list)
             except Exception as e:
                 st.write("File was not library search.")
