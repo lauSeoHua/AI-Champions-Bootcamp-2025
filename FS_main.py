@@ -292,7 +292,11 @@ Always consult with qualified professionals for accurate and personalized advice
                         st.write("Line 291")
                         st.write(compiled_str)
                         output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
-                        
+                        compiled_list = "$".split(compiled_list)
+                        compiled_output_response = []
+                        for i in range(len(compiled_list)):
+                            output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_list[i]))[0]
+                            compiled_output_response.append(output_response[0])
                         for_writing_form = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[1]
                         form_fields = read_library_search(uploaded_file).fill_in_form(list_of_cpds=for_writing_form)
                         #st.write(for_writing_form)
@@ -304,7 +308,7 @@ Always consult with qualified professionals for accurate and personalized advice
                     st.toast(f"User input submitted_{user_prompt}")
                     output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt.lower()))[0]
                 
-                for results in output_response:
+                for results in compiled_output_response:
                     if results == "Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.":
                         st.write(results)
                     elif " does not belong to any effective groupings but it is found in poisons act 1938." in results:
