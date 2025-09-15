@@ -286,8 +286,11 @@ Always consult with qualified professionals for accurate and personalized advice
                 if uploaded_file is not None:
                     if uploaded_file.type == "application/pdf":
                         compiled_list = read_library_search(uploaded_file).read_library_search()
-
+                        st.write("Line 289")
+                        st.write(compiled_list)
                         compiled_str = "\n".join(compiled_list)
+                        st.write("Line 291")
+                        st.write(compiled_str)
                         output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
                         
                         for_writing_form = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[1]
