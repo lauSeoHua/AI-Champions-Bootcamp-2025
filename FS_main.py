@@ -294,7 +294,8 @@ Always consult with qualified professionals for accurate and personalized advice
                             compiled_output_response.append(output_response)
                             if len(tuple_of_list[1])>0:
                                 for_writing_form = tuple_of_list[1][0]
-                                for_writing_form_2.append(for_writing_form)
+                                if for_writing_form not in for_writing_form_2:
+                                    for_writing_form_2.append(for_writing_form)
                            
                         # st.write("Line 289")
                         # st.write(compiled_list)
