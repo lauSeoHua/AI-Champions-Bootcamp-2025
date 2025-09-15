@@ -65,7 +65,8 @@ class read_library_search:
             #     #loop through uv spectrums
             #     for page_no in list_of_pg_w_uv:
             #         if doc[page_no] 
-        
+            st.write("Line 68")
+        st.write(compiled_string)
         #return (combined_compiled_list)
         return compiled_string
     
