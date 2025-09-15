@@ -291,7 +291,7 @@ Always consult with qualified professionals for accurate and personalized advice
                         for cpds in compiled_list:
                             tuple_of_list = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(cpds.lower()))
                             output_response = tuple_of_list[0][0]
-                            compiled_output_response = [].append(output_response)
+                            compiled_output_response.append(output_response)
                             if len(tuple_of_list[1])>0:
                                 for_writing_form = tuple_of_list[1][0]
                                 for_writing_form_2.append(for_writing_form)
