@@ -291,7 +291,7 @@ Always consult with qualified professionals for accurate and personalized advice
                         compiled_str = "\n".join(compiled_list)
                         st.write("Line 291")
                         st.write(compiled_str)
-                        output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
+                        #output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
                         compiled_list = "$".split(compiled_list)
                         compiled_output_response = []
                         for i in range(len(compiled_list)):
