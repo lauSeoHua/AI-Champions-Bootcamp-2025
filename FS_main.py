@@ -295,8 +295,7 @@ Always consult with qualified professionals for accurate and personalized advice
                             if len(tuple_of_list[1])>0:
                                 for_writing_form = tuple_of_list[1][0]
                                 for_writing_form_2.append(for_writing_form)
-                            else:
-                                for_writing_form_2.append("")
+                           
                         # st.write("Line 289")
                         # st.write(compiled_list)
                         # compiled_str = "\n".join(compiled_list)
