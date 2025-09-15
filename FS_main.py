@@ -282,34 +282,16 @@ Always consult with qualified professionals for accurate and personalized advice
             found_in_poisons_but_effective_grp = []  
             found_in_poisons_but_no_effective_grp = []   
             
-            for_writing_form_2 = []
-            compiled_output_response = []
             if form.form_submit_button("Submit"):
                 if uploaded_file is not None:
                     if uploaded_file.type == "application/pdf":
                         compiled_list = read_library_search(uploaded_file).read_library_search()
-                        for cpds in compiled_list:
-                            tuple_of_list = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(cpds.lower()))
-                            output_response = tuple_of_list[0][0]
-                            compiled_output_response.append(output_response)
-                            if len(tuple_of_list[1])>0:
-                                for_writing_form = tuple_of_list[1][0]
-                                if for_writing_form not in for_writing_form_2:
-                                    for_writing_form_2.append(for_writing_form)
-                           
-                        # st.write("Line 289")
-                        # st.write(compiled_list)
-                        # compiled_str = "\n".join(compiled_list)
-                        # # st.write("Line 291")
-                        # # st.write(compiled_str)
-                        # # #output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
-                        # # compiled_list = "$".split(compiled_list)
-                        # compiled_output_response = []
-                        # for i in range(len(compiled_list)):
-                        #     output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_list[i]))[0]
-                        #     compiled_output_response.append(output_response[0])
-                        # for_writing_form = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[1]
-                        form_fields = read_library_search(uploaded_file).fill_in_form(list_of_cpds=for_writing_form_2)
+
+                        compiled_str = "\n".join(compiled_list)
+                        output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[0]
+                        
+                        for_writing_form = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(compiled_str))[1]
+                        form_fields = read_library_search(uploaded_file).fill_in_form(list_of_cpds=for_writing_form)
                         #st.write(for_writing_form)
                         #st.write(form_fields)
                     else:
@@ -319,7 +301,7 @@ Always consult with qualified professionals for accurate and personalized advice
                     st.toast(f"User input submitted_{user_prompt}")
                     output_response = customer_query_handler.get_effective_grouping_from_normalized_names(customer_query_handler.normalize_chemical_names(user_prompt.lower()))[0]
                 
-                for results in compiled_output_response:
+                for results in output_response:
                     if results == "Sorry the application does not handle such queries currently. Maybe spelling error? Please correct spelling first. Thank you.":
                         st.write(results)
                     elif " does not belong to any effective groupings but it is found in poisons act 1938." in results:

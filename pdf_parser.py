@@ -43,7 +43,6 @@ class read_library_search:
                 test = [[x for x in y if x.strip() and x!="u" and x!="d"] for y in test]
             
                 compiled_list = []
-                compiled_list_repeat = []
                 for listmini in test:
                     if listmini:
                         print(listmini)
@@ -51,12 +50,9 @@ class read_library_search:
                         try:
                             if abs(float(listmini[0]) - float(listmini[1])) <= 1 and int(listmini[7])>=950:
                                 compiled_list.append(" ".join(listmini[8:]))
-                                compiled_list_repeat.append(" ".join(listmini[8:]))
                         except Exception as e:
                             continue
-                # print("Line 55")
-                # print(compiled_list)
-                # print(type(compiled_list))
+                    
                 combined_compiled_list = ("$").join(compiled_list)
             except Exception as e:
                 st.write("File was not library search.")
@@ -65,10 +61,8 @@ class read_library_search:
             #     #loop through uv spectrums
             #     for page_no in list_of_pg_w_uv:
             #         if doc[page_no] 
-        #     st.write("Line 68")
-        # st.write(compiled_string)
-        #return (combined_compiled_list)
-        return compiled_list_repeat
+        
+        return (combined_compiled_list)
     
     def fill_in_form(self,list_of_cpds):
         with st.spinner("📄🔍 Getting PDF control forms fields📄🔍..."):
