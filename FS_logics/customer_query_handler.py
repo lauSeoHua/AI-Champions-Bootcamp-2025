@@ -305,7 +305,8 @@ def search_poison_act_1938(normalized_name):
             except Exception as e:
                 print("Error at fallback query:", e, flush=True)
 
-
+    st.write("Line 308")
+    st.write(list_of_contexts)
     with st.spinner("Cleaning 🧹🧹🧹 the matches... "):
         # Split by ; or whitespace, also add spacing for capitalized words stuck together
         list_of_cleaned_in_matches = []
