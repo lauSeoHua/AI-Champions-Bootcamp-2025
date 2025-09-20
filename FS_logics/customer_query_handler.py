@@ -374,11 +374,11 @@ def search_poison_act_1938(normalized_name):
         # context = words
 
         prompt = f"""
-        Context:
+        Given the following list of chemical compounds and modifiers:
         {list_of_contexts}
-
-        The context contains a list of sentences with chemical compounds. 
-        Look at every chemical compound in the list and deduce if the {normalized_name} is functionally equivalent or pharmacologically related. If you think it is related, return the answer as "Yes". If not, return "No". Do not return anything else.                
+        Now answer this question:  
+        **Is {normalized_name.lower()} found in the list?**  
+        Answer "Yes" or "No".Do not return anything else.                
         Answer:
         """
         
