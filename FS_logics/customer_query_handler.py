@@ -249,13 +249,15 @@ def search_poison_act_1938(normalized_name):
     give_id = []
    
     for chunk in (text_splitter_.split_text(search_result)):
-        # st.write("Line 249")
-        # st.write(chunk)
+        st.write("Line 249")
+        st.write(chunk)
         # Poisons Act 1938's drugs names are usually start with capital letter
         # If found the exact name , e.g. found exactly Sildenafil ->  found=True
         if normalized_name.capitalize() in chunk:
             found=True
             list_of_contexts.append(chunk)
+            st.write("Found")
+            st.write(chunk)
         # Else, need to save the chunks into the list : splitted_documents
         else:
             from langchain.schema import Document
