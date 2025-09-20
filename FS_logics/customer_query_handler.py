@@ -374,12 +374,9 @@ def search_poison_act_1938(normalized_name):
         # context = words
 
         prompt = f"""
-        Given the following list of chemical compounds and modifiers:
-        {list_of_contexts}
-        Now answer this question:  
-        **Is {normalized_name.lower()} found in the list?**  
-        Answer "Yes" or "No".Do not return anything else.                
-        Answer:
+        You are an expert in pharmaceutical compound matching.
+        Given {list_of_contexts} that includes base substances and modifiers like "its salts", "its esters", etc., answer "Yes" if {normalized_name.lower()} is a known derivative of any compound in the list — such as an ester, salt, or similar form.
+
         """
         
         response = llm_drugs.get_completion(prompt)
