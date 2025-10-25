@@ -271,8 +271,8 @@ def search_poison_act_1938(normalized_name):
                 give_id.append(f"chunk {len(splitted_documents)}")
             except Exception as e:
                 print(f"Error appending chunk: {e}", flush=True)
-    # st.write("Line 263")
-    # st.write(list_of_contexts)
+    st.write("Line 263")
+    st.write(list_of_contexts)
     if found!=True:
         from langchain.schema import Document
         COHERE_client = st.secrets["COHERE_API_KEY"]
