@@ -74,13 +74,15 @@ def normalize_chemical_names(user_message):
 
     Decide if the query is relevant to drug names/chemical compounds/medicinal drug names or arsenic. There can be more than 1 in the query.
 
-    If there are any medicinal drug names/drug names/chemical compounds/IUPAC Name/arsenic found, use the following rules to identify the compound mentioned.
+    If there are any drug names/chemical compounds/IUPAC Name/arsenic found, use the following rules to identify the compound mentioned.
     1) If it is an analogue, metabolite, or salt or HCl or Na or sulfate of another compound, return the simplest base compound. E.g. simplest base compound of hydroxyhomosildenafil is sildenafil. Desmethylsibutramine is metabolite of sibutramine. Determine if the compound is an analogue or metabolite and return the base compound. 
     2) However, if it is in a ester, amide, carboxylic acid, acid chloride, anhydride, or amine form — including specific stereoisomers or positional variants — return the compound name exactly as given, without simplification.
     3) Remove prefixes such as "nor","homo", "des", or other demethylated forms from the compound. 
     4) If the compound has a "pseudo", retain it in the compound. 
     5) However, if the compound has a functional modification (e.g., hydroxy-, ester, amide), keep it as-is.
     6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name. Convert to UK naming if possible.
+    
+    Else if you suspect the query contains medicinal drug names, find out the active pharmaceutical ingredients present in that medicine and repeat the above steps 1 to 6 for each of the chemical compounds. 
     
     The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
 
