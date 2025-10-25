@@ -108,6 +108,9 @@ def normalize_chemical_names(user_message):
         normalized_chemical_names_response_list = []
     
     for_alkaloids = user_message
+
+    st.write("Hello line 229")
+    st.write(normalized_chemical_names_response_list)
     return normalized_chemical_names_response_list
 
 def rag_find_best_match(normalized_name):
@@ -226,7 +229,7 @@ vector_store =  Chroma.from_documents(
 ''' RAG'''
 # Using CrewAI's tool : WebsiteSearchTool to search from Poisons Act 1938's website
 def search_poison_act_1938(normalized_name):
-  
+    
     found=False
 
     tool_websearch = WebsiteSearchTool("https://sso.agc.gov.sg/Act/PA1938?ProvIds=Sc-#Sc-")
