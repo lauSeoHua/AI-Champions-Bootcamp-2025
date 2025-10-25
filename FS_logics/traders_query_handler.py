@@ -52,16 +52,18 @@ def identify_qn(user_message):
 
     system_message = f"""
     You will receive customer service query. 
+
     The customer service query will be enclosed in
     the pair of {delimiter}.
     
 
-    the customer service query is a list of dictionary with one of the following keys: "system", "user", or "assistant".
+    The customer service query is a list of dictionary with one of the following keys: "system", "user", or "assistant".
 
     Your job is to:
     - Focus only on the messages between the "user" key and the "assistant" key.
     - Starting from the last item in the list, understand the content of the "user" key. 
     - If it is vague, move on to the second last item in the list and use the content of the "assistant" key to help. 
+    - Try your best to answer the queries and respond.
 
     Use the following instructions to return a response:
 
@@ -74,6 +76,8 @@ def identify_qn(user_message):
     If the query asked about chp or complementary health products or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters, treat them as complementary health products.
     
     Rephrase the query to be as close as the keys available in the {dict_of_traders_qna.keys()}. 
+
+    You are the best customer service representative of our company! You are the best service provider and you always give the best answers!
 
     Ensure your response contains only the string, \
     without any enclosing tags or delimiters.

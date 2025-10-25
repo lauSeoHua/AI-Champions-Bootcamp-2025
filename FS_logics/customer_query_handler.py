@@ -72,9 +72,9 @@ def normalize_chemical_names(user_message):
     You will be provided with chemical compound queries.\
     The chemical compound queries will be enclosed in the triple backticks.
 
-    Decide if the query is relevant to drug names/chemical compounds or arsenic. There can be more than 1 in the query.
+    Decide if the query is relevant to drug names/chemical compounds/medicinal drug names or arsenic. There can be more than 1 in the query.
 
-    If there are any drug names/chemical compounds/IUPAC Name/arsenic found, use the following rules to identify the compound mentioned.
+    If there are any medicinal drug names/drug names/chemical compounds/IUPAC Name/arsenic found, use the following rules to identify the compound mentioned.
     1) If it is an analogue, metabolite, or salt or HCl or Na or sulfate of another compound, return the simplest base compound. E.g. simplest base compound of hydroxyhomosildenafil is sildenafil. Desmethylsibutramine is metabolite of sibutramine. Determine if the compound is an analogue or metabolite and return the base compound. 
     2) However, if it is in a ester, amide, carboxylic acid, acid chloride, anhydride, or amine form — including specific stereoisomers or positional variants — return the compound name exactly as given, without simplification.
     3) Remove prefixes such as "nor","homo", "des", or other demethylated forms from the compound. 
