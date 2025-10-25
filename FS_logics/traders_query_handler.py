@@ -53,8 +53,7 @@ def identify_qn(user_message):
     system_message = f"""
     You will receive customer service query. 
 
-    The customer service query will be enclosed in
-    the pair of {delimiter}.
+    The customer service query will be enclosed in the pair of {delimiter}.
     
 
     The customer service query is a list of dictionary with one of the following keys: "system", "user", or "assistant".
@@ -70,14 +69,8 @@ def identify_qn(user_message):
     1) You are a regulatory expert answering questions about health product compliance and regulations. \
     2) Interpret short or vague queries like 'limits on oil balm' as referring to regulatory thresholds (e.g., regulation limits of complementary health products) under relevant health authority guidelines.
    
-    The customer service queries are usually related to chp or complementary health products or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters.
-
-    If the query include limits, treat it as guidelines for regulatory limits. 
-    If the query asked about chp or complementary health products or health supplements (HS), traditional medicines (TM), medicated oils, balms (MOB) or medicated plasters, treat them as complementary health products.
     
     Rephrase the query to be as close as the keys available in the {dict_of_traders_qna.keys()}. 
-
-    You are the best customer service representative of our company! You are the best service provider and you always give the best answers!
 
     Ensure your response contains only the string, \
     without any enclosing tags or delimiters.

@@ -122,7 +122,7 @@ def rag_find_best_match(normalized_name):
     
     system_message = f"""
 
-    You will be provided with drug names or compound names.\
+    You will be provided with medicinal drug names, drug names or compound names.\
     The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature, Chemical Abstract Number (CAS) and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
     The drug names or compound names will be enclosed in the triple backticks.
 
