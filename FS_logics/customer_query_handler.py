@@ -82,8 +82,8 @@ def normalize_chemical_names(user_message):
     5) However, if the compound has a functional modification (e.g., hydroxy-, ester, amide), keep it as-is.
     6) Concatenate the compound with synonyms if available and if it is a IUPAC name, convert it to the drug name. Convert to UK naming if possible.
     
-    Else if you suspect the query contains medicinal drug names, find out the active pharmaceutical ingredients present in that medicine and repeat the above steps 1 to 6 for each of the chemical compounds. 
-    
+    Else if you suspect the query contains medicinal drug names, find out ALL of the active pharmaceutical ingredients present in that medicine and repeat the above steps 1 to 6 for each of the chemical compounds. 
+
     The drug names or compound names can be in International Union of Pure and Applied Chemistry (IUPAC) nomenclature and can be in the form of United Kingdom Adopted Name or United States Adopted Name.
 
     Output the identified compounds as a list of strings where each identified compound is enclosed in double quotes. 
