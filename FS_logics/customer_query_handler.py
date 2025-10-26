@@ -254,8 +254,8 @@ def search_poison_act_1938(normalized_name):
     give_id = []
    
     for chunk in (text_splitter_.split_text(search_result)):
-        # st.write("Line 249")
-        # st.write(chunk)
+        st.write("Line 249")
+        st.write(chunk)
         # Poisons Act 1938's drugs names are usually start with capital letter
         # If found the exact name , e.g. found exactly Sildenafil ->  found=True
         if normalized_name.capitalize() in chunk:
@@ -276,8 +276,8 @@ def search_poison_act_1938(normalized_name):
     if len(list_of_contexts)==0:
         search_result = tool_websearch.run(normalized_name.strip())
         for chunk in (text_splitter_.split_text(search_result)):
-            # st.write("Line 249")
-            # st.write(chunk)
+            st.write("Line 279")
+            st.write(chunk)
             # Poisons Act 1938's drugs names are usually start with capital letter
             # If found the exact name , e.g. found exactly Sildenafil ->  found=True
             if normalized_name.capitalize() in chunk:
