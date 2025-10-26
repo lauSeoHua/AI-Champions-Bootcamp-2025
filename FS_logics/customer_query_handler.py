@@ -111,8 +111,8 @@ def normalize_chemical_names(user_message):
     
     for_alkaloids = user_message
 
-    st.write("Hello line 229")
-    st.write(normalized_chemical_names_response_list)
+    # st.write("Hello line 229")
+    # st.write(normalized_chemical_names_response_list)
     return normalized_chemical_names_response_list
 
 def rag_find_best_match(normalized_name):
